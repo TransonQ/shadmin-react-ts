@@ -1,18 +1,11 @@
-import { Button, popper, Toaster } from "./components"
+import { Suspense } from "react"
+import { Loading } from "./components"
 
 function App() {
   return (
-    <>
-      <Button
-        onClick={() => {
-          popper.success("Custom toast")
-        }}
-      >
-        shadcn button
-      </Button>
-
-      <Toaster position="bottom-center" />
-    </>
+    <Suspense fallback="Loading...">
+      <Loading />
+    </Suspense>
   )
 }
 
