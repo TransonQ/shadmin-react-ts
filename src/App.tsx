@@ -1,11 +1,11 @@
-import { Button, popper, Toaster } from "./components";
+import { Button, popper, Toaster } from "./components"
 
 function App() {
   return (
     <>
       <Button
         onClick={() => {
-          popper.success("Custom toast");
+          popper.success("Custom toast")
         }}
       >
         shadcn button
@@ -13,7 +13,7 @@ function App() {
 
       <Toaster position="bottom-center" />
     </>
-  );
+  )
 }
 
-export default App;
+export default App
