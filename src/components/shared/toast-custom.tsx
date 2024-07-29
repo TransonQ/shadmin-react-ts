@@ -1,14 +1,14 @@
-import { cn } from '@/lib'
-import { CheckIcon, XIcon } from 'lucide-react'
-import { toast } from 'sonner'
+import { cn } from "@/lib";
+import { CheckIcon, XIcon } from "lucide-react";
+import { toast } from "sonner";
 
 const success = (message: React.ReactNode) =>
   toast.custom((t) => {
     return (
       <div
         className={cn(
-          'p-4 rounded-lg border shadow-lg',
-          'flex flex-nowrap justify-between gap-6'
+          "p-4 rounded-lg border shadow-lg",
+          "flex flex-nowrap justify-between gap-6"
         )}
       >
         <div className="flex gap-4 items-center">
@@ -21,16 +21,16 @@ const success = (message: React.ReactNode) =>
           onClick={() => toast.dismiss(t)}
         />
       </div>
-    )
-  })
+    );
+  });
 
 const error = (message: React.ReactNode) =>
   toast.custom((t) => {
     return (
       <div
         className={cn(
-          'p-4 rounded-lg border shadow-lg',
-          'flex flex-nowrap justify-between gap-6'
+          "p-4 rounded-lg border shadow-lg",
+          "flex flex-nowrap justify-between gap-6"
         )}
       >
         <div className="flex gap-4 items-center">
@@ -43,8 +43,8 @@ const error = (message: React.ReactNode) =>
           onClick={() => toast.dismiss(t)}
         />
       </div>
-    )
-  })
+    );
+  });
 
 export const popper = Object.assign(
   {},
@@ -52,4 +52,4 @@ export const popper = Object.assign(
     success,
     error,
   }
-)
+);

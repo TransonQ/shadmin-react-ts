@@ -1,5 +1,5 @@
-import type { Config } from 'tailwindcss'
-import tailwindAnimate from 'tailwindcss-animate'
+import type { Config } from 'tailwindcss';
+import tailwindAnimate from 'tailwindcss-animate';
 
 /** @type {import('tailwindcss').Config} */
 const config: Omit<Config, 'content'> = {
@@ -72,6 +72,6 @@ const config: Omit<Config, 'content'> = {
     },
   },
   plugins: [tailwindAnimate],
-}
+};
 
-export default config
+export default config;

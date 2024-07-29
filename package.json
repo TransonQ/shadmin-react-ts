@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "add-ui": "pnpx shadcn-ui@latest add",
     "change-add": "changeset add",
-    "change-version": "changeset version"
+    "change-version": "changeset version",
+    "pretty": "pnpx prettier --write \"src/**/*\""
   },
   "dependencies": {
     "@changesets/cli": "^2.27.7",
