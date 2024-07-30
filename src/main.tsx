@@ -4,7 +4,8 @@ import "./global.css"
 
 //#region mock service worker
 async function enableMocking() {
-  return
+  return // If you need to mock data, comment out this line
+
   if (process.env.NODE_ENV !== "development") {
     return
   }
