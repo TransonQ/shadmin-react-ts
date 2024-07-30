@@ -18,6 +18,7 @@
     "@changesets/cli": "^2.27.7",
     "@radix-ui/react-slot": "^1.1.0",
     "add": "^2.0.6",
+    "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.417.0",
@@ -25,7 +26,9 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.25.1",
+    "react-use": "^17.5.1",
     "sonner": "^1.5.0",
+    "swr": "^2.2.5",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7"
   },

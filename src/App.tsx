@@ -9,6 +9,7 @@ import {
   useLocation,
   useParams,
 } from "react-router-dom"
+import { getAccess } from "./api"
 import { buttonVariants, Loading } from "./components"
 
 function useDynamicRoutes() {
@@ -16,7 +17,9 @@ function useDynamicRoutes() {
   const [dynamicRoutes, setDynamicRoutes] = useState<RouteObject[]>([])
 
   const fetchDynamicRoutes = useCallback(async () => {
-    await new Promise((r) => setTimeout(r, 2000))
+    const { name } = await getAccess()
+    console.log("name: ", name)
+    
     setDynamicRoutes([
       {
         path: "/app/a",
