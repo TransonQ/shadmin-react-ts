@@ -17,9 +17,9 @@ function useDynamicRoutes() {
   const [dynamicRoutes, setDynamicRoutes] = useState<RouteObject[]>([])
 
   const fetchDynamicRoutes = useCallback(async () => {
-    const { name } = await getAccess()
-    console.log("name: ", name)
-    
+    const res = await getAccess()
+    console.log("getAccess: ", res)
+
     setDynamicRoutes([
       {
         path: "/app/a",
