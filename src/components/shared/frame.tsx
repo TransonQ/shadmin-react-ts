@@ -19,7 +19,7 @@ const FrameHeader = ({
   return (
     <header
       style={{ height: headerHeight, position: "fixed", top: 0, width: "100%" }}
-      className={cn("bg-slate-300")}
+      className={cn("bg-slate-300 pr-2")}
     >
       {children}
     </header>

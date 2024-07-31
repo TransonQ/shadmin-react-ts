@@ -1,4 +1,4 @@
-import { Frame } from "@/components"
+import { Frame, InlineStack } from "@/components"
 import { Outlet } from "react-router-dom"
 
 /**
@@ -7,7 +7,11 @@ import { Outlet } from "react-router-dom"
 export const AppShell = ({ collapsed }: { collapsed?: boolean }) => {
   return (
     <Frame>
-      <Frame.Header hidden={collapsed}>Header</Frame.Header>
+      <Frame.Header hidden={collapsed}>
+        <InlineStack blockAlign="center" className="h-full">
+          Header
+        </InlineStack>
+      </Frame.Header>
       <Frame.Navbar hidden={collapsed}>Navbar</Frame.Navbar>
       <Frame.Main>
         <Outlet />

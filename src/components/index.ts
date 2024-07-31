@@ -6,7 +6,7 @@ export * from './shared/block-stack';
 export * from './shared/frame';
 export * from './shared/inline-stack';
 export * from './shared/loading';
-export * from './shared/toast-custom';
+export * from './shared/popper';
 export * from './ui/alert';
 export * from './ui/button';
 export * from './ui/sonner';
