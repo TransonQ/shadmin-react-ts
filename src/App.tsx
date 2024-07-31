@@ -6,8 +6,9 @@ import { useDynamicRoutes } from "./hooks"
 import { routesMerge } from "./routes"
 
 function App() {
-  const { dynamicRoutes, loading } = useDynamicRoutes()
-  const routes = createBrowserRouter(routesMerge(dynamicRoutes))
+  const { dynamicRoutes, isLoading } = useDynamicRoutes()
+  const routes = routesMerge(dynamicRoutes)
+  const router = createBrowserRouter(routes)
 
   return (
     <Suspense fallback={<Loading />}>
@@ -18,8 +19,8 @@ function App() {
           revalidateOnMount: true,
         }}
       >
-        {loading && <Loading />}
-        <RouterProvider router={routes} />
+        {isLoading && <Loading />}
+        <RouterProvider router={router} />
       </SWRConfig>
     </Suspense>
   )

@@ -3,5 +3,7 @@
 - shadcn
 - react + ts
 - axios
-- swr
+- [swr](https://swr.vercel.app/)
 - react-use
+- [msw.js](https://mswjs.io/)
+

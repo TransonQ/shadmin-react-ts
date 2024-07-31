@@ -1,34 +1,34 @@
 import { getAccess } from "@/api"
 import { Bills, UpdateBill } from "@/pages"
-import { useCallback, useEffect, useState } from "react"
 import { RouteObject } from "react-router-dom"
+import useSWR from "swr"
+
+export const registerRoutes = {
+  table: {
+    path: "/app/a",
+    element: <Bills />,
+    errorElement: <div>{"Error /UpdateBill"}</div>,
+  },
+  form: {
+    path: "/app/b/:id?",
+    element: <UpdateBill />,
+    errorElement: <div>{"Error /UpdateBill"}</div>,
+  },
+}
 
 export function useDynamicRoutes() {
-  const [loading, setLoading] = useState(true)
-  const [dynamicRoutes, setDynamicRoutes] = useState<RouteObject[]>([])
+  const dynamicRoutes: RouteObject[] = []
 
-  const fetchDynamicRoutes = useCallback(async () => {
-    const res = await getAccess()
-    console.log("getAccess: ", res)
+  const { data, error, isLoading, isValidating } = useSWR(
+    { key: "ACCESS" },
+    ({ key }) => getAccess()
+  )
 
-    setDynamicRoutes([
-      {
-        path: "/app/a",
-        element: <Bills />,
-        errorElement: <div>{"Error /a"}</div>,
-      },
-      {
-        path: "/app/b/:id?",
-        element: <UpdateBill />,
-        errorElement: <div>{"Error /b"}</div>,
-      },
-    ])
-    setLoading(false)
-  }, [])
+  const tableAccess = data?.access?.["app/example/table"]
+  const formAccess = data?.access?.["app/example/form"]
 
-  useEffect(() => {
-    fetchDynamicRoutes()
-  }, [fetchDynamicRoutes])
+  tableAccess && dynamicRoutes.push(registerRoutes.table)
+  formAccess && dynamicRoutes.push(registerRoutes.form)
 
-  return { dynamicRoutes, loading }
+  return { dynamicRoutes, isLoading, isValidating, error }
 }

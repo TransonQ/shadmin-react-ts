@@ -4,9 +4,9 @@ import { matchRoutes, useLocation } from "react-router-dom"
 
 export function WildCardPage() {
   const location = useLocation()
-  const { dynamicRoutes, loading } = useDynamicRoutes()
+  const { dynamicRoutes, isLoading } = useDynamicRoutes()
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div>
         <Loading />
