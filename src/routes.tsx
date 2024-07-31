@@ -1,7 +1,8 @@
 import { RouteObject } from "react-router-dom"
-import { Home, loaderRoot, WildCardPage } from "./pages"
+import { AppShell } from "./layouts"
+import { Bills, loaderRoot, UpdateBill } from "./pages"
 
-export const routesMerge = (dynamicRoutes?: RouteObject[]): RouteObject[] => [
+export const routesMerge = (): RouteObject[] => [
   {
     path: "/",
     errorElement: <div>{"Error /"}</div>,
@@ -9,14 +10,21 @@ export const routesMerge = (dynamicRoutes?: RouteObject[]): RouteObject[] => [
   },
   {
     path: "/app",
-    element: <Home />,
+    element: <AppShell collapsed={false} />,
     children: [
-      ...(dynamicRoutes ?? []),
       /** add static routes */
+      {
+        index: true,
+        element: <Bills />,
+      },
+      {
+        path: "bills",
+        element: <Bills />,
+      },
+      {
+        path: "bills/update/:id?",
+        element: <UpdateBill />,
+      },
     ],
-  },
-  {
-    path: "*",
-    element: <WildCardPage />,
   },
 ]
