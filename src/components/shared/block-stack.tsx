@@ -13,7 +13,7 @@ type BlockStackProps = {
   children?: React.ReactNode
   align?: Align
   inlineAlign?: CrossAlign
-  gap: Gap
+  gap?: Gap
   className?: ClassNameValue
 }
 
