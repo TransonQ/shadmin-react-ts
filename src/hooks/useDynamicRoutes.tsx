@@ -7,7 +7,7 @@ export const registerRoutes = {
   table: {
     path: "/app/a",
     element: <Bills />,
-    errorElement: <div>{"Error /UpdateBill"}</div>,
+    errorElement: <div>{"Error /Bills"}</div>,
   },
   form: {
     path: "/app/b/:id?",
@@ -18,7 +18,6 @@ export const registerRoutes = {
 
 export function useDynamicRoutes() {
   const dynamicRoutes: RouteObject[] = []
-
   const r = useSWR({ key: "ACCESS" }, ({ key }) => getAccess())
 
   const tableAccess = r.data?.access?.["app/example/table"]
