@@ -10,7 +10,10 @@ export const routesMerge = (dynamicRoutes?: RouteObject[]): RouteObject[] => [
   {
     path: "/app",
     element: <Home />,
-    children: dynamicRoutes,
+    children: [
+      ...(dynamicRoutes ?? []),
+      /** add static routes */
+    ],
   },
   {
     path: "*",

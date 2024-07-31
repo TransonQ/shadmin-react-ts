@@ -1,9 +1,30 @@
 import { buttonVariants, Loading } from "@/components"
-import { registerRoutes, useDynamicRoutes } from "@/hooks"
+import { useDynamicRoutes } from "@/hooks"
 import { Link, matchRoutes, Outlet } from "react-router-dom"
+
+const navs = [
+  {
+    path: "/app/a",
+    content: "App - Bills",
+    requiredAccess: false,
+  },
+  {
+    path: "/app/b",
+    content: "update-bill",
+    requiredAccess: true,
+  },
+]
 
 export const Home = () => {
   const { dynamicRoutes, isLoading } = useDynamicRoutes()
+
+  const dynamicNavs = navs.filter((nav) => {
+    if (nav.requiredAccess) {
+      return !!matchRoutes(dynamicRoutes, nav.path)
+    } else {
+      return true
+    }
+  })
 
   return (
     <div x-chunk="APP">
@@ -13,24 +34,15 @@ export const Home = () => {
         <Link to="/" className={buttonVariants({})}>
           {"Home"}
         </Link>
-        {!isLoading &&
-          matchRoutes(dynamicRoutes, registerRoutes.table.path as string) && (
-            <Link to="/app/a" className={buttonVariants({})}>
-              {"A"}
-            </Link>
-          )}
-        {!isLoading &&
-          matchRoutes(dynamicRoutes, registerRoutes.form.path as string) && (
-            <>
-              <Link to="/app/b" className={buttonVariants({})}>
-                {"B"}
-              </Link>
-              <Link to="/app/b/123" className={buttonVariants({})}>
-                {"B id"}
-              </Link>
-            </>
-          )}
       </div>
+      <div className="mt-4 flex gap-4">
+        {dynamicNavs.map(({ path, content }) => (
+          <Link key={path} to={path} className={buttonVariants({})}>
+            {content}
+          </Link>
+        ))}
+      </div>
+
       <Outlet />
     </div>
   )
