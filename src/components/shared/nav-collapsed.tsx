@@ -1,4 +1,4 @@
-import { useNavCollapse } from "@/hooks/use-nav-collapse"
+import { useNavCollapse } from "@/hooks"
 import { cn } from "@/lib"
 import { PanelLeftCloseIcon, PanelLeftOpenIcon } from "lucide-react"
 import { buttonVariants } from "../ui/button"

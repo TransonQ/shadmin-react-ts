@@ -1,5 +1,5 @@
 import { Frame, frameVariants, InlineStack } from "@/components"
-import { useNavCollapse } from "@/hooks/use-nav-collapse"
+import { useNavCollapse } from "@/hooks"
 import { cn } from "@/lib"
 import { Outlet } from "react-router-dom"
 import { Navbar } from "./navbar"

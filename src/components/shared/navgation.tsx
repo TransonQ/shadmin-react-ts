@@ -1,7 +1,9 @@
-import { BlockStack, NavCollapsed, Text } from "@/components"
+import { BlockStack, frameVariants, ScrollArea, Text } from "@/components"
+import { cn } from "@/lib"
 import { LucideIcon } from "lucide-react"
 
 interface NavgationProps {
+  footer?: React.ReactNode
   children?: React.ReactNode
 }
 
@@ -22,25 +24,48 @@ interface NavgationSectionProps {
   icon?: LucideIcon
 }
 
-function NavgationDefault({ children }: NavgationProps) {
+function NavgationDefault({ children, footer }: NavgationProps) {
   return (
-    <BlockStack className="h-full p-3">
-      {children}
-
-      <div className="absolute bottom-2 right-1">
-        <NavCollapsed />
-      </div>
+    <BlockStack className="h-full pl-3">
+      <ScrollArea
+        style={{ height: `calc(100vh - ${frameVariants.headerHeight * 2}px)` }}
+        className="w-full pr-3 pt-3"
+      >
+        {children}
+      </ScrollArea>
+      <Footer>{footer}</Footer>
     </BlockStack>
   )
 }
 
-function Section({ title, fill }: NavgationSectionProps) {
+function Section({ title, fill, items }: NavgationSectionProps) {
   return (
-    <BlockStack className={fill && "flex-1"} gap="md">
+    <BlockStack className={cn(fill && "flex-1")}>
       <Text as="h2" variant="headingSm" tone="subdued">
         {title}
       </Text>
+      <BlockStack className="w-full">
+        {items.map((nav, i) => (
+          <div
+            key={i}
+            className={cn(
+              "w-full p-1 rounded-sm",
+              "hover:bg-primary/20 hover:cursor-default"
+            )}
+          >
+            {nav.label}
+          </div>
+        ))}
+      </BlockStack>
     </BlockStack>
+  )
+}
+
+function Footer({ children }: { children?: React.ReactNode }) {
+  return (
+    <div style={{ height: frameVariants.headerHeight }} className="w-full">
+      {children}
+    </div>
   )
 }
 
