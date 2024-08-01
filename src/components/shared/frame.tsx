@@ -1,8 +1,6 @@
 import { cn } from "@/lib"
-
-const headerHeight = 56
-const navbarWidth = 240
-const zIndex = 50 // tailwind max : z-50
+import { frameVariants } from "./config"
+const { headerHeight, navbarWidth, zIndex } = frameVariants
 
 const FrameShell = ({ children }: { children?: React.ReactNode }) => {
   return <div x-chunk="FRAME">{children}</div>
