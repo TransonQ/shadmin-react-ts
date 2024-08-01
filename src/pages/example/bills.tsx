@@ -1,7 +1,9 @@
-import { Card, CardHeader, Icon, Page, Text } from "@/components"
+import { Button, Card, CardHeader, Icon, Modal, Page, Text } from "@/components"
 import { ArrowRightIcon } from "lucide-react"
+import { useState } from "react"
 
 export const Bills = () => {
+  const [active, setActive] = useState(false)
   return (
     <Page
       className="h-[2000px]"
@@ -24,8 +26,25 @@ export const Bills = () => {
           <Text as="h2" variant="headingMd">
             Heading 标题
           </Text>
+          <Button onClick={() => setActive(true)}>click</Button>
         </CardHeader>
       </Card>
+      <Modal
+        open={active}
+        onClose={() => setActive(false)}
+        title="弹框 Title"
+        primaryAction={{
+          content: "Primary",
+          onAction: () => setActive(false),
+        }}
+        secondaryAction={{
+          content: "Secondary",
+          onAction: () => setActive(false),
+        }}
+      >
+        <Modal.Section>123</Modal.Section>
+        <Modal.Section>123</Modal.Section>
+      </Modal>
     </Page>
   )
 }
