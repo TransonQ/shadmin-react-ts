@@ -15,6 +15,7 @@ type InlineStackProps = {
   align?: Align
   blockAlign?: CrossAlign
   gap?: Gap
+  wrap?: boolean
 }
 
 export const InlineStack = ({
@@ -23,6 +24,7 @@ export const InlineStack = ({
   align,
   blockAlign,
   gap,
+  wrap,
 }: InlineStackProps) => {
   return (
     <div
@@ -31,6 +33,7 @@ export const InlineStack = ({
         calcFlexJustify(align),
         calcFlexItems(blockAlign),
         calcGap(gap),
+        !wrap && "flex-nowrap",
         className
       )}
     >

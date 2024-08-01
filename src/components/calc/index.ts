@@ -4,5 +4,7 @@ export * from "./calc-font-weight"
 export * from "./calc-gap"
 export * from "./calc-text-variant"
 export * from "./calc-tone"
+export * from "./is-interface"
+export * from "./is-react-element"
 export * from "./types"
 

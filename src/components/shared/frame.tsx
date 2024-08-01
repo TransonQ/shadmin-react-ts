@@ -2,6 +2,7 @@ import { cn } from "@/lib"
 
 const headerHeight = 56
 const navbarWidth = 240
+const zIndex = 60 // tailwind max : z-50
 
 const FrameShell = ({ children }: { children?: React.ReactNode }) => {
   return <div x-chunk="FRAME">{children}</div>
@@ -18,7 +19,13 @@ const FrameHeader = ({
 }) => {
   return (
     <header
-      style={{ height: headerHeight, position: "fixed", top: 0, width: "100%" }}
+      style={{
+        height: headerHeight,
+        position: "fixed",
+        top: 0,
+        width: "100%",
+        zIndex,
+      }}
       className={cn("pr-2 border-b bg-card")}
     >
       {children}
@@ -42,6 +49,7 @@ const FrameNavbar = ({
         height: `calc(100vh - ${headerHeight}px)`,
         position: "fixed",
         top: headerHeight,
+        zIndex,
       }}
       className={cn("border-r bg-card")}
     >
@@ -52,7 +60,10 @@ const FrameNavbar = ({
 
 const FrameMain = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <main style={{ marginLeft: navbarWidth, marginTop: headerHeight }}>
+    <main
+      style={{ marginLeft: navbarWidth, marginTop: headerHeight }}
+      className="p-4"
+    >
       {children}
     </main>
   )
