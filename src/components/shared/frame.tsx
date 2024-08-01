@@ -1,6 +1,6 @@
 import { cn } from "@/lib"
 import { frameVariants } from "./config"
-const { headerHeight, navbarWidth, zIndex } = frameVariants
+const { headerHeight, navbarWidth, navCollapsedWidth, zIndex } = frameVariants
 
 const FrameShell = ({ children }: { children?: React.ReactNode }) => {
   return <div x-chunk="FRAME">{children}</div>
@@ -8,11 +8,9 @@ const FrameShell = ({ children }: { children?: React.ReactNode }) => {
 
 const FrameHeader = ({
   children,
-  collapsed,
   hidden,
 }: {
   children?: React.ReactNode
-  collapsed?: boolean
   hidden?: boolean
 }) => {
   return (
@@ -43,24 +41,36 @@ const FrameNavbar = ({
   return (
     <nav
       style={{
-        width: navbarWidth,
+        width: collapsed ? navCollapsedWidth : navbarWidth,
         height: `calc(100vh - ${headerHeight}px)`,
         position: "fixed",
         top: headerHeight,
         zIndex,
       }}
-      className={cn("border-r bg-card")}
+      className={cn(
+        "border-r bg-card",
+        "transition-all duration-150 ease-in-out"
+      )}
     >
       {children}
     </nav>
   )
 }
 
-const FrameMain = ({ children }: { children?: React.ReactNode }) => {
+const FrameMain = ({
+  children,
+  navbarCollapsed,
+}: {
+  children?: React.ReactNode
+  navbarCollapsed?: boolean
+}) => {
   return (
     <main
-      style={{ marginLeft: navbarWidth, marginTop: headerHeight }}
-      className="p-4"
+      style={{
+        marginLeft: navbarCollapsed ? navCollapsedWidth : navbarWidth,
+        marginTop: headerHeight,
+      }}
+      className="p-4 transition-all duration-150 ease-in-out"
     >
       {children}
     </main>
