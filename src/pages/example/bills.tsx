@@ -1,4 +1,14 @@
-import { Button, Card, CardHeader, Icon, Modal, Page, Text } from "@/components"
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Icon,
+  Layout,
+  Modal,
+  Page,
+  Text,
+} from "@/components"
 import { ArrowRightIcon } from "lucide-react"
 import { useState } from "react"
 
@@ -6,6 +16,7 @@ export const Bills = () => {
   const [active, setActive] = useState(false)
   return (
     <Page
+      fullWidth
       className="h-[2000px]"
       title="App - Bills"
       backAction={() => {
@@ -21,18 +32,37 @@ export const Bills = () => {
       }}
       breadcrumbs={[{ label: "Home", to: "/" }, { label: "Bills" }]}
     >
-      <Card>
-        <CardHeader>
-          <Text as="h2" variant="headingMd">
-            Heading 标题
-          </Text>
-          <div>
-            <Button onClick={() => setActive(true)}>
-              click
-            </Button>
-          </div>
-        </CardHeader>
-      </Card>
+      <Layout>
+        <Layout.Section variant="quarter">
+          <Card className="sticky top-[calc(56px+1rem)]">
+            <CardHeader>
+              <Text as="h2" variant="headingMd">
+                Heading 标题
+              </Text>
+              <div>
+                <Button onClick={() => setActive(true)}>click</Button>
+              </div>
+            </CardHeader>
+          </Card>
+        </Layout.Section>
+        <Layout.Section>
+          <Card className="h-[2000px]">
+            <CardHeader>
+              <Text as="h2" variant="headingMd">
+                Heading 标题
+              </Text>
+              <div>
+                <Button onClick={() => setActive(true)}>click</Button>
+              </div>
+            </CardHeader>
+          </Card>
+        </Layout.Section>
+        <Layout.Section variant="quarter">
+          <Card>
+            <CardContent>123</CardContent>
+          </Card>
+        </Layout.Section>
+      </Layout>
       <Modal
         open={active}
         onClose={() => setActive(false)}
