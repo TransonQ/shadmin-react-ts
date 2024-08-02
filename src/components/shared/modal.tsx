@@ -44,14 +44,13 @@ const ModalDefault = ({
   secondaryAction,
 }: ModalProps) => {
   const SecondaryActionMarkup = secondaryAction ? (
-    <Button size={"sm"} variant={"outline"} onClick={secondaryAction.onAction}>
+    <Button variant={"outline"} onClick={secondaryAction.onAction}>
       {secondaryAction.content}
     </Button>
   ) : null
 
   const PrimaryActionMarkup = primaryAction ? (
     <Button
-      size={"sm"}
       variant={primaryAction.destructive ? "destructive" : "default"}
       disabled={primaryAction.loading || primaryAction.disabled}
     >

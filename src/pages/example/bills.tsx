@@ -26,7 +26,11 @@ export const Bills = () => {
           <Text as="h2" variant="headingMd">
             Heading 标题
           </Text>
-          <Button onClick={() => setActive(true)}>click</Button>
+          <div>
+            <Button onClick={() => setActive(true)}>
+              click
+            </Button>
+          </div>
         </CardHeader>
       </Card>
       <Modal

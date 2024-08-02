@@ -66,5 +66,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* default font size */
+    font-size: 14px;
   }
 }
