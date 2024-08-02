@@ -24,7 +24,8 @@ function LayoutDefault({ children, sectioned }: LayoutProps) {
     <div
       className={cn(
         "flex flex-col gap-4 flex-wrap",
-        "md:flex-row md:flex-nowrap md:justify-between"
+        "md:flex-row md:flex-wrap md:justify-between",
+        "lg:flex-nowrap"
       )}
     >
       {content}
@@ -36,7 +37,7 @@ function Section({ children, variant = "fullWidth", className }: SectionProps) {
   const clacVariant = (v: SectionProps["variant"]) => {
     switch (v) {
       case "quarter":
-        return cn("md:w-[calc(25%-0.25rem)] md:max-w-[340px]")
+        return cn("lg:w-[calc(25%-0.25rem)] lg:max-w-[340px]")
       case "oneHalf":
         return cn("md:w-[calc(50%-0.5rem)]")
       case "fullWidth":

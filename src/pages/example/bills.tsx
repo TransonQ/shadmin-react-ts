@@ -25,7 +25,9 @@ export const Bills = () => {
         content: "Toast",
         icon: <Icon source={ArrowRightIcon} />,
         onAction: () => {
-          popper.error("Lorem ipsum dolor sit amet consectetur, adipiscing elit mattis. ")
+          popper.error(
+            "Lorem ipsum dolor sit amet consectetur, adipiscing elit mattis. "
+          )
           console.log(111)
         },
       }}
@@ -45,7 +47,12 @@ export const Bills = () => {
         </Layout.Section>
 
         <Layout.Section variant="quarter">
-          <PresetCard sticky sectioned title={"Heading 标题"}></PresetCard>
+          <PresetCard sticky sectioned title={"Heading 标题"}>
+            Lorem ipsum dolor sit amet consectetur adipiscing elit, etiam
+            quisque blandit ut conubia lobortis. Inceptos ultricies class
+            suscipit diam porta odio urna morbi laoreet dictum ornare nisl,
+            vivamus himenaeos nunc aptent suspendisse ut interdum purus etiam
+          </PresetCard>
         </Layout.Section>
       </Layout>
       <Modal
