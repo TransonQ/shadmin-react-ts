@@ -1,66 +1,51 @@
 import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
+  Alert,
+  AlertDescription,
+  AlertTitle,
   Icon,
   Layout,
   Modal,
   Page,
-  Text,
+  popper,
+  PresetCard,
 } from "@/components"
-import { ArrowRightIcon } from "lucide-react"
+import { AlertCircleIcon, ArrowRightIcon } from "lucide-react"
 import { useState } from "react"
 
 export const Bills = () => {
   const [active, setActive] = useState(false)
   return (
     <Page
-      fullWidth
       className="h-[2000px]"
       title="App - Bills"
       backAction={() => {
         console.log("back")
       }}
       primaryAction={{
-        content: "Primary",
-        loading: true,
+        content: "Toast",
         icon: <Icon source={ArrowRightIcon} />,
         onAction: () => {
-          console.log("primary")
+          popper.error("Lorem ipsum dolor sit amet consectetur, adipiscing elit mattis. ")
+          console.log(111)
         },
       }}
       breadcrumbs={[{ label: "Home", to: "/" }, { label: "Bills" }]}
     >
+      <Alert className="mb-4" variant="destructive">
+        <Icon source={AlertCircleIcon} />
+        <AlertTitle>Error</AlertTitle>
+        <AlertDescription>123123</AlertDescription>
+      </Alert>
+
       <Layout>
-        <Layout.Section variant="quarter">
-          <Card className="sticky top-[calc(56px+1rem)]">
-            <CardHeader>
-              <Text as="h2" variant="headingMd">
-                Heading 标题
-              </Text>
-              <div>
-                <Button onClick={() => setActive(true)}>click</Button>
-              </div>
-            </CardHeader>
-          </Card>
-        </Layout.Section>
         <Layout.Section>
-          <Card className="h-[2000px]">
-            <CardHeader>
-              <Text as="h2" variant="headingMd">
-                Heading 标题
-              </Text>
-              <div>
-                <Button onClick={() => setActive(true)}>click</Button>
-              </div>
-            </CardHeader>
-          </Card>
+          <PresetCard title={"预设卡片标题"} sectioned>
+            <div className="h-[2000px]">123123</div>
+          </PresetCard>
         </Layout.Section>
+
         <Layout.Section variant="quarter">
-          <Card>
-            <CardContent>123</CardContent>
-          </Card>
+          <PresetCard sticky sectioned title={"Heading 标题"}></PresetCard>
         </Layout.Section>
       </Layout>
       <Modal

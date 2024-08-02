@@ -36,7 +36,9 @@ export const Page = ({
     >
       <PageBreadcrumb breadcrumbs={breadcrumbs} className={"mb-2"} />
       <PageHeader {...headerProps} />
-      <div x-chunk="PAGE_CONTENT">{children}</div>
+      <div x-chunk="PAGE_CONTENT" className="pb-6">
+        {children}
+      </div>
     </div>
   )
 }

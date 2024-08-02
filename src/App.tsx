@@ -1,7 +1,7 @@
 import { Suspense } from "react"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { SWRConfig } from "swr"
-import { Loading } from "./components"
+import { Loading, Toaster } from "./components"
 import { routesMerge } from "./routes"
 
 const routes = routesMerge()
@@ -18,6 +18,7 @@ function App() {
           revalidateOnMount: true,
         }}
       >
+        <Toaster position="bottom-right" visibleToasts={5} />
         <RouterProvider router={router} />
       </SWRConfig>
     </Suspense>

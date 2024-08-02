@@ -62,6 +62,7 @@ function PrimaryAction({
       <Button
         size={"sm"}
         disabled={primaryAction.disabled || primaryAction.loading}
+        onClick={primaryAction.onAction}
       >
         <InlineStack gap="md" blockAlign="center">
           {primaryAction.loading ? (
