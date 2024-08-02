@@ -40,6 +40,7 @@ export const Bills = () => {
         primaryAction={{
           content: "Primary",
           onAction: () => setActive(false),
+          destructive: true,
         }}
         secondaryAction={{
           content: "Secondary",

@@ -83,7 +83,7 @@ const ModalDefault = ({
 
         {children}
 
-        <AlertDialogFooter className="p-4 border-t">
+        <AlertDialogFooter className="p-4">
           <InlineStack align="end" gap="md">
             {SecondaryActionMarkup}
             {PrimaryActionMarkup}
