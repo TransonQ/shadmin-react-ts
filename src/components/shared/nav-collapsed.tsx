@@ -10,7 +10,8 @@ export const NavCollapsed = () => {
     <PanelLeftCloseIcon
       className={cn(
         buttonVariants({ variant: "ghost", size: "sm" }),
-        "p-2 w-8 h-8 text-gray-500"
+        "p-2 w-8 h-8 text-gray-500",
+        "shrink-0"
       )}
       onClick={() => setNavCollapsed(true)}
     />
@@ -18,7 +19,8 @@ export const NavCollapsed = () => {
     <PanelLeftOpenIcon
       className={cn(
         buttonVariants({ variant: "ghost", size: "sm" }),
-        "p-2 w-8 h-8 text-gray-500"
+        "p-2 w-8 h-8 text-gray-500",
+        "shrink-0"
       )}
       onClick={() => setNavCollapsed(false)}
     />

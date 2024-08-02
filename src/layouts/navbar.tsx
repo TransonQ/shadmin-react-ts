@@ -15,13 +15,19 @@ export const Navbar = () => {
 function NavFooter() {
   const [navCollapsed] = useNavCollapse()
 
+  const NavFooterContent = (
+    <InlineStack align="center" blockAlign="center" gap="md" className="flex-1">
+      <div className="text-lg font-semibold text-gray-400">{"navbar"}</div>
+    </InlineStack>
+  )
+
   return (
     <InlineStack
       align="space-between"
       blockAlign="center"
       className="w-full h-full pr-1"
     >
-      <div>{!navCollapsed && <div></div>}</div>
+      <div className="flex-1">{!navCollapsed && NavFooterContent}</div>
       <NavCollapsed />
     </InlineStack>
   )
