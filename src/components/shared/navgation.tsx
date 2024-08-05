@@ -62,11 +62,8 @@ function Section({ title, fill, items, collapsed }: NavgationSectionProps) {
           >
             {nav.icon && <Icon source={nav.icon} />}
           </TooltipTrigger>
-          <TooltipContent
-            align="end"
-            side="right"
-          >
-            <p>{nav.label}</p>
+          <TooltipContent align="end" side="right" className="max-w-64">
+            <span>{nav.label}</span>
           </TooltipContent>
         </Tooltip>
       ))
@@ -75,13 +72,13 @@ function Section({ title, fill, items, collapsed }: NavgationSectionProps) {
           className={cn(
             "w-full px-1 py-2 rounded-sm",
             "hover:bg-primary/20 hover:cursor-default",
-            "flex items-center gap-2"
+            "flex items-center gap-2 flex-nowrap"
           )}
         >
           <div className="min-w-4">
             {nav.icon && <Icon source={nav.icon} />}
           </div>
-          {nav.label}
+          <span className="line-clamp-2">{nav.label}</span>
         </div>
       ))
 

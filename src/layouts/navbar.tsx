@@ -1,10 +1,10 @@
 import { InlineStack, NavCollapsed, Navgation } from "@/components"
 import { useNavCollapse } from "@/hooks"
-import { generateArray } from "@/lib"
+import { cn, generateArray } from "@/lib"
 import { UserIcon } from "lucide-react"
 
 const navs = generateArray(10, (i) => ({
-  label: `Section ${i + 1}`,
+  label: `Lorem ipsum ${i + 1}`,
   icon: UserIcon,
 }))
 
@@ -12,28 +12,33 @@ export const Navbar = () => {
   const [navCollapsed] = useNavCollapse()
 
   return (
-    <Navgation footer={<NavFooter />}>
+    <Navgation footer={<NavFooter collapsed={navCollapsed} />}>
       <Navgation.Section items={navs} collapsed={navCollapsed} />
     </Navgation>
   )
 }
 
-function NavFooter() {
-  const [navCollapsed] = useNavCollapse()
-
+function NavFooter({ collapsed }: { collapsed?: boolean }) {
   const NavFooterContent = (
     <InlineStack align="center" blockAlign="center" gap="md" className="flex-1">
-      <div className="text-lg font-semibold text-gray-400">{"navbar"}</div>
+      <div className={cn("text-lg font-semibold text-gray-400", "sr-only")}>
+        {"Navbar content"}
+      </div>
     </InlineStack>
   )
 
   return (
     <div
       x-chunk="NAVGATION.FOOTER"
-      className="w-full h-full pr-1 flex justify-between items-center"
+      className={cn(
+        "w-full h-full flex justify-between items-center",
+        collapsed && "justify-center"
+      )}
     >
-      <div className="flex-1">{!navCollapsed && NavFooterContent}</div>
-      <NavCollapsed />
+      {!collapsed && <div className="flex-1">{NavFooterContent}</div>}
+      <div x-chunk="COLLAPSER" className={cn(!collapsed && "pr-1")}>
+        <NavCollapsed />
+      </div>
     </div>
   )
 }
