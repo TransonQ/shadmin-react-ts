@@ -1,7 +1,15 @@
-import { generateArray } from "@/lib"
-import { UserIcon } from "lucide-react"
+import { NavgationItemProps } from "@/components"
+import { SettingsIcon, UserIcon } from "lucide-react"
 
-export const mockNavs = generateArray(10, (i) => ({
-  label: `Lorem ipsum ${i + 1}`,
-  icon: UserIcon,
-}))
+export const mockNavs: NavgationItemProps[] = [
+  {
+    url: "/app",
+    icon: UserIcon,
+    label: "Profile",
+  },
+  {
+    url: "/app/settings",
+    icon: SettingsIcon,
+    label: "Settings",
+  },
+]

@@ -27,9 +27,11 @@ const FrameHeader = ({
   }
 
   return (
-    <header style={styles} className={cn("pr-2 border-b bg-card")}>
-      {children}
-    </header>
+    !hidden && (
+      <header style={styles} className={cn("pr-2 border-b bg-card")}>
+        {children}
+      </header>
+    )
   )
 }
 
@@ -52,28 +54,35 @@ const FrameNavbar = ({
   }
 
   return (
-    <nav
-      style={styles}
-      className={cn(
-        "border-r bg-card",
-        "transition-all duration-150 ease-in-out"
-      )}
-    >
-      {children}
-    </nav>
+    !hidden && (
+      <nav
+        style={styles}
+        className={cn(
+          "border-r bg-card",
+          "transition-all duration-150 ease-in-out"
+        )}
+      >
+        {children}
+      </nav>
+    )
   )
 }
 
 const FrameMain = ({
   children,
   navbarCollapsed,
+  navbarHidden,
+  headerHidden,
 }: {
   children?: React.ReactNode
   navbarCollapsed?: boolean
+  navbarHidden?: boolean
+  headerHidden?: boolean
 }) => {
+  const left = navbarCollapsed ? navbarCollapsedWidth : navbarWidth
   const styles: CSSProperties = {
-    marginLeft: navbarCollapsed ? navbarCollapsedWidth : navbarWidth,
-    marginTop: headerHeight,
+    marginLeft: navbarHidden ? 0 : left,
+    marginTop: headerHidden ? 0 : headerHeight,
   }
 
   return (

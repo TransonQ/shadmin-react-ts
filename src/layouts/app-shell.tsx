@@ -41,7 +41,11 @@ export const AppShell = ({ collapsed }: { collapsed?: boolean }) => {
         <Frame.Navbar hidden={collapsed} collapsed={navCollapsed}>
           <Navbar />
         </Frame.Navbar>
-        <Frame.Main navbarCollapsed={navCollapsed}>
+        <Frame.Main
+          navbarCollapsed={navCollapsed}
+          navbarHidden={collapsed}
+          headerHidden={collapsed}
+        >
           <Outlet />
         </Frame.Main>
       </TooltipProvider>

@@ -10,7 +10,7 @@ export const routesMerge = (): RouteObject[] => [
   },
   {
     path: "/app",
-    element: <AppShell collapsed={false} />,
+    element: <AppShell />,
     children: [
       /** add static routes */
       {
@@ -24,6 +24,10 @@ export const routesMerge = (): RouteObject[] => [
       {
         path: "bills/update/:id?",
         element: <UpdateBill />,
+      },
+      {
+        path: "*",
+        element: <div>{"404"}</div>,
       },
     ],
   },
