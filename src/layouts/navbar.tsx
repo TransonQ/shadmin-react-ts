@@ -1,19 +1,14 @@
 import { InlineStack, NavCollapsed, Navgation } from "@/components"
 import { useNavCollapse } from "@/hooks"
-import { cn, generateArray } from "@/lib"
-import { UserIcon } from "lucide-react"
-
-const navs = generateArray(10, (i) => ({
-  label: `Lorem ipsum ${i + 1}`,
-  icon: UserIcon,
-}))
+import { cn } from "@/lib"
+import { mockNavs } from "@/mocks/mock-data"
 
 export const Navbar = () => {
   const [navCollapsed] = useNavCollapse()
 
   return (
     <Navgation footer={<NavFooter collapsed={navCollapsed} />}>
-      <Navgation.Section items={navs} collapsed={navCollapsed} />
+      <Navgation.Section items={mockNavs} collapsed={navCollapsed} />
     </Navgation>
   )
 }
