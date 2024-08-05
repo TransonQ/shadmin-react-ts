@@ -69,6 +69,7 @@ function Section({ title, fill, items, collapsed }: NavgationSectionProps) {
       ))
     : items.map((nav, i) => (
         <div
+          style={{ minWidth: frameVariants.navbarWidth - 10 }}
           className={cn(
             "w-full px-1 py-2 rounded-sm",
             "hover:bg-primary/20 hover:cursor-default",
