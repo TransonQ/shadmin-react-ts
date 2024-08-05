@@ -2,23 +2,20 @@ import { ClassNameValue } from "tailwind-merge"
 import { CrossAlign } from "./types"
 
 export const calcFlexItems = (itemsAlignProp?: CrossAlign): ClassNameValue => {
-  let itemsAlign: ClassNameValue = ""
   switch (itemsAlignProp) {
     case "start":
-      itemsAlign = "items-start"
-      break
+      return "items-start"
+
     case "center":
-      itemsAlign = "items-center"
-      break
+      return "items-center"
+
     case "end":
-      itemsAlign = "items-end"
-      break
+      return "items-end"
+
     case "stretch":
-      itemsAlign = "items-stretch"
-      break
+      return "items-stretch"
+
     default:
       break
   }
-
-  return itemsAlign
 }

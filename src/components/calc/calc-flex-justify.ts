@@ -2,30 +2,26 @@ import { ClassNameValue } from "tailwind-merge"
 import { Align } from "./types"
 
 export const calcFlexJustify = (alignProp?: Align): ClassNameValue => {
-  let align: ClassNameValue = ""
-
   switch (alignProp) {
     case "start":
-      align = "justify-start"
-      break
+      return "justify-start"
+
     case "center":
-      align = "justify-center"
-      break
+      return "justify-center"
+
     case "end":
-      align = "justify-end"
-      break
+      return "justify-end"
+
     case "space-around":
-      align = "justify-around"
-      break
+      return "justify-around"
+
     case "space-between":
-      align = "justify-between"
-      break
+      return "justify-between"
+
     case "space-evenly":
-      align = "justify-evenly"
-      break
+      return "justify-evenly"
+
     default:
       break
   }
-
-  return align
 }
