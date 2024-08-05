@@ -1,5 +1,7 @@
 import { cn } from "@/lib"
+import { CSSProperties } from "react"
 import { frameVariants } from "./config"
+
 const { headerHeight, navbarWidth, navbarCollapsedWidth, zIndex } =
   frameVariants
 
@@ -14,19 +16,18 @@ const FrameHeader = ({
   children?: React.ReactNode
   hidden?: boolean
 }) => {
+  const styles: CSSProperties = {
+    height: headerHeight,
+    width: "100%",
+    zIndex,
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+  }
+
   return (
-    <header
-      className={cn("pr-2 border-b bg-card")}
-      style={{
-        height: headerHeight,
-        width: "100%",
-        zIndex,
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-      }}
-    >
+    <header style={styles} className={cn("pr-2 border-b bg-card")}>
       {children}
     </header>
   )
@@ -41,20 +42,22 @@ const FrameNavbar = ({
   collapsed?: boolean
   hidden?: boolean
 }) => {
+  const styles: CSSProperties = {
+    position: "fixed",
+    width: collapsed ? navbarCollapsedWidth : navbarWidth,
+    height: `calc(100vh - ${headerHeight}px)`,
+    top: headerHeight,
+    left: 0,
+    zIndex,
+  }
+
   return (
     <nav
+      style={styles}
       className={cn(
         "border-r bg-card",
         "transition-all duration-150 ease-in-out"
       )}
-      style={{
-        position: "fixed",
-        width: collapsed ? navbarCollapsedWidth : navbarWidth,
-        height: `calc(100vh - ${headerHeight}px)`,
-        top: headerHeight,
-        left: 0,
-        zIndex,
-      }}
     >
       {children}
     </nav>
@@ -68,13 +71,15 @@ const FrameMain = ({
   children?: React.ReactNode
   navbarCollapsed?: boolean
 }) => {
+  const styles: CSSProperties = {
+    marginLeft: navbarCollapsed ? navbarCollapsedWidth : navbarWidth,
+    marginTop: headerHeight,
+  }
+
   return (
     <main
+      style={styles}
       className={cn("p-4 transition-all duration-150 ease-in-out")}
-      style={{
-        marginLeft: navbarCollapsed ? navbarCollapsedWidth : navbarWidth,
-        marginTop: headerHeight,
-      }}
     >
       {children}
     </main>
