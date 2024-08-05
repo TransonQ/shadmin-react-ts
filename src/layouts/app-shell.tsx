@@ -3,6 +3,7 @@ import { useNavCollapse } from "@/hooks"
 import { cn } from "@/lib"
 import { Outlet } from "react-router-dom"
 import { Navbar } from "./navbar"
+const { headerHeight, navbarWidth } = frameVariants
 
 /**
  * AppShell 的 collapsed=true 用于仅显示非权限相关的导航: 去掉除了 Main 相关的所有组件
@@ -15,11 +16,11 @@ export const AppShell = ({ collapsed }: { collapsed?: boolean }) => {
       <Frame.Header hidden={collapsed}>
         <InlineStack blockAlign="center" className="h-full">
           <div
-            style={{ width: frameVariants.navbarWidth }}
             className={cn(
-              "shrink-0 h-full text-3xl font-bold text-center leading-[56px]",
+              "shrink-0 h-full text-3xl font-bold text-center",
               "text-indigo-600"
             )}
+            style={{ width: navbarWidth, lineHeight: `${headerHeight}px` }}
           >
             {"Shadmin"}
           </div>
