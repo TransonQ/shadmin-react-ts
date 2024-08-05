@@ -1,13 +1,19 @@
 import { InlineStack, NavCollapsed, Navgation } from "@/components"
 import { useNavCollapse } from "@/hooks"
 import { generateArray } from "@/lib"
+import { UserIcon } from "lucide-react"
 
-const navs = generateArray(100, (i) => ({ label: `Section ${i + 1}` }))
+const navs = generateArray(10, (i) => ({
+  label: `Section ${i + 1}`,
+  icon: UserIcon,
+}))
 
 export const Navbar = () => {
+  const [navCollapsed] = useNavCollapse()
+
   return (
     <Navgation footer={<NavFooter />}>
-      <Navgation.Section items={navs} />
+      <Navgation.Section items={navs} collapsed={navCollapsed} />
     </Navgation>
   )
 }
@@ -22,13 +28,12 @@ function NavFooter() {
   )
 
   return (
-    <InlineStack
-      align="space-between"
-      blockAlign="center"
-      className="w-full h-full pr-1"
+    <div
+      x-chunk="NAVGATION.FOOTER"
+      className="w-full h-full pr-1 flex justify-between items-center"
     >
       <div className="flex-1">{!navCollapsed && NavFooterContent}</div>
       <NavCollapsed />
-    </InlineStack>
+    </div>
   )
 }

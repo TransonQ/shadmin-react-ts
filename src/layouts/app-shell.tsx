@@ -1,4 +1,9 @@
-import { Frame, frameVariants, InlineStack } from "@/components"
+import {
+  Frame,
+  frameVariants,
+  InlineStack,
+  TooltipProvider,
+} from "@/components"
 import { useNavCollapse } from "@/hooks"
 import { cn } from "@/lib"
 import { CSSProperties } from "react"
@@ -19,25 +24,27 @@ export const AppShell = ({ collapsed }: { collapsed?: boolean }) => {
 
   return (
     <Frame>
-      <Frame.Header hidden={collapsed}>
-        <InlineStack blockAlign="center" className="h-full">
-          <div
-            style={styles}
-            className={cn(
-              "shrink-0 h-full text-3xl font-bold text-center",
-              "text-indigo-600"
-            )}
-          >
-            {"Shadmin"}
-          </div>
-        </InlineStack>
-      </Frame.Header>
-      <Frame.Navbar hidden={collapsed} collapsed={navCollapsed}>
-        <Navbar />
-      </Frame.Navbar>
-      <Frame.Main navbarCollapsed={navCollapsed}>
-        <Outlet />
-      </Frame.Main>
+      <TooltipProvider delayDuration={500}>
+        <Frame.Header hidden={collapsed}>
+          <InlineStack blockAlign="center" className="h-full">
+            <div
+              style={styles}
+              className={cn(
+                "shrink-0 h-full text-3xl font-bold text-center",
+                "text-indigo-600"
+              )}
+            >
+              {"Shadmin"}
+            </div>
+          </InlineStack>
+        </Frame.Header>
+        <Frame.Navbar hidden={collapsed} collapsed={navCollapsed}>
+          <Navbar />
+        </Frame.Navbar>
+        <Frame.Main navbarCollapsed={navCollapsed}>
+          <Outlet />
+        </Frame.Main>
+      </TooltipProvider>
     </Frame>
   )
 }
