@@ -49,28 +49,45 @@ function NavgationDefault({ children, footer }: NavgationProps) {
   )
 }
 
+function SectionItem({
+  children,
+  className,
+  selected,
+  ...restProps
+}: React.HTMLProps<HTMLDivElement> & {
+  children?: React.ReactNode
+  className?: string
+  selected?: boolean
+}) {
+  return (
+    <div
+      className={cn(
+        "w-full px-1 py-2 rounded-sm text-sm",
+        "hover:bg-primary/40 hover:cursor-default",
+        selected && "bg-primary/20",
+        className
+      )}
+      {...restProps}
+    >
+      {children}
+    </div>
+  )
+}
+
 function Section({ title, fill, items, collapsed }: NavgationSectionProps) {
   const location = useLocation()
-  console.log("location: ", location.pathname)
-  const active = matchPath(location.pathname, "/app")
-  console.log("active: ", active)
   const navigate = useNavigate()
 
   const NavMarkup = collapsed
     ? items.map((nav, i) => (
         <Tooltip key={i}>
-          <TooltipTrigger
-            onClick={() => nav.url && navigate(nav.url)}
-            className={cn(
-              "w-full px-1 py-2 rounded-sm",
-              "hover:bg-primary/40 hover:cursor-default",
-              "flex items-center justify-center",
-              nav.url &&
-                matchPath(location.pathname, nav.url) &&
-                "bg-primary/20"
-            )}
-          >
-            {nav.icon && <Icon source={nav.icon} />}
+          <TooltipTrigger asChild onClick={() => nav.url && navigate(nav.url)}>
+            <SectionItem
+              selected={!!matchPath(location.pathname, nav?.url ?? "")}
+              className={cn("flex items-center justify-center")}
+            >
+              {nav.icon && <Icon source={nav.icon} />}
+            </SectionItem>
           </TooltipTrigger>
           <TooltipContent align="end" side="right" className="max-w-64">
             <span>{nav.label}</span>
@@ -78,22 +95,18 @@ function Section({ title, fill, items, collapsed }: NavgationSectionProps) {
         </Tooltip>
       ))
     : items.map((nav, i) => (
-        <div
+        <SectionItem
           key={i}
           onClick={() => nav.url && navigate(nav.url)}
+          selected={!!matchPath(location.pathname, nav?.url ?? "")}
           style={{ minWidth: frameVariants.navbarWidth - 20 }}
-          className={cn(
-            "w-full px-1 py-2 rounded-sm",
-            "hover:bg-primary/40 hover:cursor-default",
-            "flex items-center gap-2 flex-nowrap",
-            nav.url && matchPath(location.pathname, nav.url) && "bg-primary/20"
-          )}
+          className={cn("flex items-center gap-2 flex-nowrap")}
         >
           <div className="min-w-4">
             {nav.icon && <Icon source={nav.icon} />}
           </div>
           <span className="line-clamp-2">{nav.label}</span>
-        </div>
+        </SectionItem>
       ))
 
   return (
