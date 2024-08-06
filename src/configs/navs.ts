@@ -1,10 +1,10 @@
 import { NavgationItemProps } from "@/components"
-import { SettingsIcon, UserIcon } from "lucide-react"
+import { GaugeIcon, SettingsIcon, UserIcon } from "lucide-react"
 
 export const navs: NavgationItemProps[] = [
   {
     url: "/app/dashboard",
-    icon: UserIcon,
+    icon: GaugeIcon,
     label: "Profile",
     items: [
       {

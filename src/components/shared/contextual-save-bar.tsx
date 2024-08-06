@@ -71,11 +71,11 @@ export const ContextualSaveBar = ({
           calcPageWidth(pageWidth)
         )}
       >
-        <div className="flex items-center gap-2">
+        <div className="ml-4 flex items-center gap-2">
           <Icon source={TriangleAlertIcon} />
           {message}
         </div>
-        <div className="flex items-center gap-2">
+        <div className="mr-4 flex items-center gap-2">
           {discardActionMarkup}
           {saveActionMarkup}
         </div>
