@@ -26,7 +26,7 @@ export const Loading = () => {
     }
   }, [])
   return ReactDOM.createPortal(
-    <div className="z-50 fixed w-full h-[3px] top-0 left-0 bg-zinc-200">
+    <div className="z-[100] fixed w-full h-[3px] top-0 left-0 bg-zinc-200">
       <div
         className="z-50 bg-zinc-950 w-1 h-[3px] transition-all ease-linear duration-500"
         style={{ width: `${progress}%` }}

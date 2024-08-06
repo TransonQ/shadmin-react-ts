@@ -2,6 +2,7 @@ import {
   Alert,
   AlertDescription,
   AlertTitle,
+  ContextualSaveBar,
   Icon,
   Layout,
   Modal,
@@ -14,12 +15,15 @@ import { useState } from "react"
 
 export const Bills = () => {
   const [active, setActive] = useState(false)
+  const [active1, setActive1] = useState(false)
+
   return (
     <Page
       className="h-[2000px]"
       title="App - Bills"
       backAction={() => {
         console.log("back")
+        setActive1(!active1)
       }}
       primaryAction={{
         content: "Toast",
@@ -38,6 +42,13 @@ export const Bills = () => {
         <AlertTitle>Error</AlertTitle>
         <AlertDescription>123123</AlertDescription>
       </Alert>
+
+      {active1 && (
+        <ContextualSaveBar
+          saveAction={{ content: "Save" }}
+          discardAction={{ content: "Discard" }}
+        />
+      )}
 
       <Layout>
         <Layout.Section>

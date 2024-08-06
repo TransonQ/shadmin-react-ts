@@ -27,3 +27,10 @@ export type Variant =
   | "bodyLg"
 // text font weight
 export type FontWeight = "regular" | "medium" | "semibold" | "bold"
+
+// page width
+export type PageWidth =
+  | "defaultWidth"
+  | "narrowWidth"
+  | "formWith"
+  | "fullWidth"

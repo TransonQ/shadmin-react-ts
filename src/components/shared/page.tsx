@@ -1,5 +1,6 @@
 import { cn } from "@/lib"
 import { ClassNameValue } from "tailwind-merge"
+import { calcPageWidth, PageWidth } from "../calc"
 import { PageBreadcrumb, PageBreadcrumbProps } from "./page-breadcrumb"
 import { PageHeader, PageHeaderProps } from "./page-header"
 
@@ -22,17 +23,20 @@ export const Page = ({
   ...rest
 }: PageProps) => {
   const headerProps = rest
+  let w: PageWidth = "defaultWidth"
+
+  if (fullWidth) {
+    w = "fullWidth"
+  } else if (formWith) {
+    w = "formWith"
+  } else if (narrowWidth) {
+    w = "narrowWidth"
+  }
 
   return (
     <div
       x-chunk="PAGE"
-      className={cn(
-        "m-auto max-w-screen-lg",
-        fullWidth && "max-w-full",
-        formWith && "max-w-screen-md",
-        narrowWidth && "max-w-prose",
-        className
-      )}
+      className={cn("m-auto max-w-screen-lg", calcPageWidth(w), className)}
     >
       <PageBreadcrumb breadcrumbs={breadcrumbs} className={"mb-2"} />
       <PageHeader {...headerProps} />
