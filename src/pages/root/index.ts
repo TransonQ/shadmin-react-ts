@@ -1,2 +1,2 @@
-export * from "./loader-root";
+export * from "./root-loading";
 

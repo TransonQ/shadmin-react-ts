@@ -1,15 +1,15 @@
 import { redirect, RouteObject } from "react-router-dom"
-import { NotFound404 } from "./components"
+import { NotFound404, SkeletonApp } from "./components"
 import { AppShell } from "./layouts"
 import { Bills, UpdateBill } from "./pages/example"
 import { Login } from "./pages/login"
-import { loaderRoot } from "./pages/root"
+import { RootLoading } from "./pages/root"
 
 export const routesMerge = (): RouteObject[] => [
   {
     path: "/",
     errorElement: <div>{"Error /"}</div>,
-    loader: loaderRoot,
+    element: <RootLoading />,
   },
   {
     path: "/app",
@@ -37,5 +37,9 @@ export const routesMerge = (): RouteObject[] => [
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "*",
+    element: <SkeletonApp />,
   },
 ]
