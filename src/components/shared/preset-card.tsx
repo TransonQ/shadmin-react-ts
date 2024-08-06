@@ -3,7 +3,7 @@ import { isReactElement } from "../calc"
 import { Card, CardContent, CardHeader } from "../ui/card"
 import { frameVariants } from "./config"
 import { Text } from "./text"
-
+const { headerHeight } = frameVariants
 interface PresetCardProps {
   children?: React.ReactNode
   sectioned?: boolean
@@ -19,6 +19,12 @@ export const PresetCard = ({
   title,
   sticky,
 }: PresetCardProps) => {
+  const styles: React.CSSProperties = {
+    position: sticky ? "sticky" : "initial",
+    top: sticky ? `calc(${headerHeight}px + 1rem)` : undefined,
+  }
+
+  const content = sectioned ? <CardContent>{children}</CardContent> : children
   const titleMarkup = !isReactElement(title) ? (
     <CardHeader>
       <Text as="h2" variant="headingMd">
@@ -29,15 +35,8 @@ export const PresetCard = ({
     title
   )
 
-  const content = sectioned ? <CardContent>{children}</CardContent> : children
   return (
-    <Card
-      className={cn(
-        sticky && "sticky",
-        `top-[calc(${frameVariants.headerHeight}px+1rem)]`,
-        className
-      )}
-    >
+    <Card style={styles} className={cn(className)}>
       {titleMarkup}
       {content}
     </Card>
