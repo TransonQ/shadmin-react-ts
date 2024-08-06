@@ -1,5 +1,5 @@
 import { redirect, RouteObject } from "react-router-dom"
-import { NotFound404, SkeletonApp } from "./components"
+import { NotFound404 } from "./components"
 import { AppShell } from "./layouts"
 import { Bills, UpdateBill } from "./pages/example"
 import { Login } from "./pages/login"
@@ -40,6 +40,6 @@ export const routesMerge = (): RouteObject[] => [
   },
   {
     path: "*",
-    element: <SkeletonApp />,
+    element: <NotFound404 className="h-screen" />,
   },
 ]
