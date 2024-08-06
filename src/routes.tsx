@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom"
-import { SeverError500 } from "./components"
+import { NotFound404 } from "./components"
 import { AppShell } from "./layouts"
 import { Bills, loaderRoot, UpdateBill } from "./pages"
 
@@ -28,7 +28,7 @@ export const routesMerge = (): RouteObject[] => [
       },
       {
         path: "*",
-        element: <SeverError500 />,
+        element: <NotFound404 />,
       },
     ],
   },

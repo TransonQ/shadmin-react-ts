@@ -22,7 +22,7 @@ export interface NavgationItemProps {
   icon?: LucideIcon
   label?: string
   /** TODO @todo The level of the item */
-  level?: number
+  items?: Omit<NavgationItemProps, "items">[]
 }
 
 interface NavgationSectionProps {
@@ -49,7 +49,7 @@ function NavgationDefault({ children, footer }: NavgationProps) {
   )
 }
 
-function SectionItem({
+const SectionItem = ({
   children,
   className,
   selected,
@@ -58,7 +58,7 @@ function SectionItem({
   children?: React.ReactNode
   className?: string
   selected?: boolean
-}) {
+}) => {
   return (
     <div
       className={cn(
@@ -81,7 +81,10 @@ function Section({ title, fill, items, collapsed }: NavgationSectionProps) {
   const NavMarkup = collapsed
     ? items.map((nav, i) => (
         <Tooltip key={i}>
-          <TooltipTrigger asChild onClick={() => nav.url && navigate(nav.url)}>
+          <TooltipTrigger
+            className="w-full h-full"
+            onClick={() => nav.url && navigate(nav.url)}
+          >
             <SectionItem
               selected={!!matchPath(location.pathname, nav?.url ?? "")}
               className={cn("flex items-center justify-center")}

@@ -1,14 +1,29 @@
-import { BlockStack, Card, Text } from "@/components"
+import {
+  type BaseAction,
+  type DestructableAction,
+  BlockStack,
+  Button,
+  Card,
+  InlineStack,
+  Text,
+} from "@/components"
 import { LucideIcon } from "lucide-react"
+
+interface PrimaryAction extends DestructableAction {}
+interface SecondaryAction extends BaseAction {}
 
 export const ErrorContainer = ({
   icon: Tag,
   children,
   title,
+  primaryAction,
+  secondaryAction,
 }: {
   icon: LucideIcon
   children?: React.ReactNode
   title?: string
+  primaryAction?: PrimaryAction
+  secondaryAction?: SecondaryAction
 }) => {
   return (
     <Card className="w-full p-2 h-[calc(100vh-6rem)]">
@@ -20,6 +35,19 @@ export const ErrorContainer = ({
           </Text>
           {children}
         </BlockStack>
+
+        <InlineStack align="end" gap="md" className="w-full">
+          {secondaryAction && (
+            <Button variant={"outline"} onClick={secondaryAction.onAction}>
+              {secondaryAction.content}
+            </Button>
+          )}
+          {primaryAction && (
+            <Button onClick={primaryAction.onAction}>
+              {primaryAction.content}
+            </Button>
+          )}
+        </InlineStack>
       </div>
     </Card>
   )
