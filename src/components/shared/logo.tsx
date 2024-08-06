@@ -1,11 +1,11 @@
 import { frameVariants } from "@/components"
+import { useNavCollapse } from "@/hooks"
 import { cn } from "@/lib"
-import { useNavCollapse } from "./use-nav-collapse"
 
 const { navbarWidth, navbarCollapsedWidth } = frameVariants
 type useLogoProps = { collapsed?: boolean }
 
-export const useLogo = ({ collapsed }: useLogoProps = {}) => {
+export const Logo = ({ collapsed }: useLogoProps = {}) => {
   const [navCollapsed] = useNavCollapse()
   const isCollapsed = collapsed || navCollapsed
 

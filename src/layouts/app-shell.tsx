@@ -1,5 +1,5 @@
-import { Frame, InlineStack, TooltipProvider } from "@/components"
-import { useLogo, useNavCollapse } from "@/hooks"
+import { Frame, InlineStack, Logo, TooltipProvider } from "@/components"
+import { useNavCollapse } from "@/hooks"
 import { Outlet } from "react-router-dom"
 import { Header } from "./header"
 import { Navbar } from "./navbar"
@@ -9,14 +9,13 @@ import { Navbar } from "./navbar"
  */
 export const AppShell = ({ collapsed }: { collapsed?: boolean }) => {
   const [navCollapsed] = useNavCollapse()
-  const LogoMarkup = useLogo({ collapsed: navCollapsed })
 
   return (
     <Frame>
       <TooltipProvider delayDuration={500}>
         <Frame.Header hidden={collapsed}>
           <InlineStack blockAlign="center" className="h-full">
-            {LogoMarkup}
+            <Logo collapsed={navCollapsed} />
             <Header />
           </InlineStack>
         </Frame.Header>
