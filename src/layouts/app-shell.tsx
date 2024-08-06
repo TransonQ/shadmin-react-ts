@@ -8,6 +8,7 @@ import { useNavCollapse } from "@/hooks"
 import { cn } from "@/lib"
 import { CSSProperties } from "react"
 import { Outlet } from "react-router-dom"
+import { Header } from "./header"
 import { Navbar } from "./navbar"
 const { headerHeight, navbarWidth } = frameVariants
 
@@ -36,6 +37,7 @@ export const AppShell = ({ collapsed }: { collapsed?: boolean }) => {
             >
               {"Shadmin"}
             </div>
+            <Header />
           </InlineStack>
         </Frame.Header>
         <Frame.Navbar hidden={collapsed} collapsed={navCollapsed}>

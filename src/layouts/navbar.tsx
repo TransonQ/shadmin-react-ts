@@ -1,14 +1,14 @@
 import { InlineStack, NavCollapsed, Navgation } from "@/components"
+import { navs } from "@/configs"
 import { useNavCollapse } from "@/hooks"
 import { cn } from "@/lib"
-import { mockNavs } from "@/mocks/mock-data"
 
 export const Navbar = () => {
   const [navCollapsed] = useNavCollapse()
 
   return (
     <Navgation footer={<NavFooter collapsed={navCollapsed} />}>
-      <Navgation.Section items={mockNavs} collapsed={navCollapsed} />
+      <Navgation.Section items={navs} collapsed={navCollapsed} />
     </Navgation>
   )
 }

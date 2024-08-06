@@ -1,4 +1,4 @@
-import { RouteObject } from "react-router-dom"
+import { redirect, RouteObject } from "react-router-dom"
 import { NotFound404 } from "./components"
 import { AppShell } from "./layouts"
 import { Bills, loaderRoot, UpdateBill } from "./pages"
@@ -16,10 +16,10 @@ export const routesMerge = (): RouteObject[] => [
       /** add static routes */
       {
         index: true,
-        element: <Bills />,
+        loader: () => redirect("/app/dashboard"),
       },
       {
-        path: "bills",
+        path: "/app/dashboard",
         element: <Bills />,
       },
       {
