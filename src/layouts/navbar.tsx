@@ -24,7 +24,7 @@ function NavFooter({ collapsed }: { collapsed?: boolean }) {
 
   return (
     <div
-      x-chunk="NAVGATION.FOOTER"
+      x-chunk="NAVGATION_FOOTER"
       className={cn(
         "w-full h-full flex justify-between items-center",
         collapsed && "justify-center"

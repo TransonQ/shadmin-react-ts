@@ -1,8 +1,11 @@
+import { useLogo } from "@/hooks"
 import { cn } from "@/lib"
+import { TriangleAlertIcon } from "lucide-react"
 import { createPortal } from "react-dom"
 import { calcPageWidth, isInterface, PageWidth } from "../calc"
 import { Button } from "../ui"
 import { frameVariants } from "./config"
+import { Icon } from "./icon"
 import { type BaseAction, type DisableableAction } from "./types"
 const { headerHeight, navbarWidth } = frameVariants
 
@@ -10,6 +13,7 @@ interface SaveAction extends DisableableAction {}
 interface DiscardAction extends BaseAction {}
 
 type ContextualSaveBarProps = {
+  logo?: React.ReactNode
   pageWidth?: PageWidth
   message?: React.ReactNode
   saveAction?: SaveAction | React.ReactNode
@@ -17,11 +21,14 @@ type ContextualSaveBarProps = {
 }
 
 export const ContextualSaveBar = ({
+  logo,
   pageWidth = "defaultWidth",
   message,
   saveAction,
   discardAction,
 }: ContextualSaveBarProps) => {
+  const LogoMarkup = useLogo()
+
   const discardActionMarkup = isInterface(discardAction) ? (
     <Button
       variant="ghost"
@@ -57,19 +64,17 @@ export const ContextualSaveBar = ({
         "animate-in animate-out"
       )}
     >
-      <div
-        style={{ height: headerHeight - 1, width: navbarWidth }}
-        className="flex-shrink-0"
-      >
-        <span className="sr-only">{"LOGO"}</span>
-      </div>
+      {logo || LogoMarkup}
       <div
         className={cn(
           "mx-auto flex-1 flex items-center justify-between",
           calcPageWidth(pageWidth)
         )}
       >
-        <div className="">{message}</div>
+        <div className="flex items-center gap-2">
+          <Icon source={TriangleAlertIcon} />
+          {message}
+        </div>
         <div className="flex items-center gap-2">
           {discardActionMarkup}
           {saveActionMarkup}

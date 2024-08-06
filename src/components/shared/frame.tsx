@@ -28,7 +28,11 @@ const FrameHeader = ({
 
   return (
     !hidden && (
-      <header style={styles} className={cn("pr-2 border-b bg-card")}>
+      <header
+        x-chunk="FRAME_HEADER"
+        style={styles}
+        className={cn("pr-2 border-b bg-card")}
+      >
         {children}
       </header>
     )

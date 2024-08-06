@@ -47,6 +47,7 @@ export const Bills = () => {
         <ContextualSaveBar
           saveAction={{ content: "Save" }}
           discardAction={{ content: "Discard" }}
+          message="Not saved"
         />
       )}
 
