@@ -1,7 +1,9 @@
 import { redirect, RouteObject } from "react-router-dom"
 import { NotFound404 } from "./components"
 import { AppShell } from "./layouts"
-import { Bills, loaderRoot, UpdateBill } from "./pages"
+import { Bills, UpdateBill } from "./pages/example"
+import { Login } from "./pages/login"
+import { loaderRoot } from "./pages/root"
 
 export const routesMerge = (): RouteObject[] => [
   {
@@ -31,5 +33,9 @@ export const routesMerge = (): RouteObject[] => [
         element: <NotFound404 />,
       },
     ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]
