@@ -5,16 +5,15 @@ import {
   ContextualSaveBar,
   Icon,
   Layout,
-  Modal,
   Page,
   popper,
   PresetCard,
 } from "@/components"
+import { lorem } from "@/mocks/mock-data"
 import { AlertCircleIcon, ArrowRightIcon } from "lucide-react"
 import { useState } from "react"
 
 export const Bills = () => {
-  const [active, setActive] = useState(false)
   const [active1, setActive1] = useState(false)
 
   return (
@@ -37,10 +36,11 @@ export const Bills = () => {
       }}
       breadcrumbs={[{ label: "Home", to: "/" }, { label: "Bills" }]}
     >
-      <Alert className="mb-4" variant="destructive">
+      <Alert variant="destructive">
         <Icon source={AlertCircleIcon} />
         <AlertTitle>Error</AlertTitle>
-        <AlertDescription>123123</AlertDescription>
+        <AlertDescription>{lorem(10)}</AlertDescription>
+        <AlertDescription>{lorem(14)}</AlertDescription>
       </Alert>
 
       {active1 && (
@@ -53,37 +53,30 @@ export const Bills = () => {
 
       <Layout>
         <Layout.Section>
-          <PresetCard title={"预设卡片标题"} sectioned>
-            <div className="h-[2000px]">123123</div>
+          <PresetCard title={"预设卡片标题 1"} sectioned>
+            <div className="h-[2000px]">{lorem(200)}</div>
           </PresetCard>
         </Layout.Section>
 
         <Layout.Section variant="quarter">
-          <PresetCard sticky sectioned title={"Heading 标题"}>
-            Lorem ipsum dolor sit amet consectetur adipiscing elit, etiam
-            quisque blandit ut conubia lobortis. Inceptos ultricies class
-            suscipit diam porta odio urna morbi laoreet dictum ornare nisl,
-            vivamus himenaeos nunc aptent suspendisse ut interdum purus etiam
+          <PresetCard sticky sectioned title={"Heading 标题1"}>
+            {lorem(40)}
           </PresetCard>
         </Layout.Section>
       </Layout>
-      <Modal
-        open={active}
-        onClose={() => setActive(false)}
-        title="弹框 Title"
-        primaryAction={{
-          content: "Primary",
-          onAction: () => setActive(false),
-          destructive: true,
-        }}
-        secondaryAction={{
-          content: "Secondary",
-          onAction: () => setActive(false),
-        }}
-      >
-        <Modal.Section>123</Modal.Section>
-        <Modal.Section>123</Modal.Section>
-      </Modal>
+      <Layout>
+        <Layout.Section>
+          <PresetCard title={"预设卡片标题 2"} sectioned>
+            <div className="h-[2000px]">{lorem(200)}</div>
+          </PresetCard>
+        </Layout.Section>
+
+        <Layout.Section variant="quarter">
+          <PresetCard sticky sectioned title={"Heading 标题2"}>
+            {lorem(100)}
+          </PresetCard>
+        </Layout.Section>
+      </Layout>
     </Page>
   )
 }
