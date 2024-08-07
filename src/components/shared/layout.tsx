@@ -23,6 +23,7 @@ function LayoutDefault({ children, sectioned }: LayoutProps) {
   return (
     <div
       className={cn(
+        "mt-4",
         "flex flex-col gap-4 flex-wrap",
         "md:flex-row md:flex-wrap md:justify-between",
         "lg:flex-nowrap"
