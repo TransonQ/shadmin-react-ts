@@ -1,5 +1,6 @@
 import { cn } from "@/lib"
-import { CheckIcon, LucideIcon, XIcon } from "lucide-react"
+import type { LucideIcon} from "lucide-react";
+import { CheckIcon, XIcon } from "lucide-react"
 import { toast } from "sonner"
 
 // eslint-disable-next-line react-refresh/only-export-components

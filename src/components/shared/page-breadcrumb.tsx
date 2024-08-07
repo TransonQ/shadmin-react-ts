@@ -1,6 +1,6 @@
 import { cn } from "@/lib"
 import { Link } from "react-router-dom"
-import { ClassNameValue } from "tailwind-merge"
+import type { ClassNameValue } from "tailwind-merge"
 import {
   Breadcrumb,
   BreadcrumbItem,

@@ -1,12 +1,13 @@
 import { cn } from "@/lib"
-import { ClassNameValue } from "tailwind-merge"
-import {
+import type { ClassNameValue } from "tailwind-merge"
+import type {
   Align,
+  CrossAlign,
+  Gap} from "../calc";
+import {
   calcFlexItems,
   calcFlexJustify,
-  calcGap,
-  CrossAlign,
-  Gap,
+  calcGap
 } from "../calc"
 
 type BlockStackProps = {

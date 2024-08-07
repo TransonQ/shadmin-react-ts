@@ -1,5 +1,5 @@
-import { ClassNameValue } from "tailwind-merge"
-import { Tone } from "./types"
+import type { ClassNameValue } from "tailwind-merge"
+import type { Tone } from "./types"
 
 export const calcTone = (tone?: Tone): ClassNameValue => {
   switch (tone) {

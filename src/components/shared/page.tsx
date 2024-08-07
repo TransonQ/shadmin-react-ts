@@ -1,8 +1,11 @@
 import { cn } from "@/lib"
-import { ClassNameValue } from "tailwind-merge"
-import { calcPageWidth, PageWidth } from "../calc"
-import { PageBreadcrumb, PageBreadcrumbProps } from "./page-breadcrumb"
-import { PageHeader, PageHeaderProps } from "./page-header"
+import type { ClassNameValue } from "tailwind-merge"
+import type { PageWidth } from "../calc";
+import { calcPageWidth } from "../calc"
+import type { PageBreadcrumbProps } from "./page-breadcrumb";
+import { PageBreadcrumb } from "./page-breadcrumb"
+import type { PageHeaderProps } from "./page-header";
+import { PageHeader } from "./page-header"
 
 interface PageProps extends PageHeaderProps {
   children?: React.ReactNode

@@ -1,5 +1,5 @@
 import { cn } from "@/lib"
-import { LucideIcon } from "lucide-react"
+import type { LucideIcon } from "lucide-react"
 
 export const Icon = ({
   source,

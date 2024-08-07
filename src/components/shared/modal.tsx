@@ -11,7 +11,7 @@ import {
 import { Button, buttonVariants } from "../ui/button"
 import { Icon } from "./icon"
 import { InlineStack } from "./inline-stack"
-import {
+import type {
   BaseAction,
   DestructableAction,
   DisableableAction,

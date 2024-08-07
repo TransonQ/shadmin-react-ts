@@ -1,7 +1,9 @@
 import { cn } from "@/lib"
-import { LucideIcon, TriangleAlertIcon } from "lucide-react"
+import type { LucideIcon} from "lucide-react";
+import { TriangleAlertIcon } from "lucide-react"
 import { createPortal } from "react-dom"
-import { calcPageWidth, isInterface, PageWidth } from "../calc"
+import type { PageWidth } from "../calc";
+import { calcPageWidth, isInterface } from "../calc"
 import { Button } from "../ui"
 import { frameVariants } from "./config"
 import { Icon } from "./icon"

@@ -1,11 +1,12 @@
 import { cn } from "@/lib"
-import { ClassNameValue } from "tailwind-merge"
+import type { ClassNameValue } from "tailwind-merge"
+import type {
+  FontWeight,
+  Variant} from "../calc";
 import {
   calcFontWeight,
   calcTextVariant,
-  calcTone,
-  FontWeight,
-  Variant,
+  calcTone
 } from "../calc"
 
 type Element =

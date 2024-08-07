@@ -9,7 +9,7 @@ import {
   TooltipTrigger,
 } from "@/components"
 import { cn } from "@/lib"
-import { LucideIcon } from "lucide-react"
+import type { LucideIcon } from "lucide-react"
 import { matchPath, useLocation, useNavigate } from "react-router-dom"
 
 interface NavgationProps {

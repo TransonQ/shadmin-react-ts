@@ -8,7 +8,7 @@ import {
   Text,
 } from "@/components"
 import { cn } from "@/lib"
-import { LucideIcon } from "lucide-react"
+import type { LucideIcon } from "lucide-react"
 
 interface PrimaryAction extends DestructableAction {}
 interface SecondaryAction extends BaseAction {}

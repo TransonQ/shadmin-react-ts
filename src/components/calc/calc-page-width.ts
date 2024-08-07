@@ -1,4 +1,4 @@
-import { PageWidth } from "./types"
+import type { PageWidth } from "./types"
 
 export const calcPageWidth = (width: PageWidth) => {
   switch (width) {

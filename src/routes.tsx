@@ -1,4 +1,5 @@
-import { redirect, RouteObject } from "react-router-dom"
+import type { RouteObject } from "react-router-dom";
+import { redirect } from "react-router-dom"
 import { NotFound404 } from "./components"
 import { AppShell } from "./layouts"
 import { Bills, UpdateBill } from "./pages/example"

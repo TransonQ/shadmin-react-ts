@@ -1,4 +1,4 @@
-import { NavgationItemProps } from "@/components"
+import type { NavgationItemProps } from "@/components"
 import { GaugeIcon, SettingsIcon, UserIcon } from "lucide-react"
 
 export const navs: NavgationItemProps[] = [

@@ -1,4 +1,4 @@
-import { FontWeight } from "./types"
+import type { FontWeight } from "./types"
 
 export const calcFontWeight = (fontWeight?: FontWeight) => {
   switch (fontWeight) {

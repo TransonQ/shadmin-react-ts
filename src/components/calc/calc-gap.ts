@@ -1,4 +1,4 @@
-import { Gap } from "./types"
+import type { Gap } from "./types"
 
 export const calcGap = (gapStr?: Gap) => {
   switch (gapStr) {

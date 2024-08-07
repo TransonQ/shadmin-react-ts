@@ -4,7 +4,7 @@ import { Button } from "../ui/button"
 import { Icon } from "./icon"
 import { InlineStack } from "./inline-stack"
 import { Text } from "./text"
-import {
+import type {
   BaseAction,
   DisableableAction,
   IconableAction,

@@ -1,4 +1,4 @@
-import { AxiosError } from "axios"
+import type { AxiosError } from "axios"
 
 export const onRequestError = (error: AxiosError) => {
   console.error("onRequestError", error)

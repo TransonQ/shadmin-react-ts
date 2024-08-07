@@ -1,4 +1,4 @@
-import { AxiosResponse } from "axios"
+import type { AxiosResponse } from "axios"
 
 export const onResponse = (response: AxiosResponse) => {
   if (response.config.responseType === "blob") {

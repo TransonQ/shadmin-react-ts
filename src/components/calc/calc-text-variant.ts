@@ -1,4 +1,4 @@
-import { Variant } from "./types"
+import type { Variant } from "./types"
 
 export const calcTextVariant = (variant?: Variant) => {
   switch (variant) {
