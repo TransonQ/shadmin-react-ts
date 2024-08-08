@@ -1,4 +1,4 @@
-import { Frame, InlineStack, Logo, TooltipProvider } from "@/components"
+import { Auth, Frame, InlineStack, Logo, TooltipProvider } from "@/components"
 import { useNavCollapse } from "@/hooks"
 import { Outlet } from "react-router-dom"
 import { Header } from "./header"
@@ -11,25 +11,27 @@ export const AppShell = ({ collapsed }: { collapsed?: boolean }) => {
   const [navCollapsed] = useNavCollapse()
 
   return (
-    <Frame>
-      <TooltipProvider delayDuration={500}>
-        <Frame.Header hidden={collapsed}>
-          <InlineStack blockAlign="center" className="h-full">
-            <Logo collapsed={navCollapsed} />
-            <Header />
-          </InlineStack>
-        </Frame.Header>
-        <Frame.Navbar hidden={collapsed} collapsed={navCollapsed}>
-          <Navbar />
-        </Frame.Navbar>
-        <Frame.Main
-          navbarCollapsed={navCollapsed}
-          navbarHidden={collapsed}
-          headerHidden={collapsed}
-        >
-          <Outlet />
-        </Frame.Main>
-      </TooltipProvider>
-    </Frame>
+    <Auth>
+      <Frame>
+        <TooltipProvider delayDuration={500}>
+          <Frame.Header hidden={collapsed}>
+            <InlineStack blockAlign="center" className="h-full">
+              <Logo collapsed={navCollapsed} />
+              <Header />
+            </InlineStack>
+          </Frame.Header>
+          <Frame.Navbar hidden={collapsed} collapsed={navCollapsed}>
+            <Navbar />
+          </Frame.Navbar>
+          <Frame.Main
+            navbarCollapsed={navCollapsed}
+            navbarHidden={collapsed}
+            headerHidden={collapsed}
+          >
+            <Outlet />
+          </Frame.Main>
+        </TooltipProvider>
+      </Frame>
+    </Auth>
   )
 }
