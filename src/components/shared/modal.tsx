@@ -53,6 +53,7 @@ const ModalDefault = ({
     <Button
       variant={primaryAction.destructive ? "destructive" : "default"}
       disabled={primaryAction.loading || primaryAction.disabled}
+      onClick={primaryAction.onAction}
     >
       <InlineStack blockAlign="center" gap="md">
         {primaryAction.loading ? (
@@ -66,8 +67,8 @@ const ModalDefault = ({
   return (
     <AlertDialog open={open} onOpenChange={onClose}>
       <AlertDialogContent>
-        <AlertDialogHeader className="p-4 border-b">
-          <InlineStack>
+        <AlertDialogHeader className="p-4 border-b ">
+          <InlineStack className="min-h-6">
             <AlertDialogTitle>{title}</AlertDialogTitle>
             <XIcon
               onClick={() => onClose?.()}

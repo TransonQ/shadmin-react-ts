@@ -5,6 +5,7 @@ import {
   ContextualSaveBar,
   Icon,
   Layout,
+  NavigationBlocker,
   Page,
   popper,
   PresetCard,
@@ -15,7 +16,7 @@ import { useState } from "react"
 
 export const Bills = () => {
   const [active1, setActive1] = useState(false)
-
+  const [isBlocked, setIsBlocked] = useState(true)
   return (
     <Page
       className="h-[2000px]"
@@ -36,6 +37,8 @@ export const Bills = () => {
       }}
       breadcrumbs={[{ label: "Home", to: "/" }, { label: "Bills" }]}
     >
+      <NavigationBlocker isBlocked={isBlocked} />
+
       <Alert variant="destructive">
         <Icon source={AlertCircleIcon} />
         <AlertTitle>Error</AlertTitle>
@@ -45,7 +48,7 @@ export const Bills = () => {
 
       {active1 && (
         <ContextualSaveBar
-          saveAction={{ content: "Save" }}
+          saveAction={{ content: "Save", onAction: () => setIsBlocked(false) }}
           discardAction={{ content: "Discard" }}
           message="Not saved"
         />
