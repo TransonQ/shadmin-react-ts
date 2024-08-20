@@ -68,7 +68,7 @@ const ModalDefault = ({
   return (
     <AlertDialog open={open} onOpenChange={onClose}>
       <AlertDialogContent>
-        <AlertDialogDescription>
+        <AlertDialogDescription className="sr-only">
           <span className="sr-only">{"Modal Alert"}</span>
         </AlertDialogDescription>
         <AlertDialogHeader className="p-4 border-b ">
