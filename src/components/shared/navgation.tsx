@@ -62,9 +62,9 @@ const SectionItem = ({
   return (
     <div
       className={cn(
-        "w-full px-1 py-2 rounded-sm text-sm",
-        "hover:bg-primary/40 hover:cursor-default",
-        selected && "bg-primary/20",
+        "w-full pl-2 py-2 rounded-md text-sm",
+        "hover:bg-primary/20 hover:cursor-default",
+        selected && "bg-primary/25",
         className
       )}
       {...restProps}
