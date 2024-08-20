@@ -4,6 +4,7 @@ import React from "react"
 import {
   AlertDialog,
   AlertDialogContent,
+  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
@@ -67,6 +68,9 @@ const ModalDefault = ({
   return (
     <AlertDialog open={open} onOpenChange={onClose}>
       <AlertDialogContent>
+        <AlertDialogDescription>
+          <span className="sr-only">{"Modal Alert"}</span>
+        </AlertDialogDescription>
         <AlertDialogHeader className="p-4 border-b ">
           <InlineStack className="min-h-6">
             <AlertDialogTitle>{title}</AlertDialogTitle>
