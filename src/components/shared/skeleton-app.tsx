@@ -29,7 +29,7 @@ export const SkeletonApp = () => {
       <Frame.Main>
         <Page>
           <BlockStack gap="lg">
-            <InlineStack gap="lg" align="space-between" className="w-full">
+            <InlineStack gap="lg" align="space-between" fullWidth>
               <Skeleton className="w-24 h-10" />
               <Skeleton className="w-24 h-10" />
             </InlineStack>

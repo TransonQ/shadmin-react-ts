@@ -39,7 +39,7 @@ export const ErrorContainer = ({
           {children}
         </BlockStack>
 
-        <InlineStack align="end" gap="md" className="w-full px-4">
+        <InlineStack align="end" gap="md" fullWidth className="px-4">
           {secondaryAction && (
             <Button variant={"outline"} onClick={secondaryAction.onAction}>
               {secondaryAction.content}

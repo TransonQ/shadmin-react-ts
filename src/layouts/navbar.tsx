@@ -15,7 +15,7 @@ export const Navbar = () => {
 
 function NavFooter({ collapsed }: { collapsed?: boolean }) {
   const NavFooterContent = (
-    <InlineStack align="center" blockAlign="center" gap="md" className="flex-1">
+    <InlineStack align="center" blockAlign="center" gap="md" fill>
       <div className={cn("text-lg font-semibold text-gray-400", "sr-only")}>
         {"Navbar content"}
       </div>
