@@ -11,6 +11,7 @@ import {
 import { cn } from "@/lib"
 import type { LucideIcon } from "lucide-react"
 import { matchPath, useLocation, useNavigate } from "react-router-dom"
+import { Show } from "./show"
 
 interface NavgationProps {
   footer?: React.ReactNode
@@ -79,39 +80,37 @@ function Section({ title, fill, items, collapsed }: NavgationSectionProps) {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const NavMarkup = collapsed
-    ? items.map((nav, i) => (
-        <Tooltip key={i}>
-          <TooltipTrigger
-            className="w-full h-full"
-            onClick={() => nav.url && navigate(nav.url)}
-          >
-            <SectionItem
-              selected={!!matchPath(location.pathname, nav?.url ?? "")}
-              className={cn("flex items-center justify-center")}
-            >
-              {nav.icon && <Icon source={nav.icon} />}
-            </SectionItem>
-          </TooltipTrigger>
-          <TooltipContent align="end" side="right" className="max-w-64">
-            <span>{nav.label}</span>
-          </TooltipContent>
-        </Tooltip>
-      ))
-    : items.map((nav, i) => (
+  const NavExpanded = items.map((nav, i) => (
+    <SectionItem
+      key={i}
+      onClick={() => nav.url && navigate(nav.url)}
+      selected={!!matchPath(location.pathname, nav?.url ?? "")}
+      style={{ minWidth: frameVariants.navbarWidth - 20 }}
+      className={cn("flex items-center gap-2 flex-nowrap pl-2")}
+    >
+      <div className="min-w-4">{nav.icon && <Icon source={nav.icon} />}</div>
+      <span className="line-clamp-2">{nav.label}</span>
+    </SectionItem>
+  ))
+
+  const NavCollaped = items.map((nav, i) => (
+    <Tooltip key={i}>
+      <TooltipTrigger
+        className="w-full h-full"
+        onClick={() => nav.url && navigate(nav.url)}
+      >
         <SectionItem
-          key={i}
-          onClick={() => nav.url && navigate(nav.url)}
           selected={!!matchPath(location.pathname, nav?.url ?? "")}
-          style={{ minWidth: frameVariants.navbarWidth - 20 }}
-          className={cn("flex items-center gap-2 flex-nowrap pl-2")}
+          className={cn("flex items-center justify-center")}
         >
-          <div className="min-w-4">
-            {nav.icon && <Icon source={nav.icon} />}
-          </div>
-          <span className="line-clamp-2">{nav.label}</span>
+          {nav.icon && <Icon source={nav.icon} />}
         </SectionItem>
-      ))
+      </TooltipTrigger>
+      <TooltipContent align="end" side="right" className="max-w-64">
+        <span>{nav.label}</span>
+      </TooltipContent>
+    </Tooltip>
+  ))
 
   return (
     <div
@@ -122,7 +121,9 @@ function Section({ title, fill, items, collapsed }: NavgationSectionProps) {
         {title}
       </Text>
       <BlockStack className="w-full" gap="sm">
-        {NavMarkup}
+        <Show when={collapsed} fallback={NavExpanded}>
+          {NavCollaped}
+        </Show>
       </BlockStack>
     </div>
   )
