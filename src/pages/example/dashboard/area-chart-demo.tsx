@@ -36,7 +36,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-const fakeData = generateArray(200, (i) => ({
+const fakeData = generateArray(90, (i) => ({
   date: generateDate(i).dateISOString[0],
   desktop: faker.number.int({ min: 100, max: 600 }),
   mobile: faker.number.int({ min: 100, max: 1000 }),
