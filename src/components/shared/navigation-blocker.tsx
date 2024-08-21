@@ -7,15 +7,13 @@ type NavigationBlockerProps = {
 }
 
 export const NavigationBlocker = ({ isBlocked }: NavigationBlockerProps) => {
-  const blocker = useBlocker(({ currentLocation, nextLocation }) => {
-    console.log('{ currentLocation, nextLocation }: ', { currentLocation, nextLocation });
-
-    return isBlocked && currentLocation.pathname !== nextLocation.pathname
-  })
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      isBlocked && currentLocation.pathname !== nextLocation.pathname
+  )
 
   const confirmLeave = () => {
     if (blocker.state === "blocked") {
-      console.log("blocker: ", blocker)
       blocker.proceed()
     }
   }
