@@ -62,9 +62,9 @@ const SectionItem = ({
   return (
     <div
       className={cn(
-        "w-full pl-2 py-2 rounded-md text-sm",
-        "hover:bg-primary/20 hover:cursor-default",
-        selected && "bg-primary/25",
+        "w-full py-2 rounded-lg text-xs",
+        "hover:bg-zinc-100 hover:cursor-default",
+        selected && "bg-zinc-200 font-bold",
         className
       )}
       {...restProps}
@@ -103,7 +103,7 @@ function Section({ title, fill, items, collapsed }: NavgationSectionProps) {
           onClick={() => nav.url && navigate(nav.url)}
           selected={!!matchPath(location.pathname, nav?.url ?? "")}
           style={{ minWidth: frameVariants.navbarWidth - 20 }}
-          className={cn("flex items-center gap-2 flex-nowrap")}
+          className={cn("flex items-center gap-2 flex-nowrap pl-2")}
         >
           <div className="min-w-4">
             {nav.icon && <Icon source={nav.icon} />}
