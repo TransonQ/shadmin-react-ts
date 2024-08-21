@@ -5,7 +5,7 @@ export const calcPageWidth = (width: PageWidth) => {
     case "narrowWidth":
       return "max-w-prose"
 
-    case "formWith":
+    case "formWidth":
       return "max-w-screen-md"
 
     case "fullWidth":

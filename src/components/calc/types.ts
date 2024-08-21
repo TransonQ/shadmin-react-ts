@@ -32,5 +32,5 @@ export type FontWeight = "regular" | "medium" | "semibold" | "bold"
 export type PageWidth =
   | "defaultWidth"
   | "narrowWidth"
-  | "formWith"
+  | "formWidth"
   | "fullWidth"

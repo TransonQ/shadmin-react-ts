@@ -1,3 +1,4 @@
+import type { PageWidth } from "@/components"
 import {
   Alert,
   AlertDescription,
@@ -12,6 +13,13 @@ import {
   Page,
   popper,
   PresetCard,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
 } from "@/components"
 import { lorem } from "@/mocks/mock-data"
 import { AlertCircleIcon, ArrowRightIcon } from "lucide-react"
@@ -22,8 +30,13 @@ export const Home = () => {
   const navigate = useNavigate()
   const [isSavebarActive, setIsSavebarActive] = useState(false)
   const [isBlocked, setIsBlocked] = useState(false)
+  const [pageWidth, setPageWidth] = useState<PageWidth>("defaultWidth")
+
   return (
     <Page
+      fullWidth={pageWidth === "fullWidth"}
+      formWith={pageWidth === "formWidth"}
+      narrowWidth={pageWidth === "narrowWidth"}
       title="App - Home"
       breadcrumbs={[
         { label: "Login", to: "/login" },
@@ -53,6 +66,7 @@ export const Home = () => {
 
       {isSavebarActive && (
         <ContextualSaveBar
+          pageWidth={pageWidth}
           saveAction={{
             content: "Save",
             onAction: () => {
@@ -71,6 +85,28 @@ export const Home = () => {
       <Layout>
         <Layout.Section>
           <BlockStack gap="lg" inlineAlign="stretch">
+            <PresetCard title={"Page width"} sectioned>
+              <Select
+                value={pageWidth}
+                onValueChange={(value) => setPageWidth(value as PageWidth)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select page width" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>{"Page width"}</SelectLabel>
+                    <SelectItem value="defaultWidth">
+                      {"defaultWidth"}
+                    </SelectItem>
+                    <SelectItem value="fullWidth">{"fullWidth"}</SelectItem>
+                    <SelectItem value="formWith">{"formWith"}</SelectItem>
+                    <SelectItem value="narrowWidth">{"narrowWidth"}</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </PresetCard>
+
             <PresetCard title={"Button"} sectioned>
               <InlineStack gap="lg" wrap>
                 <Button variant={"default"}>{"default"}</Button>
@@ -85,7 +121,7 @@ export const Home = () => {
         </Layout.Section>
 
         <Layout.Section variant="quarter">
-          <PresetCard sticky sectioned title={"Heading 标题1"}>
+          <PresetCard sticky sectioned title={"Navigation blocker"}>
             <Alert variant="info" className="mb-4">
               <Icon source={AlertCircleIcon} />
               <AlertTitle>
@@ -106,20 +142,6 @@ export const Home = () => {
                 {"Block navigation"}
               </Button>
             </InlineStack>
-          </PresetCard>
-        </Layout.Section>
-      </Layout>
-
-      <Layout>
-        <Layout.Section>
-          <PresetCard title={"预设卡片标题 2"} sectioned>
-           
-          </PresetCard>
-        </Layout.Section>
-
-        <Layout.Section variant="quarter">
-          <PresetCard sticky sectioned title={"Heading 标题2"}>
-            {lorem(100)}
           </PresetCard>
         </Layout.Section>
       </Layout>

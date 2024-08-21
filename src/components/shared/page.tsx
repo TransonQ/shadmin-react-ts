@@ -1,11 +1,11 @@
-import { cn } from "@/lib"
-import type { ClassNameValue } from "tailwind-merge"
+import { cn } from "@/lib";
+import type { ClassNameValue } from "tailwind-merge";
 import type { PageWidth } from "../calc";
-import { calcPageWidth } from "../calc"
+import { calcPageWidth } from "../calc";
 import type { PageBreadcrumbProps } from "./page-breadcrumb";
-import { PageBreadcrumb } from "./page-breadcrumb"
+import { PageBreadcrumb } from "./page-breadcrumb";
 import type { PageHeaderProps } from "./page-header";
-import { PageHeader } from "./page-header"
+import { PageHeader } from "./page-header";
 
 interface PageProps extends PageHeaderProps {
   children?: React.ReactNode
@@ -31,7 +31,7 @@ export const Page = ({
   if (fullWidth) {
     w = "fullWidth"
   } else if (formWith) {
-    w = "formWith"
+    w = "formWidth"
   } else if (narrowWidth) {
     w = "narrowWidth"
   }

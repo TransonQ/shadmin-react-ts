@@ -66,7 +66,7 @@ export const PageHeader = ({
   )
 
   return (
-    <InlineStack align="space-between" blockAlign="center" className="mb-4">
+    <InlineStack align="space-between" blockAlign="center" className="mb-6">
       <InlineStack blockAlign="center" gap="sm">
         {BackActionMarkup}
         {TitleMarkup}
