@@ -100,7 +100,7 @@ export const Home = () => {
                       {"defaultWidth"}
                     </SelectItem>
                     <SelectItem value="fullWidth">{"fullWidth"}</SelectItem>
-                    <SelectItem value="formWith">{"formWith"}</SelectItem>
+                    <SelectItem value="formWidth">{"formWidth"}</SelectItem>
                     <SelectItem value="narrowWidth">{"narrowWidth"}</SelectItem>
                   </SelectGroup>
                 </SelectContent>
