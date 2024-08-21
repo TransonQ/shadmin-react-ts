@@ -30,6 +30,10 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+
+    --sb-track-color: #e6e6e6;
+    --sb-thumb-color: #bbbbbb;
+    --sb-size: 8px;
   }
 
   .dark {
@@ -68,5 +72,27 @@
     @apply bg-background text-foreground;
     /* default font size */
     font-size: 14px;
+    /* default display scroll bar */
+    overflow-y: scroll;
+  }
+}
+
+/* scroll bar */
+body::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 0px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
   }
 }
