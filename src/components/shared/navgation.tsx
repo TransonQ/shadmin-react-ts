@@ -35,7 +35,7 @@ interface NavgationSectionProps {
 
 function NavgationDefault({ children, footer }: NavgationProps) {
   return (
-    <BlockStack x-chunk="NAVGATION" className="h-full">
+    <div x-chunk="NAVGATION" className="h-full flex flex-col">
       <ScrollArea
         style={{
           height: `calc(100vh - ${frameVariants.headerHeight * 2}px)`,
@@ -45,7 +45,7 @@ function NavgationDefault({ children, footer }: NavgationProps) {
         {children}
       </ScrollArea>
       <Footer>{footer}</Footer>
-    </BlockStack>
+    </div>
   )
 }
 
@@ -61,6 +61,7 @@ const SectionItem = ({
 }) => {
   return (
     <div
+      x-chunk="NAVGATION_SECTION_ITEM"
       className={cn(
         "w-full py-2 rounded-lg text-xs",
         "hover:bg-zinc-100 hover:cursor-default",
@@ -113,20 +114,27 @@ function Section({ title, fill, items, collapsed }: NavgationSectionProps) {
       ))
 
   return (
-    <BlockStack className={cn(fill && "flex-1")}>
+    <div
+      x-chunk="NAVGATION_SECTION"
+      className={cn("flex flex-col", fill && "flex-1")}
+    >
       <Text as="h2" variant="headingSm" tone="subdued">
         {title}
       </Text>
       <BlockStack className="w-full" gap="sm">
         {NavMarkup}
       </BlockStack>
-    </BlockStack>
+    </div>
   )
 }
 
 function Footer({ children }: { children?: React.ReactNode }) {
   return (
-    <div style={{ height: frameVariants.headerHeight }} className="w-full">
+    <div
+      x-chunk="NAVGATION_FOOTER"
+      style={{ height: frameVariants.headerHeight }}
+      className="w-full"
+    >
       {children}
     </div>
   )

@@ -31,7 +31,7 @@ const FrameHeader = ({
       <header
         x-chunk="FRAME_HEADER"
         style={styles}
-        className={cn("pr-2 border-b bg-card")}
+        className={cn("bg-card", "border-b", "pr-2")}
       >
         {children}
       </header>
@@ -60,9 +60,11 @@ const FrameNavbar = ({
   return (
     !hidden && (
       <nav
+        x-chunk="FRAME_NAVBAR"
         style={styles}
         className={cn(
-          "border-r bg-card",
+          "bg-card",
+          "border-r",
           "transition-all duration-150 ease-in-out"
         )}
       >
@@ -91,8 +93,9 @@ const FrameMain = ({
 
   return (
     <main
+      x-chunk="FRAME_MAIN"
       style={styles}
-      className={cn("p-4 transition-all duration-150 ease-in-out")}
+      className={cn("p-4", "transition-all duration-150 ease-in-out")}
     >
       {children}
     </main>
