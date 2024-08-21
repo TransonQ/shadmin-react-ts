@@ -69,9 +69,11 @@ const ModalDefault = ({
     <AlertDialog open={open} onOpenChange={onClose}>
       <AlertDialogContent>
         <AlertDialogDescription className="sr-only">
-          <span className="sr-only">{"Modal Alert"}</span>
+          {
+            "Modal: This is a pop-up box used to display additional information or operation options."
+          }
         </AlertDialogDescription>
-        <AlertDialogHeader className="p-4 border-b ">
+        <AlertDialogHeader className="p-4 border-b">
           <InlineStack className="min-h-6">
             <AlertDialogTitle>{title}</AlertDialogTitle>
             <XIcon
