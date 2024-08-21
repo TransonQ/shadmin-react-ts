@@ -3,9 +3,9 @@ import { Avatar, AvatarFallback } from "@/components"
 export const Header = () => {
   return (
     <div className="pr-4 w-full h-full flex items-center justify-end">
-      <Avatar>
-        <AvatarFallback className="bg-indigo-600 text-background">
-          User
+      <Avatar className="w-9 h-9">
+        <AvatarFallback className="bg-blue-700 text-background text-xs">
+          {"Admin"}
         </AvatarFallback>
       </Avatar>
     </div>

@@ -24,7 +24,8 @@ export const PresetCard = ({
     top: sticky ? `calc(${headerHeight}px + 1rem)` : undefined,
   }
 
-  const content = sectioned ? <CardContent>{children}</CardContent> : children
+  const content =
+    sectioned && children ? <CardContent>{children}</CardContent> : children
   const titleMarkup = !isReactElement(title) ? (
     <CardHeader>
       <Text as="h2" variant="headingMd">

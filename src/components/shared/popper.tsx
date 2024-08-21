@@ -1,7 +1,7 @@
-import { cn } from "@/lib"
-import type { LucideIcon} from "lucide-react";
-import { CheckIcon, XIcon } from "lucide-react"
-import { toast } from "sonner"
+import { cn } from "@/lib";
+import type { LucideIcon } from "lucide-react";
+import { CheckIcon, XIcon } from "lucide-react";
+import { toast } from "sonner";
 
 // eslint-disable-next-line react-refresh/only-export-components
 function Popper({
@@ -20,7 +20,7 @@ function Popper({
     <div
       className={cn(
         "p-3 rounded-lg bg-card shadow-lg",
-        "flex flex-nowrap justify-between gap-6 min-w-[300px]"
+        "flex flex-nowrap justify-between gap-6"
       )}
     >
       <div className="flex gap-4 items-center">

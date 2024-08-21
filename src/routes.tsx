@@ -1,8 +1,8 @@
-import type { RouteObject } from "react-router-dom";
+import type { RouteObject } from "react-router-dom"
 import { redirect } from "react-router-dom"
-import { NotFound404 } from "./components"
+import { NoAccess403, NotFound404, SeverError500 } from "./components"
 import { AppShell } from "./layouts"
-import { Bills, UpdateBill } from "./pages/example"
+import { Home } from "./pages/example"
 import { Login } from "./pages/login"
 import { RootLoading } from "./pages/root"
 
@@ -19,15 +19,19 @@ export const routesMerge = (): RouteObject[] => [
       /** add static routes */
       {
         index: true,
-        loader: () => redirect("/app/dashboard"),
+        loader: () => redirect("/app/home"),
       },
       {
-        path: "/app/dashboard",
-        element: <Bills />,
+        path: "/app/home",
+        element: <Home />,
       },
       {
-        path: "bills/update/:id?",
-        element: <UpdateBill />,
+        path: "/app/noAccess",
+        element: <NoAccess403 />,
+      },
+      {
+        path: "/app/error",
+        element: <SeverError500 />,
       },
       {
         path: "*",

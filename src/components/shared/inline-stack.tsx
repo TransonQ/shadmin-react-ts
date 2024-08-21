@@ -33,7 +33,7 @@ export const InlineStack = ({
         calcGap(gap),
         fullWidth && "w-full",
         fill && "flex-1",
-        !wrap && "flex-nowrap",
+        wrap ? "flex-wrap" : "flex-nowrap",
         className
       )}
     >

@@ -1,3 +1,2 @@
-export * from "./bills"
-export * from "./update-bill"
+export * from "./home";
 

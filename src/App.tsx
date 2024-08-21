@@ -18,7 +18,7 @@ function App() {
           revalidateOnMount: true,
         }}
       >
-        <Toaster position="bottom-right" visibleToasts={5} />
+        <Toaster position="bottom-center" visibleToasts={4}  />
         <RouterProvider router={router} />
       </SWRConfig>
     </Suspense>

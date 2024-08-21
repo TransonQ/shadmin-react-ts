@@ -3,9 +3,11 @@ import { isInterface } from "../calc"
 import { Button } from "../ui/button"
 import { Icon } from "./icon"
 import { InlineStack } from "./inline-stack"
+import { Show } from "./show"
 import { Text } from "./text"
 import type {
   BaseAction,
+  DestructableAction,
   DisableableAction,
   IconableAction,
   LoadableAction,
@@ -13,43 +15,66 @@ import type {
 
 interface PrimaryAction
   extends LoadableAction,
+    DestructableAction,
+    DisableableAction,
+    IconableAction {}
+
+interface SecondaryAction
+  extends LoadableAction,
     DisableableAction,
     IconableAction {}
 
 export interface PageHeaderProps {
   title?: string
-  primaryAction?: PrimaryAction | React.ReactNode
   backAction?: BaseAction["onAction"]
+  primaryAction?: PrimaryAction | React.ReactNode
+  secondaryActions?: SecondaryAction[] | React.ReactNode
 }
 
 export const PageHeader = ({
   title,
-  primaryAction,
   backAction,
+  primaryAction,
+  secondaryActions,
 }: PageHeaderProps) => {
-  const titleMarkup = title ? (
-    <Text as="h1" variant="headingXl" fontWeight="bold">
-      {title}
-    </Text>
-  ) : null
+  const TitleMarkup = (
+    <Show when={!!title} fallback={null}>
+      <Text as="h1" variant="headingXl" fontWeight="bold">
+        {title}
+      </Text>
+    </Show>
+  )
 
-  const backActionMarkup = backAction ? (
-    <Button onClick={backAction} variant={"ghost"} className="h-8 w-8 p-0">
-      <ArrowLeftIcon className="w-4 h-4 text-secondary-foreground" />
-    </Button>
-  ) : null
+  const BackActionMarkup = (
+    <Show when={!!backAction} fallback={null}>
+      <Button onClick={backAction} variant={"ghost"} className="h-8 w-8 p-0">
+        <ArrowLeftIcon className="w-4 h-4 text-secondary-foreground" />
+      </Button>
+    </Show>
+  )
 
-  const primaryActionMarkup = primaryAction ? (
-    <PrimaryAction primaryAction={primaryAction} />
-  ) : null
+  const PrimaryActionMark = (
+    <Show when={!!primaryAction} fallback={null}>
+      <PrimaryAction primaryAction={primaryAction} />
+    </Show>
+  )
+
+  const SecondaryActionsMarkup = (
+    <Show when={!!secondaryActions} fallback={null}>
+      <SecondaryActions secondaryActions={secondaryActions} />
+    </Show>
+  )
 
   return (
     <InlineStack align="space-between" blockAlign="center" className="mb-4">
       <InlineStack blockAlign="center" gap="sm">
-        {backActionMarkup}
-        {titleMarkup}
+        {BackActionMarkup}
+        {TitleMarkup}
       </InlineStack>
-      <InlineStack wrap={false}>{primaryActionMarkup}</InlineStack>
+      <InlineStack wrap={false} gap={"md"}>
+        {SecondaryActionsMarkup}
+        {PrimaryActionMark}
+      </InlineStack>
     </InlineStack>
   )
 }
@@ -65,16 +90,35 @@ function PrimaryAction({
         onClick={primaryAction.onAction}
       >
         <InlineStack gap="md" blockAlign="center">
-          {primaryAction.loading ? (
+          <Show when={primaryAction.loading} fallback={primaryAction.icon}>
             <Icon source={Loader2Icon} className="animate-spin" />
-          ) : (
-            primaryAction.icon
-          )}
+          </Show>
           {primaryAction.content}
         </InlineStack>
       </Button>
     )
   } else {
     return primaryAction
+  }
+}
+
+function SecondaryActions({
+  secondaryActions,
+}: Pick<PageHeaderProps, "secondaryActions">) {
+  if (isInterface(secondaryActions)) {
+    return secondaryActions.map((action, idx) => {
+      return (
+        <Button
+          key={idx}
+          size={"sm"}
+          variant={"secondary"}
+          onClick={action.onAction}
+        >
+          {action.content}
+        </Button>
+      )
+    })
+  } else {
+    return secondaryActions
   }
 }
