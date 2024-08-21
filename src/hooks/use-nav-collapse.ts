@@ -1,6 +1,7 @@
-import { atom, useAtom } from "jotai"
+import { useAtom } from "jotai"
+import { atomWithStorage } from "jotai/utils"
 
-const AtomNavCollapsed = atom(false)
+const AtomNavCollapsed = atomWithStorage("keep_navbar_collapsed", false)
 
 export const useNavCollapse = () => {
   return useAtom(AtomNavCollapsed)
