@@ -33,8 +33,9 @@ export const FormExample = () => {
   const [selectSingle, setSelectSingle] = useState<string>("")
 
   useEffect(() => {
+    console.log("formValues: ", formValues)
     console.log(selectMultiple)
-  }, [selectMultiple])
+  }, [selectMultiple, formValues])
 
   return (
     <Page title="FormExample" formWith>
