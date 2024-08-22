@@ -88,7 +88,7 @@ const SelectBase = (props: SelectSingleProps) => {
           <ChevronDownIcon className="ml-auto h-4 w-4 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className={cn("w-auto p-0", className)} align="start">
+      <PopoverContent className={cn("p-0", className)} align="start">
         <Command>
           {showSearch && <CommandInput placeholder={title} />}
           <CommandList>
