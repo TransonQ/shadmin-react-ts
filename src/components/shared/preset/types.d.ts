@@ -1,6 +1,3 @@
-type OnSingleChange = (value: string) => void
-type OnMultipleChange = (value: string[]) => void
-
 export interface SelectBaseProps {
   title?: string
   placeholder?: string
@@ -13,9 +10,18 @@ export interface SelectBaseProps {
     icon?: React.ComponentType<{ className?: string }>
   }[]
   className?: string
-  multiple?: boolean
-  onChange: OnSingleChange | OnMultipleChange
-  value: string | string[]
+}
+
+export interface PresetSelectSingleProps extends SelectBaseProps {
+  multiple?: false
+  onChange: (value: string) => void
+  value: string
+}
+
+export interface PresetSelectMultipleProps extends SelectBaseProps {
+  multiple?: true
+  onChange: (value: string[]) => void
+  value: string[]
 }
 
 export interface PresetSelectTriggerProps

@@ -10,9 +10,18 @@ import {
 import { cn } from "@/lib"
 import { SelectContent } from "./select-content"
 import { SelectTrigger } from "./select-triger"
-import type { PresetSelectContentProps, SelectBaseProps } from "./types"
+import type {
+  PresetSelectContentProps,
+  PresetSelectMultipleProps,
+  PresetSelectSingleProps
+} from "./types"
 
-const SelectBase = (props: SelectBaseProps) => {
+function SelectBase(props: PresetSelectSingleProps): React.ReactNode
+function SelectBase(props: PresetSelectMultipleProps): React.ReactNode
+
+function SelectBase(
+  props: PresetSelectSingleProps | PresetSelectMultipleProps
+) {
   const {
     title,
     placeholder,
