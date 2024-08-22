@@ -21,10 +21,15 @@ export function SelectTrigger({
       return firstSelectedLabel
     } else {
       return (
-        <div className="w-full flex justify-between items-center">
-          {firstSelectedLabel}
-          <Badge variant="secondary" className="ml-2 mr-4">
-            {selectedValues.size - 1} selected
+        <div className="w-full flex justify-between items-center line-clamp-1">
+          <span className="truncate"> 
+            {options
+              .filter((option) => valuesSet.has(option.value))
+              .map((option) => option.label)
+              .join(", ")}
+          </span>
+          <Badge variant="secondary" className="ml-2 mr-4 flex-shrink-1">
+            {selectedValues.size} selected
           </Badge>
         </div>
       )
