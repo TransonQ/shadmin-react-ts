@@ -16,6 +16,7 @@ import {
   FormMessage,
   Input,
 } from "@/components/ui"
+import { generateDate } from "@/lib"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useEffect, useState } from "react"
 import { ErrorBoundary } from "react-error-boundary"
@@ -25,6 +26,16 @@ import { formSchema } from "./schema"
 export const FormExample = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
+    mode: "onBlur",
+    defaultValues: {
+      accountName: "",
+      accountAddress: "",
+      description: "",
+      amount: "100",
+      currency: "CNY",
+      date: generateDate(0).dateISOString[0],
+      note: "",
+    },
   })
   const formValues = form.getValues()
 
@@ -121,9 +132,15 @@ export const FormExample = () => {
                     name="currency"
                     render={({ field }) => (
                       <FormItem className="flex-1">
-                        <FormLabel>{"Currency"}</FormLabel>
+                        <FormLabel requiredIndicator>{"Currency"}</FormLabel>
                         <FormControl>
-                          <Input autoComplete="off" {...field} />
+                          <PresetSelect
+                            value={field.value}
+                            onChange={field.onChange}
+                            options={["CNY", "USD", "EUR", "GBP", "JPY"].map(
+                              (s) => ({ label: s, value: s })
+                            )}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -164,7 +181,7 @@ export const FormExample = () => {
                 />
 
                 <PresetSelect
-                  title="Preset Select"
+                  title="Preset Select Single (Default)"
                   showSearch
                   requiredIndicator
                   options={[
@@ -180,7 +197,7 @@ export const FormExample = () => {
 
                 <PresetSelect
                   multiple
-                  title="Preset Select"
+                  title="Preset Select Multiple"
                   showSearch
                   requiredIndicator
                   options={[
@@ -202,7 +219,9 @@ export const FormExample = () => {
       <ContextualSaveBar
         pageWidth="formWidth"
         discardAction={{
-          onAction: () => {},
+          onAction: () => {
+            form.reset()
+          },
         }}
         saveAction={{
           onAction: async () => {
