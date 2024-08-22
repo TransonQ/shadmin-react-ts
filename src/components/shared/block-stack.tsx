@@ -1,14 +1,15 @@
-import { cn } from "@/lib"
-import type { ClassNameValue } from "tailwind-merge"
+import { cn } from "@/lib";
+import type { ClassNameValue } from "tailwind-merge";
 import type {
   Align,
   CrossAlign,
-  Gap} from "../calc";
+  Gap
+} from "../lib";
 import {
   calcFlexItems,
   calcFlexJustify,
   calcGap
-} from "../calc"
+} from "../lib";
 
 type BlockStackProps = {
   children?: React.ReactNode

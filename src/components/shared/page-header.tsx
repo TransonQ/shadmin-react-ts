@@ -1,5 +1,5 @@
 import { ArrowLeftIcon, Loader2Icon } from "lucide-react"
-import { isInterface } from "../calc"
+import { isInterface } from "../lib"
 import { Button } from "../ui/button"
 import { Icon } from "./icon"
 import { InlineStack } from "./inline-stack"

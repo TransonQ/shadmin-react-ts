@@ -1,14 +1,14 @@
-import { cn } from "@/lib"
-import type { LucideIcon} from "lucide-react";
-import { TriangleAlertIcon } from "lucide-react"
-import { createPortal } from "react-dom"
-import type { PageWidth } from "../calc";
-import { calcPageWidth, isInterface } from "../calc"
-import { Button } from "../ui"
-import { frameVariants } from "./config"
-import { Icon } from "./icon"
-import { Logo } from "./logo"
-import { type BaseAction, type DisableableAction } from "./types"
+import { cn } from "@/lib";
+import type { LucideIcon } from "lucide-react";
+import { TriangleAlertIcon } from "lucide-react";
+import { createPortal } from "react-dom";
+import type { PageWidth } from "../lib";
+import { calcPageWidth, isInterface } from "../lib";
+import { Button } from "../ui";
+import { frameVariants } from "./config";
+import { Icon } from "./icon";
+import { Logo } from "./logo";
+import { type BaseAction, type DisableableAction } from "./types";
 
 const { headerHeight } = frameVariants
 

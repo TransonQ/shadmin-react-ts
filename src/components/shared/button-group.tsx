@@ -1,6 +1,6 @@
-import { cn } from "@/lib"
-import type { Gap } from "../calc";
-import { calcGap } from "../calc"
+import { cn } from "@/lib";
+import type { Gap } from "../lib";
+import { calcGap } from "../lib";
 
 interface ButtonGroupProps {
   gap?: Gap

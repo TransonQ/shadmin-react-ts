@@ -1,7 +1,7 @@
 import { cn } from "@/lib";
 import type { ClassNameValue } from "tailwind-merge";
-import type { PageWidth } from "../calc";
-import { calcPageWidth } from "../calc";
+import type { PageWidth } from "../lib";
+import { calcPageWidth } from "../lib";
 import type { PageBreadcrumbProps } from "./page-breadcrumb";
 import { PageBreadcrumb } from "./page-breadcrumb";
 import type { PageHeaderProps } from "./page-header";

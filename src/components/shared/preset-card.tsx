@@ -1,5 +1,5 @@
 import { cn } from "@/lib"
-import { isReactElement } from "../calc"
+import { isReactElement } from "../lib"
 import { Card, CardContent, CardHeader } from "../ui/card"
 import { frameVariants } from "./config"
 import { Show } from "./show"
