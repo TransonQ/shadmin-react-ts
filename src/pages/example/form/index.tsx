@@ -11,7 +11,7 @@ import {
   Page,
   PresetCard,
 } from "@/components"
-import { ErrorAreaFallback } from "@/components/errors"
+import { ErrorFallback } from "@/components/errors"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ErrorBoundary } from "react-error-boundary"
 import { Form, useForm } from "react-hook-form"
@@ -28,7 +28,7 @@ export const FormExample = () => {
         <Layout.Section>
           <PresetCard sectioned>
             <Form {...form}>
-              <ErrorBoundary fallbackRender={ErrorAreaFallback}>
+              <ErrorBoundary fallbackRender={ErrorFallback.Alert}>
                 <FormField
                   control={form.control}
                   name="accountName"
