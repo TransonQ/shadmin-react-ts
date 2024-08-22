@@ -44,7 +44,9 @@ export function SelectContent({
               <div
                 className={cn(
                   "mr-2 flex h-4 w-4 items-center justify-center ",
-                  isSelected ? "opacity-100" : "opacity-50 [&_svg]:invisible"
+                  isSelected
+                    ? "opacity-100 [&_svg]:text-primary"
+                    : "opacity-50 [&_svg]:invisible"
                 )}
               >
                 <CheckIcon className="h-4 w-4" />
@@ -67,7 +69,9 @@ export function SelectContent({
             {option.icon && (
               <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
             )}
-            <span>{option.label}</span>
+            <span className={cn(!multiple && isSelected && "text-primary")}>
+              {option.label}
+            </span>
           </CommandItem>
         )
       })}
