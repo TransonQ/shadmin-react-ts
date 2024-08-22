@@ -17,7 +17,7 @@ export const Logo = ({ collapsed }: useLogoProps = {}) => {
       x-chunk="LOGO"
       style={styles}
       className={cn(
-        "shrink-0 h-full text-3xl font-bold p-3",
+        "shrink-0 h-full text-3xl font-bold p-3 text-nowrap",
         "text-blue-700 flex items-center",
         "transition-all duration-150",
         isCollapsed ? "justify-center" : "justify-start"
