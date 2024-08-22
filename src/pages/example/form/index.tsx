@@ -27,7 +27,7 @@ export const FormExample = () => {
   })
   const formValues = form.getValues()
 
-  const [select, setSelect] = useState("3")
+  const [select, setSelect] = useState<string[]>([])
   useEffect(() => {
     console.log(select)
   }, [select])
@@ -159,7 +159,7 @@ export const FormExample = () => {
                   )}
                 />
 
-                <PresetSelect
+                <PresetSelect.Multiple
                   title="Preset Select"
                   showSearch
                   requiredIndicator
