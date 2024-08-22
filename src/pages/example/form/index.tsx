@@ -12,10 +12,11 @@ import {
   Input,
   Page,
   PresetCard,
+  PresetSelect,
 } from "@/components"
 import { ErrorFallback } from "@/components/errors"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { ErrorBoundary } from "react-error-boundary"
 import { useForm } from "react-hook-form"
 import { formSchema } from "./schema"
@@ -26,6 +27,7 @@ export const FormExample = () => {
   })
   const formValues = form.getValues()
 
+  const [select, setselect] = useState<string[]>([])
   useEffect(() => {
     console.log(formValues)
   }, [formValues])
@@ -132,7 +134,11 @@ export const FormExample = () => {
                     <FormItem className="flex-1">
                       <FormLabel>{"Date"}</FormLabel>
                       <FormControl>
-                        <Input autoComplete="off" {...field} placeholder="2024-10-01"/>
+                        <Input
+                          autoComplete="off"
+                          {...field}
+                          placeholder="2024-10-01"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -154,6 +160,13 @@ export const FormExample = () => {
                 />
               </FormLayout>
             </PresetCard>
+
+            <PresetSelect
+              multiple={true}
+              options={[]}
+              value={select}
+              onChange={setselect}
+            />
 
             <InlineStack align="end">
               <Button
