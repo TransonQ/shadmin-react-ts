@@ -10,13 +10,9 @@ import {
 import { cn } from "@/lib"
 import { SelectContent } from "./select-content"
 import { SelectTrigger } from "./select-triger"
-import type {
-  PresetSelectContentProps,
-  PresetSelectMultipleProps,
-  PresetSelectSingleProps,
-} from "./types"
+import type { PresetSelectContentProps, SelectBaseProps } from "./types"
 
-const SelectBase = (props: PresetSelectSingleProps) => {
+const SelectBase = (props: SelectBaseProps) => {
   const {
     title,
     placeholder,
@@ -27,9 +23,12 @@ const SelectBase = (props: PresetSelectSingleProps) => {
     value,
     onChange,
     className,
+    multiple,
   } = props
 
-  const selectedValues = new Set(value ? [value] : [])
+  const selectedValues = new Set(
+    multiple && Array.isArray(value) ? value : [value]
+  )
 
   return (
     <Popover>
@@ -38,7 +37,7 @@ const SelectBase = (props: PresetSelectSingleProps) => {
           <SelectTrigger
             title={title}
             placeholder={placeholder}
-            selectedValues={selectedValues}
+            selectedValues={selectedValues as Set<string>}
             requiredIndicator={requiredIndicator}
             disabled={disabled}
             options={options}
@@ -51,9 +50,9 @@ const SelectBase = (props: PresetSelectSingleProps) => {
           <CommandList>
             <CommandEmpty>{"No results"}</CommandEmpty>
             <SelectContent
-              multiple={false}
+              multiple={multiple}
               options={options}
-              selectedValues={selectedValues}
+              selectedValues={selectedValues as Set<string>}
               onChange={onChange as PresetSelectContentProps["onChange"]}
             />
           </CommandList>
@@ -63,56 +62,6 @@ const SelectBase = (props: PresetSelectSingleProps) => {
   )
 }
 
-const SelectMultiple = (props: PresetSelectMultipleProps) => {
-  const {
-    title,
-    placeholder,
-    requiredIndicator,
-    disabled,
-    showSearch,
-    options,
-    value,
-    onChange,
-    className,
-  } = props
+SelectBase.displayName = "PresetSelect"
 
-  const selectedValues = new Set(value)
-
-  return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <div className={className}>
-          <SelectTrigger
-            title={title}
-            placeholder={placeholder}
-            selectedValues={selectedValues}
-            requiredIndicator={requiredIndicator}
-            disabled={disabled}
-            options={options}
-          />
-        </div>
-      </PopoverTrigger>
-      <PopoverContent className={cn("p-0")} align="start">
-        <Command>
-          {showSearch && <CommandInput placeholder={title} />}
-          <CommandList>
-            <CommandEmpty>{"No results"}</CommandEmpty>
-            <SelectContent
-              multiple={true}
-              options={options}
-              selectedValues={selectedValues}
-              onChange={onChange as PresetSelectContentProps["onChange"]}
-            />
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
-  )
-}
-
-SelectBase.displayName = "SelectSingle"
-SelectMultiple.displayName = "SelectMultiple"
-
-export const PresetSelect = Object.assign(SelectBase, {
-  Multiple: SelectMultiple,
-})
+export const PresetSelect = Object.assign(SelectBase, {})

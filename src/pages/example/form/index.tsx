@@ -179,7 +179,8 @@ export const FormExample = () => {
                   onChange={setSelectSingle}
                 />
 
-                <PresetSelect.Multiple
+                <PresetSelect
+                  multiple
                   title="Preset Select"
                   showSearch
                   requiredIndicator
