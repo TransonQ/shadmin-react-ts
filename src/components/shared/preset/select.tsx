@@ -13,7 +13,7 @@ import { SelectTrigger } from "./select-triger"
 import type {
   PresetSelectContentProps,
   PresetSelectMultipleProps,
-  PresetSelectSingleProps
+  PresetSelectSingleProps,
 } from "./types"
 
 function SelectBase(props: PresetSelectSingleProps): React.ReactNode

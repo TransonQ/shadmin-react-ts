@@ -63,7 +63,7 @@ export const FormExample = () => {
                       <FormControl>
                         <Input
                           autoComplete="off"
-                          placeholder="Note"
+                          placeholder="Account Name"
                           {...field}
                         />
                       </FormControl>
