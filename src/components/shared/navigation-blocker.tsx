@@ -29,7 +29,7 @@ export const NavigationBlocker = ({ isBlocked }: NavigationBlockerProps) => {
         blocker.reset()
       }
     }
-  }, [blocker.state])
+  }, [blocker])
 
   return (
     <Modal
