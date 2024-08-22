@@ -1,7 +1,7 @@
 import {
   Button,
+  Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -14,7 +14,7 @@ import {
 import { ErrorFallback } from "@/components/errors"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ErrorBoundary } from "react-error-boundary"
-import { Form, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { formSchema } from "./schema"
 
 export const FormExample = () => {
@@ -27,27 +27,35 @@ export const FormExample = () => {
       <Layout>
         <Layout.Section>
           <PresetCard sectioned>
-            <Form {...form}>
-              <ErrorBoundary fallbackRender={ErrorFallback.Alert}>
+            <ErrorBoundary fallbackRender={ErrorFallback.Alert}>
+              <Form {...form}>
                 <FormField
                   control={form.control}
-                  name="accountName"
+                  name="note"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{"Account Name"}</FormLabel>
+                    <FormItem className="flex-1">
+                      <FormLabel requiredIndicator>{"Note"}</FormLabel>
                       <FormControl>
-                        <Input placeholder="shadcn" />
+                        <Input
+                          autoComplete="off"
+                          placeholder="Note"
+                          {...field}
+                        />
                       </FormControl>
-                      <FormDescription>
-                        {"This is your public display name."}
-                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-              </ErrorBoundary>
-              <Button type="submit">{"Submit"}</Button>
-            </Form>
+                <Button
+                  onClick={async () => {
+                    const valid = await form.trigger()
+                    console.log("valid: ", valid)
+                  }}
+                >
+                  {"Submit"}
+                </Button>
+              </Form>
+            </ErrorBoundary>
           </PresetCard>
         </Layout.Section>
       </Layout>
