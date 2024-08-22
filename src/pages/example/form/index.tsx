@@ -1,14 +1,13 @@
 import { ErrorFallback } from "@/components/errors"
 import {
   BlockStack,
+  ContextualSaveBar,
   FormLayout,
-  InlineStack,
   Page,
   PresetCard,
   PresetSelect,
 } from "@/components/shared"
 import {
-  Button,
   Form,
   FormControl,
   FormField,
@@ -196,20 +195,21 @@ export const FormExample = () => {
                 />
               </FormLayout>
             </PresetCard>
-
-            <InlineStack align="end">
-              <Button
-                onClick={async () => {
-                  const valid = await form.trigger()
-                  console.log("valid: ", valid)
-                }}
-              >
-                {"Submit"}
-              </Button>
-            </InlineStack>
           </BlockStack>
         </Form>
       </ErrorBoundary>
+
+      <ContextualSaveBar
+        pageWidth="formWidth"
+        discardAction={{
+          onAction: () => {},
+        }}
+        saveAction={{
+          onAction: async () => {
+            await form.trigger()
+          },
+        }}
+      />
     </Page>
   )
 }

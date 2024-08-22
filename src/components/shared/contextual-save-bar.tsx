@@ -1,14 +1,14 @@
-import { cn } from "@/lib";
-import type { LucideIcon } from "lucide-react";
-import { TriangleAlertIcon } from "lucide-react";
-import { createPortal } from "react-dom";
-import type { PageWidth } from "../lib";
-import { calcPageWidth, isInterface } from "../lib";
-import { Button } from "../ui";
-import { frameVariants } from "./config";
-import { Icon } from "./icon";
-import { Logo } from "./logo";
-import { type BaseAction, type DisableableAction } from "./types";
+import { cn } from "@/lib"
+import type { LucideIcon } from "lucide-react"
+import { TriangleAlertIcon } from "lucide-react"
+import { createPortal } from "react-dom"
+import type { PageWidth } from "../lib"
+import { calcPageWidth, isInterface } from "../lib"
+import { Button } from "../ui"
+import { frameVariants } from "./config"
+import { Icon } from "./icon"
+import { Logo } from "./logo"
+import { type BaseAction, type DisableableAction } from "./types"
 
 const { headerHeight } = frameVariants
 
@@ -35,10 +35,10 @@ export const ContextualSaveBar = ({
   const discardActionMarkup = isInterface(discardAction) ? (
     <Button
       variant="ghost"
-      className="hover:bg-background/90"
+      className="h-8 hover:bg-background/90"
       onClick={discardAction.onAction}
     >
-      {discardAction.content}
+      {discardAction.content || "Discard"}
     </Button>
   ) : (
     discardAction
@@ -47,10 +47,10 @@ export const ContextualSaveBar = ({
   const saveActionMarkup = isInterface(saveAction) ? (
     <Button
       variant="secondary"
-      className="text-foreground"
+      className="text-foreground h-8"
       onClick={saveAction.onAction}
     >
-      {saveAction.content}
+      {saveAction.content || "Save"}
     </Button>
   ) : (
     saveAction
