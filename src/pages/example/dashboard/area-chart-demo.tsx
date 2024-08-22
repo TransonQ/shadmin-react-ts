@@ -1,4 +1,4 @@
-import type { ChartConfig } from "@/components"
+import type { ChartConfig } from "@/components/ui"
 import {
   Card,
   CardContent,
@@ -15,7 +15,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components"
+} from "@/components/ui"
 import { generateArray, generateDate } from "@/lib"
 import { faker } from "@faker-js/faker"
 

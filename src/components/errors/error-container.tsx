@@ -2,13 +2,12 @@ import {
   type BaseAction,
   type DestructableAction,
   BlockStack,
-  Button,
-  Card,
   InlineStack,
   Text,
-} from "@/components"
+} from "@/components/shared"
 import { cn } from "@/lib"
 import type { LucideIcon } from "lucide-react"
+import { Button, Card } from "../ui"
 
 interface PrimaryAction extends DestructableAction {}
 interface SecondaryAction extends BaseAction {}

@@ -1,4 +1,4 @@
-import { InlineStack, NavCollapsed, Navgation } from "@/components"
+import { InlineStack, NavCollapsed, Navgation } from "@/components/shared"
 import { navs } from "@/configs"
 import { useNavCollapse } from "@/hooks"
 import { cn } from "@/lib"

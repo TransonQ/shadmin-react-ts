@@ -1,5 +1,3 @@
-import { cn } from "@/lib"
-import { CheckIcon, ChevronDownIcon } from "lucide-react"
 import {
   Badge,
   Button,
@@ -12,8 +10,10 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../ui"
-import { Show } from "./show"
+} from "@/components/ui"
+import { cn } from "@/lib"
+import { CheckIcon, ChevronDownIcon } from "lucide-react"
+import { Show } from "../show"
 
 interface SelectBaseProps {
   title?: string
@@ -73,60 +73,12 @@ const SelectBase = (props: SelectSingleProps) => {
           {showSearch && <CommandInput placeholder={title} />}
           <CommandList>
             <CommandEmpty>{"No results"}</CommandEmpty>
-            <CommandGroup>
-              {options.map((option) => {
-                const isSelected = selectedValues.has(option.value)
-                return (
-                  <CommandItem
-                    className="capitalize"
-                    disabled={false}
-                    key={option.value}
-                    onSelect={() => {
-                      selectedValues.clear()
-                      if (!isSelected) {
-                        selectedValues.add(option.value)
-                      }
-                      const value = Array.from(selectedValues)
-                      // else if (mode === "multiple") {
-                      //   if (isSelected) {
-                      //     selectedValues.delete(option.value)
-                      //   } else {
-                      //     selectedValues.add(option.value)
-                      //   }
-                      // }
-                      onChange?.(value.toString())
-                    }}
-                  >
-                    <div
-                      className={cn(
-                        "mr-2 flex h-4 w-4 items-center justify-center ",
-                        isSelected
-                          ? "opacity-100"
-                          : "opacity-50 [&_svg]:invisible"
-                      )}
-                    >
-                      <CheckIcon className="h-4 w-4" />
-                    </div>
-                    {/* {mode === "multiple" && (
-                      <div
-                        className={cn(
-                          "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
-                          isSelected
-                            ? "bg-primary text-primary-foreground"
-                            : "opacity-50 [&_svg]:invisible"
-                        )}
-                      >
-                        <CheckIcon className={cn("h-4 w-4")} />
-                      </div>
-                    )} */}
-                    {option.icon && (
-                      <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-                    )}
-                    <span>{option.label}</span>
-                  </CommandItem>
-                )
-              })}
-            </CommandGroup>
+            <DisplayItem
+              multiple={false}
+              options={options}
+              selectedValues={selectedValues}
+              onChange={onChange as DisplayItemProps["onChange"]}
+            />
           </CommandList>
         </Command>
       </PopoverContent>
@@ -168,44 +120,12 @@ const SelectMultiple = (props: SelectMultipleProps) => {
           {showSearch && <CommandInput placeholder={title} />}
           <CommandList>
             <CommandEmpty>{"No results"}</CommandEmpty>
-            <CommandGroup>
-              {options.map((option) => {
-                const isSelected = selectedValues.has(option.value)
-                return (
-                  <CommandItem
-                    className="capitalize"
-                    disabled={false}
-                    key={option.value}
-                    onSelect={() => {
-                      if (isSelected) {
-                        selectedValues.delete(option.value)
-                      } else {
-                        selectedValues.add(option.value)
-                      }
-                      const value = Array.from(selectedValues)
-                      console.log("value: ", value)
-
-                      onChange?.(value)
-                    }}
-                  >
-                    <div
-                      className={cn(
-                        "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
-                        isSelected
-                          ? "bg-primary text-primary-foreground"
-                          : "opacity-50 [&_svg]:invisible"
-                      )}
-                    >
-                      <CheckIcon className={cn("h-4 w-4")} />
-                    </div>
-                    {option.icon && (
-                      <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-                    )}
-                    <span>{option.label}</span>
-                  </CommandItem>
-                )
-              })}
-            </CommandGroup>
+            <DisplayItem
+              multiple={true}
+              options={options}
+              selectedValues={selectedValues}
+              onChange={onChange as DisplayItemProps["onChange"]}
+            />
           </CommandList>
         </Command>
       </PopoverContent>
@@ -220,7 +140,6 @@ interface TriggerDisplayPorps
 
 function TriggerDisplay({
   selectedValues,
-  className,
   title,
   requiredIndicator,
   disabled,
@@ -269,6 +188,83 @@ function TriggerDisplay({
         <ChevronDownIcon className="ml-auto h-4 w-4 opacity-50" />
       </Button>
     </div>
+  )
+}
+
+interface DisplayItemProps extends Pick<SelectBaseProps, "options"> {
+  selectedValues: Set<string>
+  multiple?: boolean
+  onChange: (value: string | string[]) => void
+}
+
+function DisplayItem({
+  selectedValues,
+  options,
+  onChange,
+  multiple,
+}: DisplayItemProps) {
+  return (
+    <CommandGroup>
+      {options.map((option) => {
+        const isSelected = selectedValues.has(option.value)
+        return (
+          <CommandItem
+            className="capitalize"
+            disabled={false}
+            key={option.value}
+            onSelect={() => {
+              if (!multiple) {
+                // single select
+                selectedValues.clear()
+                if (!isSelected) {
+                  selectedValues.add(option.value)
+                }
+                const value = Array.from(selectedValues)
+                onChange?.(value.toString())
+              } else {
+                // multiple select
+                if (isSelected) {
+                  selectedValues.delete(option.value)
+                } else {
+                  selectedValues.add(option.value)
+                }
+                const values = Array.from(selectedValues)
+                onChange?.(values)
+              }
+            }}
+          >
+            <Show when={!multiple} fallback={null}>
+              <div
+                className={cn(
+                  "mr-2 flex h-4 w-4 items-center justify-center ",
+                  isSelected ? "opacity-100" : "opacity-50 [&_svg]:invisible"
+                )}
+              >
+                <CheckIcon className="h-4 w-4" />
+              </div>
+            </Show>
+
+            <Show when={multiple} fallback={null}>
+              <div
+                className={cn(
+                  "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
+                  isSelected
+                    ? "bg-primary text-primary-foreground"
+                    : "opacity-50 [&_svg]:invisible"
+                )}
+              >
+                <CheckIcon className={cn("h-4 w-4")} />
+              </div>
+            </Show>
+
+            {option.icon && (
+              <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+            )}
+            <span>{option.label}</span>
+          </CommandItem>
+        )
+      })}
+    </CommandGroup>
   )
 }
 

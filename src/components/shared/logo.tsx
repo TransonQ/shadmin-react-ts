@@ -1,6 +1,6 @@
-import { frameVariants } from "@/components"
 import { useNavCollapse } from "@/hooks"
 import { cn } from "@/lib"
+import { frameVariants } from "../shared"
 
 const { navbarWidth, navbarCollapsedWidth } = frameVariants
 type useLogoProps = { collapsed?: boolean }

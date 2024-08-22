@@ -1,6 +1,4 @@
-import type {
-  ChartConfig
-} from "@/components";
+import type { ChartConfig } from "@/components/ui"
 import {
   Card,
   CardContent,
@@ -10,11 +8,11 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components";
-import { generateArray, generateDate } from "@/lib";
-import { faker } from "@faker-js/faker";
-import * as React from "react";
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
+} from "@/components/ui"
+import { generateArray, generateDate } from "@/lib"
+import { faker } from "@faker-js/faker"
+import * as React from "react"
+import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
 
 const chartConfig = {
   views: {

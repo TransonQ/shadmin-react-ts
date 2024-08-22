@@ -1,4 +1,5 @@
-import { Auth, Frame, InlineStack, Logo, TooltipProvider } from "@/components"
+import { Auth, Frame, InlineStack, Logo } from "@/components/shared"
+import { TooltipProvider } from "@/components/ui"
 import { useNavCollapse } from "@/hooks"
 import { Outlet } from "react-router-dom"
 import { Header } from "./header"

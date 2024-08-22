@@ -1,4 +1,4 @@
-import type { ChartConfig } from "@/components"
+import type { ChartConfig } from "@/components/ui"
 import {
   Card,
   CardContent,
@@ -9,7 +9,7 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components"
+} from "@/components/ui"
 import { TrendingUp } from "lucide-react"
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 

@@ -1,17 +1,17 @@
 import {
-  BlockStack,
-  frameVariants,
-  Icon,
   ScrollArea,
-  Text,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components"
+} from "@/components/ui"
 import { cn } from "@/lib"
 import type { LucideIcon } from "lucide-react"
 import { matchPath, useLocation, useNavigate } from "react-router-dom"
+import { BlockStack } from "./block-stack"
+import { frameVariants } from "./config"
+import { Icon } from "./icon"
 import { Show } from "./show"
+import { Text } from "./text"
 
 interface NavgationProps {
   footer?: React.ReactNode

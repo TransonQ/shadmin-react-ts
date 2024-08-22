@@ -1,6 +1,6 @@
 import type { RouteObject } from "react-router-dom"
 import { redirect } from "react-router-dom"
-import { NoAccess403, NotFound404, SeverError500 } from "./components"
+import { NoAccess403, NotFound404, SeverError500 } from "./components/errors"
 import { AppShell } from "./layouts"
 import { Home } from "./pages/example"
 import { DashboardExmaple } from "./pages/example/dashboard"

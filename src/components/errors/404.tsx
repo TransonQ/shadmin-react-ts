@@ -1,6 +1,6 @@
-import { Text } from "@/components"
 import { FileQuestionIcon } from "lucide-react"
 import { useNavigate } from "react-router-dom"
+import { Text } from "../shared"
 import { ErrorContainer } from "./error-container"
 
 export const NotFound404 = ({ className }: { className?: string }) => {

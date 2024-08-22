@@ -1,4 +1,4 @@
-import { popper, SkeletonApp } from "@/components"
+import { popper, SkeletonApp } from "@/components/shared"
 import { useCallback, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 

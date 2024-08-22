@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from "@/components"
+import { Avatar, AvatarFallback } from "@/components/ui"
 
 export const Header = () => {
   return (

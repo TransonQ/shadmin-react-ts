@@ -1,4 +1,4 @@
-import { InlineStack, Page } from "@/components"
+import { InlineStack, Page } from "@/components/shared"
 import { AreaChartDemo } from "./area-chart-demo"
 import { BarChartDemo } from "./bar-chart-demo"
 import { LineChartDemo } from "./line-chart-demo"

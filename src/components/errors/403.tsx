@@ -1,5 +1,5 @@
-import { Text } from "@/components"
 import { FileLock2Icon } from "lucide-react"
+import { Text } from "../shared"
 import { ErrorContainer } from "./error-container"
 
 export const NoAccess403 = ({ className }: { className?: string }) => {

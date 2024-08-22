@@ -1,4 +1,4 @@
-import { Button, Input, Label } from "@/components"
+import { Button, Input, Label } from "@/components/ui"
 import { Link, useNavigate } from "react-router-dom"
 
 export const Login = () => {

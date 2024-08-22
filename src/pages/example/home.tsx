@@ -1,10 +1,6 @@
-import type { PageWidth } from "@/components"
+import type { PageWidth } from "@/components/lib"
 import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
   BlockStack,
-  Button,
   ContextualSaveBar,
   Icon,
   InlineStack,
@@ -13,6 +9,12 @@ import {
   Page,
   popper,
   PresetCard,
+} from "@/components/shared"
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+  Button,
   Select,
   SelectContent,
   SelectGroup,
@@ -20,7 +22,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components"
+} from "@/components/ui"
 import { lorem } from "@/mocks/mock-data"
 import { AlertCircleIcon, ArrowRightIcon } from "lucide-react"
 import { useState } from "react"
