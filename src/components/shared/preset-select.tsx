@@ -13,10 +13,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "../ui"
+import { Show } from "./show"
 
 interface SelectBaseProps {
   title?: string
   placeholder?: string
+  requiredIndicator?: boolean
   disabled?: boolean
   showSearch?: boolean
   options: {
@@ -41,6 +43,7 @@ const SelectBase = (props: SelectSingleProps) => {
   const {
     title,
     placeholder,
+    requiredIndicator,
     disabled,
     showSearch,
     options,
@@ -72,28 +75,38 @@ const SelectBase = (props: SelectSingleProps) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button
-          disabled={disabled}
-          variant={"outline"}
-          className={cn(
-            "w-full justify-start text-left font-normal disabled:opacity-100 disabled:bg-muted",
-            !selectedValues.size && "text-muted-foreground"
-          )}
-        >
-          {selectedValues.size ? (
-            fieldDisplay(selectedValues)
-          ) : (
-            <span className="">{placeholder}</span>
-          )}
-          <ChevronDownIcon className="ml-auto h-4 w-4 opacity-50" />
-        </Button>
+        <div className={className}>
+          <Show when={!!title} fallback={null}>
+            <h5 className="mb-2">
+              {title}
+              {requiredIndicator && (
+                <span className="text-destructive"> *</span>
+              )}
+            </h5>
+          </Show>
+          <Button
+            disabled={disabled}
+            variant={"outline"}
+            className={cn(
+              "w-full justify-start text-left font-normal disabled:opacity-100 disabled:bg-muted",
+              !selectedValues.size && "text-muted-foreground"
+            )}
+          >
+            {selectedValues.size ? (
+              fieldDisplay(selectedValues)
+            ) : (
+              <span>{placeholder}</span>
+            )}
+            <ChevronDownIcon className="ml-auto h-4 w-4 opacity-50" />
+          </Button>
+        </div>
       </PopoverTrigger>
-      <PopoverContent className={cn("p-0", className)} align="start">
+      <PopoverContent className={cn("p-0")} align="start">
         <Command>
           {showSearch && <CommandInput placeholder={title} />}
           <CommandList>
             <CommandEmpty>{"No results"}</CommandEmpty>
-            <CommandGroup className="">
+            <CommandGroup>
               {options.map((option) => {
                 const isSelected = selectedValues.has(option.value)
                 return (
