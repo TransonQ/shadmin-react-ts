@@ -27,10 +27,12 @@ export const FormExample = () => {
   })
   const formValues = form.getValues()
 
-  const [select, setSelect] = useState<string[]>([])
+  const [selectMultiple, setSelectMultiple] = useState<string[]>([])
+  const [selectSingle, setSelectSingle] = useState<string>("")
+
   useEffect(() => {
-    console.log(select)
-  }, [select])
+    console.log(selectMultiple)
+  }, [selectMultiple])
 
   return (
     <Page title="FormExample" formWith>
@@ -159,6 +161,21 @@ export const FormExample = () => {
                   )}
                 />
 
+                <PresetSelect
+                  title="Preset Select"
+                  showSearch
+                  requiredIndicator
+                  options={[
+                    { label: "Option 1", value: "1" },
+                    { label: "Option 2", value: "2" },
+                    { label: "Option 3", value: "3" },
+                    { label: "Option 4", value: "4" },
+                    { label: "Option 5", value: "5" },
+                  ]}
+                  value={selectSingle}
+                  onChange={setSelectSingle}
+                />
+
                 <PresetSelect.Multiple
                   title="Preset Select"
                   showSearch
@@ -170,8 +187,8 @@ export const FormExample = () => {
                     { label: "Option 4", value: "4" },
                     { label: "Option 5", value: "5" },
                   ]}
-                  value={select}
-                  onChange={setSelect}
+                  value={selectMultiple}
+                  onChange={setSelectMultiple}
                 />
               </FormLayout>
             </PresetCard>
