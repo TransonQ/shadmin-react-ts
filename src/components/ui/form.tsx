@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import type * as LabelPrimitive from "@radix-ui/react-label"
 import { Slot } from "@radix-ui/react-slot"
 import * as React from "react"
@@ -84,12 +85,12 @@ const FormLabel = React.forwardRef<
     requiredIndicator?: boolean
   }
 >(({ className, children, requiredIndicator, ...props }, ref) => {
-  const { error, formItemId } = useFormField()
+  const { /** error */ formItemId } = useFormField()
 
   return (
     <Label
       ref={ref}
-      className={cn(error && "text-destructive", className)}
+      className={cn(/** error && "text-destructive", */ className)}
       htmlFor={formItemId}
       {...props}
     >

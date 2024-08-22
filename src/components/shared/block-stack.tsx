@@ -1,15 +1,7 @@
-import { cn } from "@/lib";
-import type { ClassNameValue } from "tailwind-merge";
-import type {
-  Align,
-  CrossAlign,
-  Gap
-} from "../lib";
-import {
-  calcFlexItems,
-  calcFlexJustify,
-  calcGap
-} from "../lib";
+import { cn } from "@/lib"
+import type { ClassNameValue } from "tailwind-merge"
+import type { Align, CrossAlign, Gap } from "../lib"
+import { calcFlexItems, calcFlexJustify, calcGap } from "../lib"
 
 type BlockStackProps = {
   children?: React.ReactNode
@@ -29,7 +21,7 @@ export const BlockStack = ({
   return (
     <div
       className={cn(
-        "flex flex-col items-start",
+        "flex flex-col",
         calcFlexJustify(align),
         calcFlexItems(inlineAlign),
         calcGap(gap),

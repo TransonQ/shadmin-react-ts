@@ -1,4 +1,5 @@
 import {
+  BlockStack,
   Button,
   Form,
   FormControl,
@@ -7,8 +8,8 @@ import {
   FormLabel,
   FormLayout,
   FormMessage,
+  InlineStack,
   Input,
-  Layout,
   Page,
   PresetCard,
 } from "@/components"
@@ -31,102 +32,142 @@ export const FormExample = () => {
 
   return (
     <Page title="FormExample" formWith>
-      <Layout>
-        <Layout.Section>
-          <PresetCard sectioned>
-            <ErrorBoundary fallbackRender={ErrorFallback.Alert}>
-              <Form {...form}>
-                <FormLayout>
-                  <FormLayout.Group condensed>
-                    <FormField
-                      control={form.control}
-                      name="accountName"
-                      render={({ field }) => (
-                        <FormItem className="flex-1">
-                          <FormLabel requiredIndicator>
-                            {"Account Name"}
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              autoComplete="off"
-                              placeholder="Note"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+      <ErrorBoundary fallbackRender={ErrorFallback.Alert}>
+        <Form {...form}>
+          <BlockStack gap="lg">
+            <PresetCard sectioned>
+              <FormLayout>
+                <FormField
+                  control={form.control}
+                  name="accountName"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel requiredIndicator>{"Account Name"}</FormLabel>
+                      <FormControl>
+                        <Input
+                          autoComplete="off"
+                          placeholder="Note"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-                    <FormField
-                      control={form.control}
-                      name="note"
-                      render={({ field }) => (
-                        <FormItem className="flex-1">
-                          <FormLabel>{"Note"}</FormLabel>
-                          <FormControl>
-                            <Input
-                              autoComplete="off"
-                              placeholder="Note"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                <FormField
+                  control={form.control}
+                  name="accountAddress"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>{"Account Address"}</FormLabel>
+                      <FormControl>
+                        <Input
+                          autoComplete="off"
+                          placeholder="Account Address"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-                    <FormField
-                      control={form.control}
-                      name="note"
-                      render={({ field }) => (
-                        <FormItem className="flex-1">
-                          <FormLabel>{"Note"}</FormLabel>
-                          <FormControl>
-                            <Input
-                              autoComplete="off"
-                              placeholder="Note"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>{"Description"}</FormLabel>
+                      <FormControl>
+                        <Input
+                          autoComplete="off"
+                          placeholder="Description"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </FormLayout>
+            </PresetCard>
 
-                    <FormField
-                      control={form.control}
-                      name="note"
-                      render={({ field }) => (
-                        <FormItem className="flex-1">
-                          <FormLabel>{"Note"}</FormLabel>
-                          <FormControl>
-                            <Input
-                              autoComplete="off"
-                              placeholder="Note"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </FormLayout.Group>
+            <PresetCard sectioned>
+              <FormLayout>
+                <FormLayout.Group>
+                  <FormField
+                    control={form.control}
+                    name="amount"
+                    render={({ field }) => (
+                      <FormItem className="flex-1">
+                        <FormLabel requiredIndicator>{"Amount"}</FormLabel>
+                        <FormControl>
+                          <Input autoComplete="off" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-                  <Button
-                    onClick={async () => {
-                      const valid = await form.trigger()
-                      console.log("valid: ", valid)
-                    }}
-                  >
-                    {"Submit"}
-                  </Button>
-                </FormLayout>
-              </Form>
-            </ErrorBoundary>
-          </PresetCard>
-        </Layout.Section>
-      </Layout>
+                  <FormField
+                    control={form.control}
+                    name="currency"
+                    render={({ field }) => (
+                      <FormItem className="flex-1">
+                        <FormLabel>{"Currency"}</FormLabel>
+                        <FormControl>
+                          <Input autoComplete="off" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </FormLayout.Group>
+
+                <FormField
+                  control={form.control}
+                  name="date"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>{"Date"}</FormLabel>
+                      <FormControl>
+                        <Input autoComplete="off" {...field} placeholder="2024-10-01"/>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="note"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>{"Note"}</FormLabel>
+                      <FormControl>
+                        <Input autoComplete="off" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </FormLayout>
+            </PresetCard>
+
+            <InlineStack align="end">
+              <Button
+                onClick={async () => {
+                  const valid = await form.trigger()
+                  console.log("valid: ", valid)
+                }}
+              >
+                {"Submit"}
+              </Button>
+            </InlineStack>
+          </BlockStack>
+        </Form>
+      </ErrorBoundary>
     </Page>
   )
 }
