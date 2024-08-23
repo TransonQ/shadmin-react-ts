@@ -85,4 +85,4 @@ function SelectBase(
 
 SelectBase.displayName = "PresetSelect"
 
-export const PresetSelect = Object.assign(SelectBase, {})
+export const LegendSelect = Object.assign(SelectBase, {})

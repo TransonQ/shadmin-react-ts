@@ -3,9 +3,9 @@ import {
   BlockStack,
   ContextualSaveBar,
   FormLayout,
+  LegendCard,
+  LegendSelect,
   Page,
-  PresetCard,
-  PresetSelect,
   Show,
 } from "@/components/shared"
 import {
@@ -71,7 +71,7 @@ export const FormExample = () => {
                 ))}
               </Alert>
             </Show>
-            <PresetCard sectioned>
+            <LegendCard sectioned>
               <FormLayout>
                 <FormField
                   control={form.control}
@@ -117,7 +117,7 @@ export const FormExample = () => {
                       <FormLabel>{"Description"}</FormLabel>
                       <FormControl>
                         <Input
-                        disabled
+                          disabled
                           autoComplete="off"
                           placeholder="Description"
                           {...field}
@@ -128,9 +128,9 @@ export const FormExample = () => {
                   )}
                 />
               </FormLayout>
-            </PresetCard>
+            </LegendCard>
 
-            <PresetCard sectioned>
+            <LegendCard sectioned>
               <FormLayout>
                 <FormLayout.Group>
                   <FormField
@@ -154,7 +154,7 @@ export const FormExample = () => {
                       <FormItem className="flex-1">
                         <FormLabel requiredIndicator>{"Currency"}</FormLabel>
                         <FormControl>
-                          <PresetSelect
+                          <LegendSelect
                             value={field.value}
                             onChange={field.onChange}
                             options={["CNY", "USD", "EUR", "GBP", "JPY"].map(
@@ -200,7 +200,7 @@ export const FormExample = () => {
                   )}
                 />
 
-                <PresetSelect
+                <LegendSelect
                   title="Preset Select Single (Default)"
                   showSearch
                   requiredIndicator
@@ -215,7 +215,7 @@ export const FormExample = () => {
                   onChange={setSelectSingle}
                 />
 
-                <PresetSelect
+                <LegendSelect
                   multiple
                   title="Preset Select Multiple"
                   showSearch
@@ -231,7 +231,7 @@ export const FormExample = () => {
                   onChange={setSelectMultiple}
                 />
               </FormLayout>
-            </PresetCard>
+            </LegendCard>
           </BlockStack>
         </Form>
       </ErrorBoundary>

@@ -5,11 +5,11 @@ import {
   Icon,
   InlineStack,
   Layout,
+  LegendCard,
+  LegendSelect,
   NavigationBlocker,
   Page,
   popper,
-  PresetCard,
-  PresetSelect,
 } from "@/components/shared"
 import { Alert, AlertDescription, AlertTitle, Button } from "@/components/ui"
 import { lorem } from "@/mocks/mock-data"
@@ -76,8 +76,8 @@ export const Home = () => {
       <Layout>
         <Layout.Section>
           <BlockStack gap="lg" inlineAlign="stretch">
-            <PresetCard title={"Page width"} sectioned>
-              <PresetSelect
+            <LegendCard title={"Page width"} sectioned>
+              <LegendSelect
                 value={pageWidth}
                 onChange={(value) => setPageWidth(value as PageWidth)}
                 options={[
@@ -87,9 +87,9 @@ export const Home = () => {
                   { label: "narrowWidth", value: "narrowWidth" },
                 ]}
               />
-            </PresetCard>
+            </LegendCard>
 
-            <PresetCard title={"Button"} sectioned>
+            <LegendCard title={"Button"} sectioned>
               <BlockStack gap="lg">
                 <InlineStack gap="lg" wrap>
                   <Button size={"lg"} variant={"default"}>
@@ -160,12 +160,12 @@ export const Home = () => {
                   </Button>
                 </InlineStack>
               </BlockStack>
-            </PresetCard>
+            </LegendCard>
           </BlockStack>
         </Layout.Section>
 
         <Layout.Section variant="quarter">
-          <PresetCard sticky sectioned title={"Navigation blocker"}>
+          <LegendCard sticky sectioned title={"Navigation blocker"}>
             <Alert variant="info" className="mb-4">
               <Icon source={AlertCircleIcon} />
               <AlertTitle>
@@ -186,13 +186,13 @@ export const Home = () => {
                 {"Block navigation"}
               </Button>
             </InlineStack>
-          </PresetCard>
+          </LegendCard>
         </Layout.Section>
       </Layout>
 
       <Layout>
         <Layout.Section>
-          <PresetCard title={"Alert"} sectioned>
+          <LegendCard title={"Alert"} sectioned>
             <BlockStack gap="lg">
               <Alert variant="info">
                 <Icon source={AlertCircleIcon} />
@@ -207,13 +207,13 @@ export const Home = () => {
                 <AlertDescription>{lorem(14)}</AlertDescription>
               </Alert>
             </BlockStack>
-          </PresetCard>
+          </LegendCard>
         </Layout.Section>
 
         <Layout.Section variant="quarter">
-          <PresetCard sticky sectioned title={"Heading 标题2"}>
+          <LegendCard sticky sectioned title={"Heading 标题2"}>
             {lorem(100)}
-          </PresetCard>
+          </LegendCard>
         </Layout.Section>
       </Layout>
     </Page>

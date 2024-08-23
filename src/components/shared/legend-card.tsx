@@ -13,7 +13,7 @@ interface PresetCardProps {
   sticky?: boolean
 }
 
-export const PresetCard = ({
+export const LegendCard = ({
   children,
   sectioned,
   className,
