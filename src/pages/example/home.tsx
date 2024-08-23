@@ -9,22 +9,11 @@ import {
   Page,
   popper,
   PresetCard,
+  PresetSelect,
 } from "@/components/shared"
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-  Button,
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui"
+import { Alert, AlertDescription, AlertTitle, Button } from "@/components/ui"
 import { lorem } from "@/mocks/mock-data"
-import { AlertCircleIcon, ArrowRightIcon } from "lucide-react"
+import { AlertCircleIcon, ArrowRightIcon, StarIcon } from "lucide-react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
@@ -88,36 +77,89 @@ export const Home = () => {
         <Layout.Section>
           <BlockStack gap="lg" inlineAlign="stretch">
             <PresetCard title={"Page width"} sectioned>
-              <Select
+              <PresetSelect
                 value={pageWidth}
-                onValueChange={(value) => setPageWidth(value as PageWidth)}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select page width" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>{"Page width"}</SelectLabel>
-                    <SelectItem value="defaultWidth">
-                      {"defaultWidth"}
-                    </SelectItem>
-                    <SelectItem value="fullWidth">{"fullWidth"}</SelectItem>
-                    <SelectItem value="formWidth">{"formWidth"}</SelectItem>
-                    <SelectItem value="narrowWidth">{"narrowWidth"}</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+                onChange={(value) => setPageWidth(value as PageWidth)}
+                options={[
+                  { label: "defaultWidth", value: "defaultWidth" },
+                  { label: "fullWidth", value: "fullWidth" },
+                  { label: "formWidth", value: "formWidth" },
+                  { label: "narrowWidth", value: "narrowWidth" },
+                ]}
+              />
             </PresetCard>
 
             <PresetCard title={"Button"} sectioned>
-              <InlineStack gap="lg" wrap>
-                <Button variant={"default"}>{"default"}</Button>
-                <Button variant={"secondary"}>{"secondary"}</Button>
-                <Button variant={"destructive"}>{"destructive"}</Button>
-                <Button variant={"outline"}>{"outline"}</Button>
-                <Button variant={"ghost"}>{"ghost"}</Button>
-                <Button variant={"link"}>{"link"}</Button>
-              </InlineStack>
+              <BlockStack gap="lg">
+                <InlineStack gap="lg" wrap>
+                  <Button size={"lg"} variant={"default"}>
+                    {"large"}
+                  </Button>
+                  <Button size={"lg"} variant={"secondary"}>
+                    {"large"}
+                  </Button>
+                  <Button size={"lg"} variant={"destructive"}>
+                    {"large"}
+                  </Button>
+                  <Button size={"lg"} variant={"outline"}>
+                    {"large"}
+                  </Button>
+                  <Button size={"lg"} variant={"ghost"}>
+                    {"large"}
+                  </Button>
+                  <Button size={"lg"} variant={"link"}>
+                    {"large"}
+                  </Button>
+                </InlineStack>
+                <InlineStack gap="lg" wrap>
+                  <Button variant={"default"}>{"default"}</Button>
+                  <Button variant={"secondary"}>{"secondary"}</Button>
+                  <Button variant={"destructive"}>{"destructive"}</Button>
+                  <Button variant={"outline"}>{"outline"}</Button>
+                  <Button variant={"ghost"}>{"ghost"}</Button>
+                  <Button variant={"link"}>{"link"}</Button>
+                </InlineStack>
+                <InlineStack gap="lg" wrap>
+                  <Button size={"sm"} variant={"default"}>
+                    {"small"}
+                  </Button>
+                  <Button size={"sm"} variant={"secondary"}>
+                    {"small"}
+                  </Button>
+                  <Button size={"sm"} variant={"destructive"}>
+                    {"small"}
+                  </Button>
+                  <Button size={"sm"} variant={"outline"}>
+                    {"small"}
+                  </Button>
+                  <Button size={"sm"} variant={"ghost"}>
+                    {"small"}
+                  </Button>
+                  <Button size={"sm"} variant={"link"}>
+                    {"small"}
+                  </Button>
+                </InlineStack>
+                <InlineStack gap="lg" wrap>
+                  <Button size={"icon"} variant={"default"}>
+                    <Icon source={StarIcon} />
+                  </Button>
+                  <Button size={"icon"} variant={"secondary"}>
+                    <Icon source={StarIcon} />
+                  </Button>
+                  <Button size={"icon"} variant={"destructive"}>
+                    <Icon source={StarIcon} />
+                  </Button>
+                  <Button size={"icon"} variant={"outline"}>
+                    <Icon source={StarIcon} />
+                  </Button>
+                  <Button size={"icon"} variant={"ghost"}>
+                    <Icon source={StarIcon} />
+                  </Button>
+                  <Button size={"icon"} variant={"link"}>
+                    <Icon source={StarIcon} />
+                  </Button>
+                </InlineStack>
+              </BlockStack>
             </PresetCard>
           </BlockStack>
         </Layout.Section>
