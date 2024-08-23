@@ -35,7 +35,7 @@ export const ContextualSaveBar = ({
   const discardActionMarkup = isInterface(discardAction) ? (
     <Button
       variant="ghost"
-      className="h-8 hover:bg-background/90"
+      className="hover:bg-background/90"
       onClick={discardAction.onAction}
     >
       {discardAction.content || "Discard"}
@@ -47,7 +47,7 @@ export const ContextualSaveBar = ({
   const saveActionMarkup = isInterface(saveAction) ? (
     <Button
       variant="secondary"
-      className="text-foreground h-8"
+      className="px-6 text-foreground"
       onClick={saveAction.onAction}
     >
       {saveAction.content || "Save"}
