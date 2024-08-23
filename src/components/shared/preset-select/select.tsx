@@ -4,10 +4,12 @@ import {
   CommandInput,
   CommandList,
   Popover,
+  PopoverClose,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui"
 import { cn } from "@/lib"
+import { Show } from "../show"
 import { SelectContent } from "./select-content"
 import { SelectTrigger } from "./select-triger"
 import type {
@@ -39,6 +41,21 @@ function SelectBase(
     multiple && Array.isArray(value) ? value : [value]
   )
 
+  const CmdMarkup = (
+    <Command>
+      {showSearch && <CommandInput placeholder={title} />}
+      <CommandList>
+        <CommandEmpty>{"No results"}</CommandEmpty>
+        <SelectContent
+          multiple={multiple}
+          options={options}
+          selectedValues={selectedValues as Set<string>}
+          onChange={onChange as PresetSelectContentProps["onChange"]}
+        />
+      </CommandList>
+    </Command>
+  )
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -54,18 +71,14 @@ function SelectBase(
         </div>
       </PopoverTrigger>
       <PopoverContent className={cn("p-0")} align="start">
-        <Command>
-          {showSearch && <CommandInput placeholder={title} />}
-          <CommandList>
-            <CommandEmpty>{"No results"}</CommandEmpty>
-            <SelectContent
-              multiple={multiple}
-              options={options}
-              selectedValues={selectedValues as Set<string>}
-              onChange={onChange as PresetSelectContentProps["onChange"]}
-            />
-          </CommandList>
-        </Command>
+        <Show
+          when={multiple}
+          fallback={
+            <PopoverClose className="w-full h-full">{CmdMarkup}</PopoverClose>
+          }
+        >
+          {CmdMarkup}
+        </Show>
       </PopoverContent>
     </Popover>
   )
