@@ -64,7 +64,7 @@ const SectionItem = ({
     <div
       x-chunk="NAVGATION_SECTION_ITEM"
       className={cn(
-        "w-full py-2 rounded-lg text-xs",
+        "w-full py-2 rounded-lg text-sm",
         "hover:bg-zinc-100 hover:cursor-default",
         selected && "bg-zinc-200 font-bold",
         className
