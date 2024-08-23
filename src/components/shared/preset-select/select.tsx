@@ -41,19 +41,19 @@ function SelectBase(
     multiple && Array.isArray(value) ? value : [value]
   )
 
+  /**
+   *
+   */
   const CmdMarkup = (
-    <Command>
-      {showSearch && <CommandInput placeholder={title} />}
-      <CommandList>
-        <CommandEmpty>{"No results"}</CommandEmpty>
-        <SelectContent
-          multiple={multiple}
-          options={options}
-          selectedValues={selectedValues as Set<string>}
-          onChange={onChange as PresetSelectContentProps["onChange"]}
-        />
-      </CommandList>
-    </Command>
+    <CommandList>
+      <CommandEmpty>{"No results"}</CommandEmpty>
+      <SelectContent
+        multiple={multiple}
+        options={options}
+        selectedValues={selectedValues as Set<string>}
+        onChange={onChange as PresetSelectContentProps["onChange"]}
+      />
+    </CommandList>
   )
 
   return (
@@ -71,14 +71,17 @@ function SelectBase(
         </div>
       </PopoverTrigger>
       <PopoverContent className={cn("p-0")} align="start">
-        <Show
-          when={multiple}
-          fallback={
-            <PopoverClose className="w-full h-full">{CmdMarkup}</PopoverClose>
-          }
-        >
-          {CmdMarkup}
-        </Show>
+        <Command>
+          {showSearch && <CommandInput placeholder={title} />}
+          <Show
+            when={multiple || showSearch}
+            fallback={
+              <PopoverClose className="w-full h-full">{CmdMarkup}</PopoverClose>
+            }
+          >
+            {CmdMarkup}
+          </Show>
+        </Command>
       </PopoverContent>
     </Popover>
   )
