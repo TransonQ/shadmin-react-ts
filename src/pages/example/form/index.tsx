@@ -6,8 +6,12 @@ import {
   Page,
   PresetCard,
   PresetSelect,
+  Show,
 } from "@/components/shared"
 import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
   Form,
   FormControl,
   FormField,
@@ -18,6 +22,8 @@ import {
 } from "@/components/ui"
 import { generateDate } from "@/lib"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { isEmpty } from "lodash-es"
+import { AlertCircle } from "lucide-react"
 import { useEffect, useState } from "react"
 import { ErrorBoundary } from "react-error-boundary"
 import { useForm } from "react-hook-form"
@@ -38,6 +44,8 @@ export const FormExample = () => {
     },
   })
   const formValues = form.getValues()
+  const formErrors = form.formState.errors
+  console.log("formErrors: ", formErrors)
 
   const [selectMultiple, setSelectMultiple] = useState<string[]>([])
   const [selectSingle, setSelectSingle] = useState<string>("")
@@ -52,6 +60,17 @@ export const FormExample = () => {
       <ErrorBoundary fallbackRender={ErrorFallback.Alert}>
         <Form {...form}>
           <BlockStack gap="lg">
+            <Show when={!isEmpty(formErrors)} fallback={null}>
+              <Alert variant="destructive">
+                <AlertCircle className="w-4 h-4 mr-2" />
+                <AlertTitle>{"Validation error"}</AlertTitle>
+                {Object.values(formErrors).map((error) => (
+                  <AlertDescription key={error.message}>
+                    {error.message}
+                  </AlertDescription>
+                ))}
+              </Alert>
+            </Show>
             <PresetCard sectioned>
               <FormLayout>
                 <FormField
@@ -98,6 +117,7 @@ export const FormExample = () => {
                       <FormLabel>{"Description"}</FormLabel>
                       <FormControl>
                         <Input
+                        disabled
                           autoComplete="off"
                           placeholder="Description"
                           {...field}
