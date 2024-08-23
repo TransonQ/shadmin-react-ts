@@ -12,24 +12,24 @@ export interface SelectBaseProps {
   className?: string
 }
 
-export interface PresetSelectSingleProps extends SelectBaseProps {
+export interface LegendSelectSingleProps extends SelectBaseProps {
   multiple?: false
   onChange: (value: string) => void
   value: string
 }
 
-export interface PresetSelectMultipleProps extends SelectBaseProps {
+export interface LegendSelectMultipleProps extends SelectBaseProps {
   multiple?: true
   onChange: (value: string[]) => void
   value: string[]
 }
 
-export interface PresetSelectTriggerProps
+export interface LegendSelectTriggerProps
   extends Omit<SelectBaseProps, "value" | "onChange"> {
   selectedValues: Set<string>
 }
 
-export interface PresetSelectContentProps
+export interface LegendSelectContentProps
   extends Pick<SelectBaseProps, "options"> {
   selectedValues: Set<string>
   multiple?: boolean

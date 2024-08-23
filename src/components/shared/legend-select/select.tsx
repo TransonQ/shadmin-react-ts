@@ -13,16 +13,16 @@ import { Show } from "../show"
 import { SelectContent } from "./select-content"
 import { SelectTrigger } from "./select-triger"
 import type {
-  PresetSelectContentProps,
-  PresetSelectMultipleProps,
-  PresetSelectSingleProps,
+  LegendSelectContentProps,
+  LegendSelectMultipleProps,
+  LegendSelectSingleProps,
 } from "./types"
 
-function SelectBase(props: PresetSelectSingleProps): React.ReactNode
-function SelectBase(props: PresetSelectMultipleProps): React.ReactNode
+function SelectBase(props: LegendSelectSingleProps): React.ReactNode
+function SelectBase(props: LegendSelectMultipleProps): React.ReactNode
 
 function SelectBase(
-  props: PresetSelectSingleProps | PresetSelectMultipleProps
+  props: LegendSelectSingleProps | LegendSelectMultipleProps
 ) {
   const {
     title,
@@ -48,7 +48,7 @@ function SelectBase(
         multiple={multiple}
         options={options}
         selectedValues={selectedValues as Set<string>}
-        onChange={onChange as PresetSelectContentProps["onChange"]}
+        onChange={onChange as LegendSelectContentProps["onChange"]}
       />
     </CommandList>
   )
@@ -83,6 +83,6 @@ function SelectBase(
   )
 }
 
-SelectBase.displayName = "PresetSelect"
+SelectBase.displayName = "LegendSelect"
 
 export const LegendSelect = Object.assign(SelectBase, {})

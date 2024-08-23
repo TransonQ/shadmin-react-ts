@@ -2,7 +2,7 @@ import { Badge, Button } from "@/components/ui"
 import { cn } from "@/lib"
 import { ChevronDownIcon } from "lucide-react"
 import { Show } from "../show"
-import type { PresetSelectTriggerProps } from "./types"
+import type { LegendSelectTriggerProps } from "./types"
 
 export function SelectTrigger({
   selectedValues,
@@ -11,7 +11,7 @@ export function SelectTrigger({
   disabled,
   placeholder,
   options,
-}: PresetSelectTriggerProps) {
+}: LegendSelectTriggerProps) {
   const fieldDisplay = (valuesSet: Set<string>) => {
     const firstSelectedLabel = options.find(
       (option) => option.value === Array.from(valuesSet)[0]
@@ -22,7 +22,7 @@ export function SelectTrigger({
     } else {
       return (
         <div className="w-full flex justify-between items-center line-clamp-1">
-          <span className="truncate"> 
+          <span className="truncate">
             {options
               .filter((option) => valuesSet.has(option.value))
               .map((option) => option.label)

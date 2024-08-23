@@ -5,7 +5,7 @@ import { frameVariants } from "./config"
 import { Show } from "./show"
 import { Text } from "./text"
 const { headerHeight } = frameVariants
-interface PresetCardProps {
+interface LegendCardProps {
   children?: React.ReactNode
   sectioned?: boolean
   className?: string
@@ -19,7 +19,7 @@ export const LegendCard = ({
   className,
   title,
   sticky,
-}: PresetCardProps) => {
+}: LegendCardProps) => {
   const styles: React.CSSProperties = {
     position: sticky ? "sticky" : "initial",
     top: sticky ? `calc(${headerHeight}px + 1rem)` : undefined,

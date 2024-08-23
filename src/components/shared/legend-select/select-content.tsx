@@ -2,14 +2,14 @@ import { CommandGroup, CommandItem } from "@/components/ui"
 import { cn } from "@/lib"
 import { CheckIcon } from "lucide-react"
 import { Show } from "../show"
-import type { PresetSelectContentProps } from "./types"
+import type { LegendSelectContentProps } from "./types"
 
 export function SelectContent({
   selectedValues,
   options,
   onChange,
   multiple,
-}: PresetSelectContentProps) {
+}: LegendSelectContentProps) {
   return (
     <CommandGroup>
       {options.map((option) => {
