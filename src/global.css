@@ -7,25 +7,6 @@ html {
 }
 
 /* scroll bar */
-body::-webkit-scrollbar {
-  width: var(--sb-size);
-}
-
-body::-webkit-scrollbar-track {
-  background: var(--sb-track-color);
-  border-radius: 0px;
-}
-
-body::-webkit-scrollbar-thumb {
-  background: var(--sb-thumb-color);
-}
-
-@supports not selector(::-webkit-scrollbar) {
-  body {
-    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
-  }
-}
-
 @layer base {
   :root {
     --background: 210 16% 98%;
@@ -58,7 +39,7 @@ body::-webkit-scrollbar-thumb {
 
     --sb-track-color: #e6e6e6;
     --sb-thumb-color: #bbbbbb;
-    --sb-size: 8px;
+    --sb-size: 6px;
 
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
@@ -115,5 +96,24 @@ body::-webkit-scrollbar-thumb {
     /* font-size: 14px; */
     /* default display scroll bar */
     overflow-y: scroll;
+  }
+}
+
+body::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 0px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
   }
 }
