@@ -41,9 +41,6 @@ function SelectBase(
     multiple && Array.isArray(value) ? value : [value]
   )
 
-  /**
-   *
-   */
   const CmdMarkup = (
     <CommandList>
       <CommandEmpty>{"No results"}</CommandEmpty>
@@ -54,6 +51,10 @@ function SelectBase(
         onChange={onChange as PresetSelectContentProps["onChange"]}
       />
     </CommandList>
+  )
+
+  const ClickThenClosePopover = (
+    <PopoverClose className="w-full h-full">{CmdMarkup}</PopoverClose>
   )
 
   return (
@@ -73,12 +74,7 @@ function SelectBase(
       <PopoverContent className={cn("p-0")} align="start">
         <Command>
           {showSearch && <CommandInput placeholder={title} />}
-          <Show
-            when={multiple || showSearch}
-            fallback={
-              <PopoverClose className="w-full h-full">{CmdMarkup}</PopoverClose>
-            }
-          >
+          <Show when={multiple || showSearch} fallback={ClickThenClosePopover}>
             {CmdMarkup}
           </Show>
         </Command>
