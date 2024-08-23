@@ -3,7 +3,7 @@ import { RowAction } from "@/components/shared/index-table"
 
 export const TableExample = () => {
   return (
-    <Page title="TableExample" fullWidth>
+    <Page title="TableExample" >
       <LegendCard>
         <RowAction
           actions={[{ content: "Edit0" }]}

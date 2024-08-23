@@ -92,10 +92,8 @@ html {
   }
   body {
     @apply bg-background text-foreground;
-    /* default font size */
-    /* font-size: 14px; */
     /* default display scroll bar */
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
   }
 }
 
