@@ -1,10 +1,10 @@
-import { Layout, Page } from "@/components/shared"
+import { LegendCard, Page } from "@/components/shared"
 import { RowAction } from "@/components/shared/index-table"
 
 export const TableExample = () => {
   return (
     <Page title="TableExample" fullWidth>
-      <Layout>
+      <LegendCard>
         <RowAction
           actions={[{ content: "Edit0" }]}
           sections={[
@@ -12,7 +12,7 @@ export const TableExample = () => {
             [{ content: "Edit2", disabled: true }, { content: "Edit3" }],
           ]}
         />
-      </Layout>
+      </LegendCard>
     </Page>
   )
 }
