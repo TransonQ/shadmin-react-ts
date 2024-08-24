@@ -1,4 +1,9 @@
-import { IndexTable, LegendCard, Page } from "@/components/shared"
+import {
+  IndexTable,
+  LegendCard,
+  Page,
+  TablePagination,
+} from "@/components/shared"
 import { generateArray } from "@/lib"
 import { faker } from "@faker-js/faker"
 import type {
@@ -15,7 +20,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { columns } from "./columns"
 import { FiltersBar } from "./filters-bar"
 
@@ -61,6 +66,11 @@ export function TableExample() {
     getFacetedUniqueValues: getFacetedUniqueValues(),
   })
 
+  useEffect(() => {
+    console.log(table.getIsSomeRowsSelected())
+    console.log("rowSelection: ", rowSelection)
+  }, [rowSelection, table])
+
   return (
     <Page title="TableExample">
       <LegendCard>
@@ -70,6 +80,7 @@ export function TableExample() {
           columns={columns}
           className="rounded-none border-x-0"
         />
+        <TablePagination table={table} />
       </LegendCard>
     </Page>
   )
