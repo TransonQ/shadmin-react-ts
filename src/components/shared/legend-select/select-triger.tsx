@@ -39,7 +39,7 @@ export function SelectTrigger({
     <div>
       <Show when={!!title} fallback={null}>
         <h5 className="mb-2">
-          {title}
+          <span className="text-sm font-medium">{title}</span>
           {requiredIndicator && <span className="text-destructive"> *</span>}
         </h5>
       </Show>
