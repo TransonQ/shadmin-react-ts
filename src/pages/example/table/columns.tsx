@@ -16,6 +16,9 @@ export const columns: ColumnDef<Task>[] = [
         }
         onCheckedChange={(value) => {
           table.toggleAllPageRowsSelected(!!value)
+          if (!value) {
+            table.toggleAllRowsSelected(value)
+          }
         }}
         aria-label="Select all"
         className="translate-y-[2px]"
