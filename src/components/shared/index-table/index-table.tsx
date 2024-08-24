@@ -12,6 +12,7 @@ import {
   type ColumnDef,
   type Table as ReactTable,
 } from "@tanstack/react-table"
+
 interface IndexTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   table: ReactTable<TData>

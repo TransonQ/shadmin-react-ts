@@ -65,7 +65,11 @@ export function TableExample() {
     <Page title="TableExample">
       <LegendCard>
         <FiltersBar />
-        <IndexTable table={table} columns={columns} className="rounded-none" />
+        <IndexTable
+          table={table}
+          columns={columns}
+          className="rounded-none border-x-0"
+        />
       </LegendCard>
     </Page>
   )
