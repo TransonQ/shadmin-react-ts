@@ -1,9 +1,8 @@
-import { LegendCard, Page } from "@/components/shared"
-import { RowAction } from "@/components/shared/index-table"
+import { LegendCard, Page, RowAction } from "@/components/shared"
 
 export const TableExample = () => {
   return (
-    <Page title="TableExample" >
+    <Page title="TableExample">
       <LegendCard>
         <RowAction
           actions={[{ content: "Edit0" }]}

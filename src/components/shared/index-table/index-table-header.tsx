@@ -15,17 +15,17 @@ import {
   EyeOffIcon,
 } from "lucide-react"
 
-interface TableHeaderProps<TData, TValue>
+interface IndexTableHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>
   title?: string
 }
 
-export function TableHeader<TData, TValue>({
+export function IndexTableHeader<TData, TValue>({
   column,
   title,
   className,
-}: TableHeaderProps<TData, TValue>) {
+}: IndexTableHeaderProps<TData, TValue>) {
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>
   }

@@ -10,13 +10,13 @@ import {
 import { isMatrix } from "@/lib"
 import { isEmpty } from "lodash-es"
 import { MoreHorizontalIcon } from "lucide-react"
-import { Icon } from "../icon"
-import { Show } from "../show"
+import { Icon } from "./icon"
+import { Show } from "./show"
 import type {
   DestructableAction,
   DisableableAction,
   HiddableAction,
-} from "../types"
+} from "./types"
 
 interface RowActionItem
   extends DisableableAction,

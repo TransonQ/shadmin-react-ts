@@ -1,3 +1,3 @@
 export * from "./index-table"
-export * from "./row-action"
+export * from "./index-table-header"
 
