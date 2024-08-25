@@ -80,6 +80,7 @@ export function TableExample() {
           className="rounded-none border-x-0"
         />
         <TablePagination table={table} />
+        <div className="h-[2000px] bg-cyan-100"></div>
       </LegendCard>
     </Page>
   )

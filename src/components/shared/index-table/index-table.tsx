@@ -25,6 +25,7 @@ interface IndexTableProps<TData, TValue> {
   table: ReactTable<TData>
   className?: string
   rowSelection?: RowSelectionState
+  stickyBulkActions?: boolean
 }
 
 export function IndexTable<TData, TValue>({
@@ -32,6 +33,7 @@ export function IndexTable<TData, TValue>({
   table,
   className,
   rowSelection,
+  stickyBulkActions = true,
 }: IndexTableProps<TData, TValue>) {
   const selectedCount = countBy(rowSelection).true || 0
 
@@ -52,8 +54,10 @@ export function IndexTable<TData, TValue>({
   const BulkActionsMarkup = (
     <div
       className={cn(
-        "sticky h-10 px-4 border-b shadow",
-        "flex gap-2 items-center justify-between"
+        "h-10 px-4 bg-background shadow",
+        "border-y -mt-[1px]",
+        "flex gap-2 items-center justify-between",
+        stickyBulkActions && "sticky top-14 z-30"
       )}
     >
       <InlineStack blockAlign="baseline" gap="lg">
@@ -71,7 +75,7 @@ export function IndexTable<TData, TValue>({
           aria-label="Select all"
           className="translate-y-[2px]"
         />
-        <Text variant="bodySm" tone="subdued">
+        <Text variant="bodySm">
           {selectedCount} {"selected"}
         </Text>
       </InlineStack>
@@ -93,7 +97,7 @@ export function IndexTable<TData, TValue>({
         <Button
           variant={"destructive-outline"}
           size={"sm"}
-          className="px-5 shadow rounded-xl"
+          className="px-5 h-8 shadow rounded-xl bg-card"
         >
           delete
         </Button>
@@ -107,7 +111,7 @@ export function IndexTable<TData, TValue>({
         {BulkActionsMarkup}
       </Show>
       <Table>
-        <TableHeader className={cn("min-h-8", selectedCount && "bg-card")}>
+        <TableHeader className={cn("min-h-10")}>
           <Show when={!selectedCount} fallback={null}>
             {HeadersMarkup}
           </Show>
