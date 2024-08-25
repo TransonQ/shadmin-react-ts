@@ -7,7 +7,7 @@ export const RootLoading = () => {
   // mock checking login
   const onRootLoading = useCallback(async () => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      // await new Promise((resolve) => setTimeout(resolve, 1000))
       // throw new Error("error")
       popper.success("Login successfully, welcome!")
       navigate("/app")
