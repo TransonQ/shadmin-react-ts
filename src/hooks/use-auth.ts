@@ -1,10 +1,12 @@
+import { sleep } from "@/lib"
 import useSWR from "swr"
 
+const fakeData = {
+  usename: "Transon",
+  role: "admin",
+  email: "exmaple@admin.com",
+}
+
 export const useAuth = () => {
-  return useSWR(
-    { key: "auth" },
-    () =>
-      // fetch("/api/auth").then((res) => res.json())
-      new Promise((resolve) => setTimeout(resolve, 1000))
-  )
+  return useSWR({ key: "auth" }, () => sleep(1000, fakeData))
 }

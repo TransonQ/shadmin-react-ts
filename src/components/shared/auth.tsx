@@ -5,7 +5,8 @@ import { popper } from "./popper"
 import { SkeletonApp } from "./skeleton-app"
 
 export const Auth = ({ children }: { children?: React.ReactNode }) => {
-  const { isLoading, error } = useAuth()
+  const { isLoading, error, data } = useAuth()
+  console.log("useAuth: ", data)
   const navigate = useNavigate()
 
   useEffect(() => {
