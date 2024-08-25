@@ -22,7 +22,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { columns } from "./columns"
 import { FiltersBar } from "./filters-bar"
 
@@ -68,11 +68,6 @@ export function TableExample() {
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   })
-
-  useEffect(() => {
-    console.log(table.getIsSomeRowsSelected())
-    console.log("rowSelection: ", rowSelection)
-  }, [rowSelection, table])
 
   return (
     <Page title="TableExample">
