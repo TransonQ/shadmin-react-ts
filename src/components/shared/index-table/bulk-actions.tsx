@@ -8,10 +8,12 @@ import {
 import { cn } from "@/lib"
 import { Loader2, MoreHorizontalIcon } from "lucide-react"
 import { InlineStack } from "../inline-stack"
+import { MenuDestructableItem } from "../menu-destrucable-item"
 import { Show } from "../show"
 import { Text } from "../text"
 import type {
   DestructableAction,
+  DisableableAction,
   IconableAction,
   LoadableAction,
   PinnableAction,
@@ -20,6 +22,7 @@ import type { IndexTableProps } from "./index-table"
 
 export interface BulkActionItem
   extends LoadableAction,
+    DisableableAction,
     DestructableAction,
     IconableAction,
     PinnableAction {}
@@ -124,7 +127,20 @@ function FoldActions({ actions }: { actions: BulkActionItem[] }) {
           <MoreHorizontalIcon className="w-4 h-4" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end"></DropdownMenuContent>
+      <DropdownMenuContent align="end">
+        {actions.map((action, idx) => {
+          return (
+            <MenuDestructableItem
+              key={idx}
+              content={action.content}
+              onAction={action.onAction}
+              loading={action.loading}
+              destructive={action.destructive}
+              disabled={action.disabled || action.loading}
+            />
+          )
+        })}
+      </DropdownMenuContent>
     </DropdownMenu>
   )
 }

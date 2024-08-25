@@ -81,8 +81,8 @@ export function TableExample() {
           bulkActions={[
             { content: "Veiew", pinned: true },
             { content: "Edit", pinned: true },
-            { content: "Send", pinned: true, loading: true },
-            { content: "Fork", pinned: true },
+            { content: "Send",  loading: true },
+            { content: "Fork",  },
             {
               content: "Delete",
               destructive: true,

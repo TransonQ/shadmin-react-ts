@@ -2,20 +2,20 @@ import {
   Button,
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "@/components/ui"
-import { cn, isMatrix } from "@/lib"
+import { isMatrix } from "@/lib"
 import { isEmpty } from "lodash-es"
 import { MoreHorizontalIcon } from "lucide-react"
 import { Icon } from "./icon"
+import { MenuDestructableItem } from "./menu-destrucable-item"
 import { Show } from "./show"
 import type {
   DestructableAction,
   DisableableAction,
-  HiddableAction
+  HiddableAction,
 } from "./types"
 
 interface RowActionItem
@@ -47,7 +47,7 @@ export const RowAction = ({ label, actions, sections }: RowActionProps) => {
     .filter((action) => !action.hidden)
     .map((action, idx) => {
       return (
-        <DestructableItem
+        <MenuDestructableItem
           key={idx}
           content={action.content}
           destructive={action.destructive}
@@ -70,7 +70,7 @@ export const RowAction = ({ label, actions, sections }: RowActionProps) => {
             .filter((action) => !action.hidden)
             .map((action, idx) => {
               return (
-                <DestructableItem
+                <MenuDestructableItem
                   key={idx}
                   content={action.content}
                   destructive={action.destructive}
@@ -104,29 +104,5 @@ export const RowAction = ({ label, actions, sections }: RowActionProps) => {
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  )
-}
-
-/**
- * @name DestructableItem
- * @description 给予下拉菜单 destructive 属性的样式
- */
-function DestructableItem({
-  content,
-  onAction,
-  disabled,
-  destructive,
-}: RowActionItem) {
-  return (
-    <DropdownMenuItem
-      onClick={onAction}
-      disabled={disabled}
-      className={cn(
-        destructive &&
-          "text-destructive focus:bg-destructive/10 focus:text-destructive"
-      )}
-    >
-      {content}
-    </DropdownMenuItem>
   )
 }
