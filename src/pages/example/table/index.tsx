@@ -86,7 +86,6 @@ export function TableExample() {
             {
               content: "Delete",
               destructive: true,
-              pinned: true,
             },
           ]}
         />

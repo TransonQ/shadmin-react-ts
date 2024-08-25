@@ -1,6 +1,12 @@
-import { Button, Checkbox } from "@/components/ui"
+import {
+  Button,
+  Checkbox,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui"
 import { cn } from "@/lib"
-import { EllipsisIcon, Loader2 } from "lucide-react"
+import { Loader2, MoreHorizontalIcon } from "lucide-react"
 import { InlineStack } from "../inline-stack"
 import { Show } from "../show"
 import { Text } from "../text"
@@ -74,16 +80,9 @@ export function BulkActions<TData, TValue>({
         </Text>
       </InlineStack>
 
-      <InlineStack gap="md">
+      <InlineStack gap="md" blockAlign="center">
         <PinnedActions actions={pinnedBulkActions} />
-
-        <Button
-          variant={"outline"}
-          size={"sm"}
-          className="px-4 h-8 shadow rounded-xl bg-card"
-        >
-          <EllipsisIcon className="w-4 h-4" />
-        </Button>
+        <FoldActions actions={foldBulkActions} />
       </InlineStack>
     </div>
   )
@@ -98,7 +97,7 @@ function PinnedActions({ actions }: { actions: BulkActionItem[] }) {
         size={"sm"}
         disabled={action.loading}
         className={cn(
-          "px-4 shadow rounded-xl bg-card flex gap-2 flex-nowrap",
+          "h-7 px-4 bg-card flex gap-2 flex-nowrap",
           action.loading && "pl-3"
         )}
       >
@@ -112,5 +111,20 @@ function PinnedActions({ actions }: { actions: BulkActionItem[] }) {
 }
 
 function FoldActions({ actions }: { actions: BulkActionItem[] }) {
-  return
+  if (!actions.length) return null
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          className="h-7 bg-card data-[state=open]:bg-accent"
+          size={"icon"}
+          variant="outline"
+        >
+          <span className="sr-only">Open more bulk actions</span>
+          <MoreHorizontalIcon className="w-4 h-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end"></DropdownMenuContent>
+    </DropdownMenu>
+  )
 }
