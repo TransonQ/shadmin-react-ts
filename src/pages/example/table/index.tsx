@@ -4,12 +4,14 @@ import {
   Page,
   TablePagination,
 } from "@/components/shared"
+import { tConfig } from "@/components/shared/index-table/t-config"
 import { generateArray } from "@/lib"
 import { faker } from "@faker-js/faker"
 import type {
   ColumnFiltersState,
+  RowSelectionState,
   SortingState,
-  VisibilityState,
+  VisibilityState
 } from "@tanstack/react-table"
 import {
   getCoreRowModel,
@@ -39,7 +41,7 @@ const fakeData = generateArray(1000, (i) => ({
 }))
 
 export function TableExample() {
-  const [rowSelection, setRowSelection] = useState({})
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [sorting, setSorting] = useState<SortingState>([])
@@ -54,6 +56,7 @@ export function TableExample() {
       columnFilters,
     },
     enableRowSelection: true,
+    getRowId: tConfig.getRowId,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -78,6 +81,7 @@ export function TableExample() {
         <IndexTable
           table={table}
           columns={columns}
+          rowSelection={rowSelection}
           className="rounded-none border-x-0"
         />
         <TablePagination table={table} />
