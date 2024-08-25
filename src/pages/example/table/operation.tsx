@@ -5,5 +5,13 @@ interface OperationProps<TData> {
   row: Row<TData>
 }
 export function Operation<TData>({ row }: OperationProps<TData>) {
-  return <RowAction actions={[{ content: "Edit" }, { content: "Delete" }]} />
+  return (
+    <RowAction
+      actions={[
+        { content: "Edit" },
+        { content: "Upload", disabled: true },
+        { content: "Delete", destructive: true },
+      ]}
+    />
+  )
 }

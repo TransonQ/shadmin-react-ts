@@ -56,7 +56,7 @@ export function IndexTable<TData, TValue>({
         "flex gap-2 items-center justify-between"
       )}
     >
-      <InlineStack blockAlign="baseline" gap="md">
+      <InlineStack blockAlign="baseline" gap="lg">
         <Checkbox
           checked={
             table.getIsAllPageRowsSelected() ||
@@ -76,10 +76,25 @@ export function IndexTable<TData, TValue>({
         </Text>
       </InlineStack>
       <InlineStack gap="md">
-        <Button variant={"outline"} size={"sm"} className="px-5 shadow">
-          delete
+        <Button
+          variant={"outline"}
+          size={"sm"}
+          className="px-5 shadow rounded-xl bg-card"
+        >
+          action1
         </Button>
-        <Button variant={"destructive"} size={"sm"} className="px-5 ">
+        <Button
+          variant={"outline"}
+          size={"sm"}
+          className="px-5 shadow rounded-xl bg-card"
+        >
+          action2
+        </Button>
+        <Button
+          variant={"destructive-outline"}
+          size={"sm"}
+          className="px-5 shadow rounded-xl"
+        >
           delete
         </Button>
       </InlineStack>

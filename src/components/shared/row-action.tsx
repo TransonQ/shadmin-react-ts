@@ -7,7 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui"
-import { isMatrix } from "@/lib"
+import { cn, isMatrix } from "@/lib"
 import { isEmpty } from "lodash-es"
 import { MoreHorizontalIcon } from "lucide-react"
 import { Icon } from "./icon"
@@ -47,13 +47,13 @@ export const RowAction = ({ label, actions, sections }: RowActionProps) => {
     .filter((action) => !action.hidden)
     .map((action, idx) => {
       return (
-        <DropdownMenuItem
+        <DestructableItem
           key={idx}
-          onClick={action.onAction}
+          content={action.content}
+          destructive={action.destructive}
           disabled={action.disabled}
-        >
-          {action.content}
-        </DropdownMenuItem>
+          onAction={action.onAction}
+        />
       )
     })
 
@@ -70,15 +70,13 @@ export const RowAction = ({ label, actions, sections }: RowActionProps) => {
             .filter((action) => !action.hidden)
             .map((action, idx) => {
               return (
-                <div key={idx}>
-                  <DropdownMenuItem
-                    key={action.content}
-                    onClick={action.onAction}
-                    disabled={action.disabled}
-                  >
-                    {action.content}
-                  </DropdownMenuItem>
-                </div>
+                <DestructableItem
+                  key={idx}
+                  content={action.content}
+                  destructive={action.destructive}
+                  disabled={action.disabled}
+                  onAction={action.onAction}
+                />
               )
             })}
         </div>
@@ -106,5 +104,29 @@ export const RowAction = ({ label, actions, sections }: RowActionProps) => {
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
+  )
+}
+
+/**
+ * @name DestructableItem
+ * @description 给予下拉菜单 destructive 属性的样式
+ */
+function DestructableItem({
+  content,
+  onAction,
+  disabled,
+  destructive,
+}: RowActionItem) {
+  return (
+    <DropdownMenuItem
+      onClick={onAction}
+      disabled={disabled}
+      className={cn(
+        destructive &&
+          "text-destructive focus:bg-destructive/10 focus:text-destructive"
+      )}
+    >
+      {content}
+    </DropdownMenuItem>
   )
 }
