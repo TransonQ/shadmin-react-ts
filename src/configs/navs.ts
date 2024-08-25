@@ -1,4 +1,4 @@
-import type { NavgationItemProps } from "@/components"
+import type { NavgationItemProps } from "@/components/shared"
 import {
   CircleHelpIcon,
   GaugeIcon,
