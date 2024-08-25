@@ -90,7 +90,7 @@ export const RowAction = ({ label, actions, sections }: RowActionProps) => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            className="p-0 w-8 h-8"
+            className="p-0 w-8 h-8 data-[state=open]:bg-accent"
             size={"icon"}
             variant="ghost"
             disabled={noActions && noSections}
