@@ -78,6 +78,17 @@ export function TableExample() {
           columns={columns}
           rowSelection={rowSelection}
           className="rounded-none border-x-0"
+          bulkActions={[
+            { content: "Veiew", pinned: true },
+            { content: "Edit", pinned: true },
+            { content: "Send", pinned: true, loading: true },
+            { content: "Fork", pinned: true },
+            {
+              content: "Delete",
+              destructive: true,
+              pinned: true,
+            },
+          ]}
         />
         <TablePagination table={table} />
         <div className="h-[2000px] bg-cyan-100"></div>

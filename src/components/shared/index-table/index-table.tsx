@@ -1,6 +1,4 @@
 import {
-  Button,
-  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -16,16 +14,18 @@ import {
   type Table as ReactTable,
 } from "@tanstack/react-table"
 import { countBy } from "lodash-es"
-import { InlineStack } from "../inline-stack"
 import { Show } from "../show"
-import { Text } from "../text"
+import type { BulkActionItem } from "./bulk-actions"
+import { BulkActions } from "./bulk-actions"
 
-interface IndexTableProps<TData, TValue> {
+export interface IndexTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   table: ReactTable<TData>
   className?: string
   rowSelection?: RowSelectionState
+  /** Bulk actions */
   stickyBulkActions?: boolean
+  bulkActions?: BulkActionItem[]
 }
 
 export function IndexTable<TData, TValue>({
@@ -33,8 +33,9 @@ export function IndexTable<TData, TValue>({
   table,
   className,
   rowSelection,
-  stickyBulkActions = true,
+  ...rest
 }: IndexTableProps<TData, TValue>) {
+  const bulkActionsProps = rest
   const selectedCount = countBy(rowSelection).true || 0
 
   const HeadersMarkup = table.getHeaderGroups().map((headerGroup) => (
@@ -51,67 +52,17 @@ export function IndexTable<TData, TValue>({
     </TableRow>
   ))
 
-  const BulkActionsMarkup = (
-    <div
-      className={cn(
-        "h-10 px-4 bg-background shadow",
-        "border-y -mt-[1px]",
-        "flex gap-2 items-center justify-between",
-        stickyBulkActions && "sticky top-14 z-30"
-      )}
-    >
-      <InlineStack blockAlign="baseline" gap="lg">
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomeRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => {
-            table.toggleAllPageRowsSelected(!!value)
-            if (!value) {
-              table.toggleAllRowsSelected(value)
-            }
-          }}
-          aria-label="Select all"
-          className="translate-y-[2px]"
-        />
-        <Text variant="bodySm">
-          {selectedCount} {"selected"}
-        </Text>
-      </InlineStack>
-      <InlineStack gap="md">
-        <Button
-          variant={"outline"}
-          size={"sm"}
-          className="px-5 shadow rounded-xl bg-card"
-        >
-          action1
-        </Button>
-        <Button
-          variant={"outline"}
-          size={"sm"}
-          className="px-5 shadow rounded-xl bg-card"
-        >
-          action2
-        </Button>
-        <Button
-          variant={"destructive-outline"}
-          size={"sm"}
-          className="px-5 h-8 shadow rounded-xl bg-card"
-        >
-          delete
-        </Button>
-      </InlineStack>
-    </div>
-  )
-
   return (
     <div className={cn("rounded-md border", className)}>
       <Show when={!!selectedCount} fallback={null}>
-        {BulkActionsMarkup}
+        <BulkActions
+          table={table}
+          selectedCount={selectedCount}
+          {...bulkActionsProps}
+        />
       </Show>
       <Table>
-        <TableHeader className={cn("min-h-10")}>
+        <TableHeader className={cn("h-10")}>
           <Show when={!selectedCount} fallback={null}>
             {HeadersMarkup}
           </Show>

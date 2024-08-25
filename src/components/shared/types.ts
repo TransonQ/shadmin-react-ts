@@ -23,3 +23,7 @@ export interface LoadableAction extends BaseAction {
 export interface IconableAction extends BaseAction {
   icon?: React.ReactNode
 }
+
+export interface PinnableAction extends BaseAction {
+  pinned?: boolean
+}

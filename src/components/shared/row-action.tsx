@@ -15,7 +15,7 @@ import { Show } from "./show"
 import type {
   DestructableAction,
   DisableableAction,
-  HiddableAction,
+  HiddableAction
 } from "./types"
 
 interface RowActionItem
