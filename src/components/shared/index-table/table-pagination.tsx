@@ -10,6 +10,7 @@ import type { Table } from "@tanstack/react-table"
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
+  ChevronsLeftIcon,
   ChevronsRightIcon,
 } from "lucide-react"
 
@@ -57,7 +58,7 @@ export function TablePagination<TData>({ table }: TablePaginationProps<TData>) {
             disabled={!table.getCanPreviousPage()}
           >
             <span className="sr-only">{"Go to first page"}</span>
-            <ChevronsRightIcon className="h-4 w-4" />
+            <ChevronsLeftIcon className="h-4 w-4" />
           </Button>
           <Button
             variant="outline"
