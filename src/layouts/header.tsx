@@ -1,13 +1,86 @@
-import { Avatar, AvatarFallback } from "@/components/ui"
+import { MenuDestructableItem } from "@/components/shared"
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from "@/components/ui"
+import { useAuth } from "@/hooks"
+import { cn } from "@/lib"
+import { useNavigate } from "react-router-dom"
 
 export const Header = () => {
   return (
     <div className="pr-4 w-full h-full flex items-center justify-end">
-      <Avatar className="w-9 h-9">
-        <AvatarFallback className="bg-blue-700 text-background text-xs">
-          {"Admin"}
-        </AvatarFallback>
-      </Avatar>
+      <UserMenu />
     </div>
+  )
+}
+
+function UserMenu() {
+  const navigate = useNavigate()
+  const { error, data } = useAuth()
+
+  if (error) return null
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="ghost"
+          className={cn(
+            "data-[state=open]:bg-accent",
+            "relative h-10 pr-2 flex items-center gap-2"
+          )}
+        >
+          <span>{data?.usename}</span>
+          <Avatar className="h-8 w-8">
+            <AvatarImage src={data?.avatar} alt="@shadcn" />
+            <AvatarFallback>{data?.usename}</AvatarFallback>
+          </Avatar>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56" align="end" forceMount>
+        <DropdownMenuLabel className="font-normal">
+          <div className="flex flex-col space-y-1">
+            <p className="text-sm font-medium leading-none">{"shadmin"}</p>
+            <p className="text-xs leading-none text-muted-foreground">
+              m@example.com
+            </p>
+          </div>
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem>
+            Profile
+            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            Billing
+            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            Settings
+            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+          </DropdownMenuItem>
+          <DropdownMenuItem>New Team</DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <MenuDestructableItem
+          content="Log out"
+          destructive
+          onAction={() => {
+            navigate("/login")
+          }}
+        />
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }

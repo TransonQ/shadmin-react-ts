@@ -3,6 +3,7 @@ import useSWR from "swr"
 
 const fakeData = {
   usename: "Transon",
+  avatar:"/shadmin.svg",
   role: "admin",
   email: "exmaple@admin.com",
 }

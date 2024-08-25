@@ -23,7 +23,7 @@ export const Logo = ({ collapsed }: useLogoProps = {}) => {
         isCollapsed ? "justify-center" : "justify-start"
       )}
     >
-      {isCollapsed ? "S" : "sh-admin"}
+      {isCollapsed ? "S" : "shadmin"}
     </div>
   )
 }
