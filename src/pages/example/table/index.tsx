@@ -3,15 +3,15 @@ import {
   LegendCard,
   Page,
   TablePagination,
+  tableConfig,
 } from "@/components/shared"
-import { tConfig } from "@/components/shared/index-table/t-config"
 import { generateArray } from "@/lib"
 import { faker } from "@faker-js/faker"
 import type {
   ColumnFiltersState,
   RowSelectionState,
   SortingState,
-  VisibilityState
+  VisibilityState,
 } from "@tanstack/react-table"
 import {
   getCoreRowModel,
@@ -56,7 +56,7 @@ export function TableExample() {
       columnFilters,
     },
     enableRowSelection: true,
-    getRowId: tConfig.getRowId,
+    getRowId: tableConfig.getRowId,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

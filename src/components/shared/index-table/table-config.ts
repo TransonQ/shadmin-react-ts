@@ -12,4 +12,4 @@ function getRowId<TData extends { id: string }>(
   return originalRow.id
 }
 
-export const tConfig = Object.assign({}, { getRowId })
+export const tableConfig = Object.assign({}, { getRowId })
