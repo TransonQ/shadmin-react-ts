@@ -92,11 +92,14 @@ export function EditableTaleExample() {
     autoResetPageIndex,
     meta: {
       updateDataByRowIndex: (rowIndex, columnId, value) => {
+        console.log("rowIndex: ", rowIndex)
         // 跳过页面索引重置，直到下次重新呈现后,自动分页 autoResetPageIndex 默认为 true (手动分页时,不需要, 因为 autoResetPageIndex 手动分页时默认为 false)
         skipAutoResetPageIndex()
         setData((old) =>
           old.map((row, index) => {
             if (index === rowIndex) {
+              console.log("columnId: ", columnId)
+              console.log("value: ", value)
               return {
                 ...old[rowIndex]!,
                 [columnId]: value,
