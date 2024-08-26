@@ -30,15 +30,24 @@ export function EditableCell<TData, TValue>({
 
   // 当输入失焦时，将调用表元的 updateData 函数
   const onBlur = async () => {
+    if (initialValue === value) return
+
     try {
-      await sleep.error(400)
+      await sleep(400)
 
       table.options.meta?.updateDataByRowIndex(
         rowIndex,
         columnId,
         fallbackValue
       )
-      console.log({ rowIndex, rowId, columnId, value })
+      console.log({
+        rowIndex,
+        rowId,
+        columnId,
+        value,
+        initialValue,
+        fallbackValue,
+      })
       // table.options.meta?.updateDataByRowId?.(rowId, columnId, value)
     } catch (error) {
       // 如果错误,当前值会被恢复为初始值，以便用户可以再次编辑
@@ -62,7 +71,7 @@ export function EditableCell<TData, TValue>({
             setValue(v)
           }}
           options={priorities}
-          className="bg-transparent border-none -ml-4"
+          className="h-8 bg-transparent border-none -ml-4"
         />
       )
     case "status":
@@ -73,7 +82,7 @@ export function EditableCell<TData, TValue>({
             setValue(v)
           }}
           options={statuses}
-          className="bg-transparent border-none -ml-4"
+          className="h-8 bg-transparent border-none -ml-4"
         />
       )
     case "id":
@@ -81,7 +90,7 @@ export function EditableCell<TData, TValue>({
     default:
       return (
         <Input
-          className="p-0 bg-transparent border-none truncate z-20"
+          className="p-0 h-8 bg-transparent border-none truncate rounded-sm"
           value={value as string}
           onChange={(e) => setValue(e.target.value)}
           onBlur={onBlur}

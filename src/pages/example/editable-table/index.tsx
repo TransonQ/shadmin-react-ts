@@ -9,6 +9,7 @@ import type { Task } from "@/schemas/task.schema"
 import type {
   ColumnDef,
   ColumnFiltersState,
+  PaginationState,
   RowData,
   RowSelectionState,
   SortingState,
@@ -66,6 +67,10 @@ export function EditableTaleExample() {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [sorting, setSorting] = useState<SortingState>([])
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 20,
+  })
 
   const table = useReactTable({
     data,
@@ -76,6 +81,7 @@ export function EditableTaleExample() {
       columnVisibility,
       rowSelection,
       columnFilters,
+      pagination,
     },
     enableRowSelection: true,
     getRowId: tableConfig.getRowId,
@@ -83,6 +89,7 @@ export function EditableTaleExample() {
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
+    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),

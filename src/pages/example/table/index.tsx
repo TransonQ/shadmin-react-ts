@@ -7,6 +7,7 @@ import {
 } from "@/components/shared"
 import type {
   ColumnFiltersState,
+  PaginationState,
   RowSelectionState,
   SortingState,
   VisibilityState,
@@ -32,6 +33,10 @@ export function TableExample() {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [sorting, setSorting] = useState<SortingState>([])
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 20,
+  })
 
   const table = useReactTable({
     data,
@@ -41,6 +46,7 @@ export function TableExample() {
       columnVisibility,
       rowSelection,
       columnFilters,
+      pagination,
     },
     enableRowSelection: true,
     getRowId: tableConfig.getRowId,
@@ -48,6 +54,7 @@ export function TableExample() {
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
+    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -77,7 +84,6 @@ export function TableExample() {
           ]}
         />
         <TablePagination table={table} />
-        <div className="h-[2000px] bg-cyan-100"></div>
       </LegendCard>
     </Page>
   )
