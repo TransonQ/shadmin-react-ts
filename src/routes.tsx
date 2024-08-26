@@ -2,10 +2,13 @@ import type { RouteObject } from "react-router-dom"
 import { redirect } from "react-router-dom"
 import { NoAccess403, NotFound404, SeverError500 } from "./components/errors"
 import { AppShell } from "./layouts"
-import { Home } from "./pages/example"
-import { DashboardExmaple } from "./pages/example/dashboard"
-import { FormExample } from "./pages/example/form"
-import { TableExample } from "./pages/example/table"
+import {
+  DashboardExmaple,
+  EditableTaleExample,
+  FormExample,
+  Home,
+  TableExample,
+} from "./pages/example"
 import { Login } from "./pages/login"
 import { RootLoading } from "./pages/root"
 
@@ -35,6 +38,10 @@ export const routesMerge = (): RouteObject[] => [
       {
         path: "/app/table",
         element: <TableExample />,
+      },
+      {
+        path: "/app/editable",
+        element: <EditableTaleExample />,
       },
       {
         path: "/app/form",

@@ -67,7 +67,12 @@ export function SelectContent({
             </Show>
 
             {option.icon && (
-              <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+              <option.icon
+                className={cn(
+                  "mr-2 h-4 w-4 text-muted-foreground",
+                  isSelected && "text-primary"
+                )}
+              />
             )}
             <span className={cn(!multiple && isSelected && "text-primary")}>
               {option.label}

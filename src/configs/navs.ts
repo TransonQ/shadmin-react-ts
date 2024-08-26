@@ -2,6 +2,7 @@ import type { NavgationItemProps } from "@/components/shared"
 import {
   CircleHelpIcon,
   GaugeIcon,
+  Grid2x2CheckIcon,
   HomeIcon,
   LockIcon,
   NotepadTextIcon,
@@ -24,6 +25,11 @@ export const navs: NavgationItemProps[] = [
     url: "/app/table",
     icon: TableIcon,
     label: "Table",
+  },
+  {
+    url: "/app/editable",
+    icon: Grid2x2CheckIcon,
+    label: "Editable Table",
   },
   {
     url: "/app/form",

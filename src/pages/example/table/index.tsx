@@ -5,8 +5,6 @@ import {
   TablePagination,
   tableConfig,
 } from "@/components/shared"
-import { generateArray } from "@/lib"
-import { faker } from "@faker-js/faker"
 import type {
   ColumnFiltersState,
   RowSelectionState,
@@ -24,21 +22,10 @@ import {
 } from "@tanstack/react-table"
 import { useState } from "react"
 import { columns } from "./columns"
+import { genfakeTableData } from "./data"
 import { FiltersBar } from "./filters-bar"
 
-const fakeData = generateArray(1000, (i) => ({
-  id: `TASK_${i + 1}`,
-  title: faker.lorem.words({ min: 2, max: 6 }),
-  status: faker.helpers.arrayElement([
-    "backlog",
-    "todo",
-    "in progress",
-    "done",
-    "canceled",
-  ]),
-  label: faker.helpers.arrayElement(["Bug", "Feature", "Documentation"]),
-  priority: faker.helpers.arrayElement(["low", "medium", "high"]),
-}))
+const data = genfakeTableData(1000)
 
 export function TableExample() {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
@@ -47,7 +34,7 @@ export function TableExample() {
   const [sorting, setSorting] = useState<SortingState>([])
 
   const table = useReactTable({
-    data: fakeData,
+    data,
     columns,
     state: {
       sorting,
@@ -81,8 +68,8 @@ export function TableExample() {
           bulkActions={[
             { content: "Veiew", pinned: true },
             { content: "Edit", pinned: true },
-            { content: "Send",  loading: true },
-            { content: "Fork",  },
+            { content: "Send", loading: true },
+            { content: "Fork" },
             {
               content: "Delete",
               destructive: true,

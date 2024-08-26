@@ -1,3 +1,5 @@
+import { generateArray } from "@/lib"
+import { faker } from "@faker-js/faker"
 import {
   ArrowDownIcon,
   ArrowRightIcon,
@@ -69,3 +71,18 @@ export const priorities = [
     icon: ArrowUpIcon,
   },
 ]
+
+export const genfakeTableData = (len = 1000) =>
+  generateArray(len, (i) => ({
+    id: `TASK_${i + 1}`,
+    title: faker.lorem.words({ min: 2, max: 6 }),
+    status: faker.helpers.arrayElement([
+      "backlog",
+      "todo",
+      "in progress",
+      "done",
+      "canceled",
+    ]),
+    label: faker.helpers.arrayElement(["Bug", "Feature", "Documentation"]),
+    priority: faker.helpers.arrayElement(["low", "medium", "high"]),
+  }))
