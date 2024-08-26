@@ -1,4 +1,4 @@
-import { popper, SkeletonApp } from "@/components/shared"
+import { shadmin, SkeletonApp } from "@/components/shared"
 import { useAuth } from "@/hooks"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
@@ -8,7 +8,7 @@ export const RootLoading = () => {
   const { error, isLoading, data } = useAuth()
 
   if (error) {
-    popper.error("Unauthorized")
+    shadmin.toast.error("Unauthorized")
     navigate("/login")
   }
 

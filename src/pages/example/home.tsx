@@ -9,7 +9,7 @@ import {
   LegendSelect,
   NavigationBlocker,
   Page,
-  popper,
+  shadmin,
 } from "@/components/shared"
 import { Alert, AlertDescription, AlertTitle, Button } from "@/components/ui"
 import { lorem } from "@/mocks/mock-data"
@@ -44,12 +44,12 @@ export const Home = () => {
         {
           content: "Secondary Action 1",
           onAction() {
-            popper.success("Secondary Action 1")
+            shadmin.toast.success("Secondary Action 1")
           },
         },
         {
           content: "Secondary Action 2",
-          onAction: () => popper.error("Secondary Action 2"),
+          onAction: () => shadmin.toast.error("Secondary Action 2"),
         },
       ]}
     >
@@ -62,7 +62,7 @@ export const Home = () => {
             content: "Save",
             onAction: () => {
               setIsSavebarActive(false)
-              popper.success("Saved")
+              shadmin.toast.success("Saved")
             },
           }}
           discardAction={{

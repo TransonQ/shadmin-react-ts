@@ -1,10 +1,10 @@
+/* eslint-disable react-refresh/only-export-components */
 import { cn } from "@/lib";
 import type { LucideIcon } from "lucide-react";
 import { CheckIcon, XIcon } from "lucide-react";
-import { toast } from "sonner";
+import { toast as sonnerToast } from "sonner";
 
-// eslint-disable-next-line react-refresh/only-export-components
-function Popper({
+function CustomToast({
   onDismiss,
   children,
   icon,
@@ -42,35 +42,39 @@ function Popper({
 }
 
 const success = (message: React.ReactNode) =>
-  toast.custom((t) => {
+  sonnerToast.custom((t) => {
     return (
-      <Popper
+      <CustomToast
         className="bg-green-700"
-        onDismiss={() => toast.dismiss(t)}
+        onDismiss={() => sonnerToast.dismiss(t)}
         icon={CheckIcon}
       >
         {message}
-      </Popper>
+      </CustomToast>
     )
   })
 
 const error = (message: React.ReactNode) =>
-  toast.custom((t) => {
+  sonnerToast.custom((t) => {
     return (
-      <Popper
+      <CustomToast
         className="bg-red-700"
-        onDismiss={() => toast.dismiss(t)}
+        onDismiss={() => sonnerToast.dismiss(t)}
         icon={XIcon}
       >
         {message}
-      </Popper>
+      </CustomToast>
     )
   })
 
-export const popper = Object.assign(
+ const toast = Object.assign(
   {},
   {
     success,
     error,
   }
 )
+
+
+export const shadmin =  Object.assign({}, {toast})
+

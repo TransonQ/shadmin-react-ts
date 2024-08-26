@@ -1,4 +1,4 @@
-import { LegendSelect, popper } from "@/components/shared"
+import { LegendSelect, shadmin } from "@/components/shared"
 import { Input } from "@/components/ui"
 import { sleep } from "@/lib"
 import type { Cell, Column, Row, Table } from "@tanstack/react-table"
@@ -52,7 +52,7 @@ export function EditableCell<TData, TValue>({
     } catch (error) {
       // 如果错误,当前值会被恢复为初始值，以便用户可以再次编辑
       setValue(fallbackValue)
-      popper.error("Failed to update data")
+      shadmin.toast.error("Failed to update data")
     }
   }
 
