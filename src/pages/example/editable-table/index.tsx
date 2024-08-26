@@ -71,6 +71,7 @@ const defaultColumn: Partial<ColumnDef<Task>> = {
               setValue(v)
             }}
             options={priorities}
+            className="bg-transparent border-none -ml-4"
           />
         )
       case "status":
@@ -81,7 +82,7 @@ const defaultColumn: Partial<ColumnDef<Task>> = {
               setValue(v)
             }}
             options={statuses}
-            className="bg-transparent border-none"
+            className="bg-transparent border-none -ml-4"
           />
         )
       case "id":
@@ -89,7 +90,7 @@ const defaultColumn: Partial<ColumnDef<Task>> = {
       default:
         return (
           <Input
-            className="p-0 h-auto bg-transparent border-none min-w-auto truncate"
+            className="p-0 bg-transparent border-none truncate"
             value={value as string}
             onChange={(e) => setValue(e.target.value)}
             onBlur={onBlur}
