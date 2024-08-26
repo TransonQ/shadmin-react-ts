@@ -60,7 +60,10 @@ function SelectBase(
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <div className={className}>
+        <div
+          x-chunk="LEGEND_SELECT_TRIGGER"
+          className={"group" /** NOTE :子元素获取 data-state="open"  */}
+        >
           <SelectTrigger
             title={title}
             placeholder={placeholder}
@@ -68,6 +71,7 @@ function SelectBase(
             requiredIndicator={requiredIndicator}
             disabled={disabled}
             options={options}
+            className={className}
           />
         </div>
       </PopoverTrigger>

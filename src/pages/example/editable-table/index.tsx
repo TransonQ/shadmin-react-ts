@@ -49,7 +49,6 @@ const defaultColumn: Partial<ColumnDef<Task>> = {
     table,
   }) {
     const initialValue = getValue()
-    console.log({ id, initialValue })
     // We need to keep and update the state of the cell normally
     const [value, setValue] = useState(initialValue)
 
@@ -68,7 +67,9 @@ const defaultColumn: Partial<ColumnDef<Task>> = {
         return (
           <LegendSelect
             value={value as string}
-            onChange={setValue}
+            onChange={(v) => {
+              setValue(v)
+            }}
             options={priorities}
           />
         )
@@ -76,8 +77,11 @@ const defaultColumn: Partial<ColumnDef<Task>> = {
         return (
           <LegendSelect
             value={value as string}
-            onChange={setValue}
+            onChange={(v) => {
+              setValue(v)
+            }}
             options={statuses}
+            className="bg-transparent border-none"
           />
         )
       case "id":
@@ -85,6 +89,7 @@ const defaultColumn: Partial<ColumnDef<Task>> = {
       default:
         return (
           <Input
+            className="p-0 h-auto bg-transparent border-none min-w-auto truncate"
             value={value as string}
             onChange={(e) => setValue(e.target.value)}
             onBlur={onBlur}

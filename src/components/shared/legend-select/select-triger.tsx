@@ -11,6 +11,7 @@ export function SelectTrigger({
   disabled,
   placeholder,
   options,
+  className,
 }: LegendSelectTriggerProps) {
   const fieldDisplay = (valuesSet: Set<string>) => {
     const firstSelectedLabel = options.find(
@@ -36,7 +37,7 @@ export function SelectTrigger({
     }
   }
   return (
-    <div>
+    <>
       <Show when={!!title} fallback={null}>
         <h5 className="mb-2">
           <span className="text-sm font-medium">{title}</span>
@@ -47,8 +48,10 @@ export function SelectTrigger({
         disabled={disabled}
         variant={"outline"}
         className={cn(
+          'group-data-[state="open"]:bg-muted',
           "w-full justify-start text-left font-normal disabled:opacity-100 disabled:bg-muted",
-          !selectedValues.size && "text-muted-foreground"
+          !selectedValues.size && "text-muted-foreground",
+          className
         )}
       >
         {selectedValues.size ? (
@@ -58,6 +61,6 @@ export function SelectTrigger({
         )}
         <ChevronDownIcon className="ml-auto h-4 w-4 opacity-50" />
       </Button>
-    </div>
+    </>
   )
 }
