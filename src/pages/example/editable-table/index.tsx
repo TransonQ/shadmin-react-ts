@@ -32,11 +32,21 @@ import { EditableCell } from "./editable-cell"
  * @link https://tanstack.com/table/latest/docs/api/core/table#meta
  * @link [demo](https://stackblitz.com/github/tanstack/table/tree/main/examples/react/editable-data?embed=1&theme=dark&preset=node&file=src/main.tsx)
  */
-
 declare module "@tanstack/react-table" {
   interface TableMeta<TData extends RowData> {
     updateDataByRowIndex: (
       rowIndex: number,
+      columnId: string,
+      value: unknown
+    ) => void
+    /**
+     * @name updateDataByRowId
+     * @description
+     * 根据行 id 更新单元格,当 tableOptions 里面的 getRowId 自定义为当前行的 id 时可以使用.
+     * 用于当更新了单元格的数据后,需要调用接口,通常是根据每一行的 id 进行接口的调用
+     */
+    updateDataByRowId?: (
+      rowId: number | string,
       columnId: string,
       value: unknown
     ) => void
@@ -89,6 +99,20 @@ export function EditableTaleExample() {
             if (index === rowIndex) {
               return {
                 ...old[rowIndex]!,
+                [columnId]: value,
+              }
+            }
+            return row
+          })
+        )
+      },
+      updateDataByRowId: (rowId, columnId, value) => {
+        skipAutoResetPageIndex()
+        setData((old) =>
+          old.map((row) => {
+            if (row.id === rowId) {
+              return {
+                ...old.find((row) => row.id === rowId)!,
                 [columnId]: value,
               }
             }

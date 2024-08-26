@@ -30,6 +30,7 @@ export function EditableCell<TData, TValue>({
   const onBlur = () => {
     console.log({ rowIndex, rowId, columnId, value })
     table.options.meta?.updateDataByRowIndex(rowIndex, columnId, value)
+    // table.options.meta?.updateDataByRowId?.(rowId, columnId, value)
   }
 
   //如果 initialValue 被更改为 external，则将其与我们的 state 同步
@@ -65,7 +66,7 @@ export function EditableCell<TData, TValue>({
     default:
       return (
         <Input
-          className="p-0 bg-transparent border-none truncate"
+          className="p-0 bg-transparent border-none truncate z-20"
           value={value as string}
           onChange={(e) => setValue(e.target.value)}
           onBlur={onBlur}
