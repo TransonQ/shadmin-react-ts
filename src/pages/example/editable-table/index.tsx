@@ -102,7 +102,6 @@ const defaultColumn: Partial<ColumnDef<Task>> = {
 
 export function EditableTaleExample() {
   const [data, setData] = useState(() => genfakeTableData(1000))
-  const refreshData = () => setData(() => genfakeTableData(1000))
   const [autoResetPageIndex, skipAutoResetPageIndex] = useSkipper()
 
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
