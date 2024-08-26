@@ -1,12 +1,10 @@
 import {
   IndexTable,
   LegendCard,
-  LegendSelect,
   Page,
   tableConfig,
   TablePagination,
 } from "@/components/shared"
-import { Input } from "@/components/ui"
 import type { Task } from "@/schemas/task.schema"
 import type {
   ColumnDef,
@@ -26,8 +24,9 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 import { useCallback, useEffect, useRef, useState } from "react"
-import { genfakeTableData, priorities, statuses } from "../table/data"
+import { genfakeTableData } from "../table/data"
 import { columns } from "./columns"
+import { EditableCell } from "./editable-cell"
 
 /**
  * @link https://tanstack.com/table/latest/docs/api/core/table#meta
@@ -36,68 +35,17 @@ import { columns } from "./columns"
 
 declare module "@tanstack/react-table" {
   interface TableMeta<TData extends RowData> {
-    updateData: (rowIndex: number, columnId: string, value: unknown) => void
+    updateDataByRowIndex: (
+      rowIndex: number,
+      columnId: string,
+      value: unknown
+    ) => void
   }
 }
 
 // Give our default column cell renderer editing superpowers!
 const defaultColumn: Partial<ColumnDef<Task>> = {
-  cell: function TableCellRender({
-    getValue,
-    row: { index },
-    column: { id },
-    table,
-  }) {
-    const initialValue = getValue()
-    // We need to keep and update the state of the cell normally
-    const [value, setValue] = useState(initialValue)
-
-    // 当输入失焦时，将调用表元的 updateData 函数
-    const onBlur = () => {
-      table.options.meta?.updateData(index, id, value)
-    }
-
-    //如果 initialValue 被更改为 external，则将其与我们的 state 同步
-    useEffect(() => {
-      setValue(initialValue)
-    }, [initialValue])
-
-    switch (id) {
-      case "priority":
-        return (
-          <LegendSelect
-            value={value as string}
-            onChange={(v) => {
-              setValue(v)
-            }}
-            options={priorities}
-            className="bg-transparent border-none -ml-4"
-          />
-        )
-      case "status":
-        return (
-          <LegendSelect
-            value={value as string}
-            onChange={(v) => {
-              setValue(v)
-            }}
-            options={statuses}
-            className="bg-transparent border-none -ml-4"
-          />
-        )
-      case "id":
-      case "title":
-      default:
-        return (
-          <Input
-            className="p-0 bg-transparent border-none truncate"
-            value={value as string}
-            onChange={(e) => setValue(e.target.value)}
-            onBlur={onBlur}
-          />
-        )
-    }
-  },
+  cell: EditableCell,
 }
 
 export function EditableTaleExample() {
@@ -133,7 +81,7 @@ export function EditableTaleExample() {
     getFacetedUniqueValues: getFacetedUniqueValues(),
     autoResetPageIndex,
     meta: {
-      updateData: (rowIndex, columnId, value) => {
+      updateDataByRowIndex: (rowIndex, columnId, value) => {
         // 跳过页面索引重置，直到下次重新呈现后,自动分页 autoResetPageIndex 默认为 true (手动分页时,不需要, 因为 autoResetPageIndex 手动分页时默认为 false)
         skipAutoResetPageIndex()
         setData((old) =>
