@@ -2,6 +2,10 @@
 
 ## admin built with shadcn/ui -> shadmin :)
 
+preview stie: 
+- https://shadmin.vercel.app
+- https://shadmin.netlify.app
+
 ## structure
 
 ```bash
