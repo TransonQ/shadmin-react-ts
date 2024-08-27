@@ -9,13 +9,7 @@ const FrameShell = ({ children }: { children?: React.ReactNode }) => {
   return <div x-chunk="FRAME">{children}</div>
 }
 
-const FrameHeader = ({
-  children,
-  hidden,
-}: {
-  children?: React.ReactNode
-  hidden?: boolean
-}) => {
+const FrameHeader = ({ children }: { children?: React.ReactNode }) => {
   const styles: CSSProperties = {
     height: headerHeight,
     width: "100%",
@@ -27,26 +21,22 @@ const FrameHeader = ({
   }
 
   return (
-    !hidden && (
-      <header
-        x-chunk="FRAME_HEADER"
-        style={styles}
-        className={cn("bg-card", "border-b", "pr-2")}
-      >
-        {children}
-      </header>
-    )
+    <header
+      x-chunk="FRAME_HEADER"
+      style={styles}
+      className={cn("bg-card", "border-b", "pr-2")}
+    >
+      {children}
+    </header>
   )
 }
 
 const FrameNavbar = ({
   children,
   collapsed,
-  hidden,
 }: {
   children?: React.ReactNode
   collapsed?: boolean
-  hidden?: boolean
 }) => {
   const styles: CSSProperties = {
     position: "fixed",
@@ -58,19 +48,17 @@ const FrameNavbar = ({
   }
 
   return (
-    !hidden && (
-      <nav
-        x-chunk="FRAME_NAVBAR"
-        style={styles}
-        className={cn(
-          "bg-card",
-          "border-r",
-          "transition-all duration-150 ease-in-out"
-        )}
-      >
-        {children}
-      </nav>
-    )
+    <nav
+      x-chunk="FRAME_NAVBAR"
+      style={styles}
+      className={cn(
+        "bg-card",
+        "border-r",
+        "transition-all duration-100 ease-in-out"
+      )}
+    >
+      {children}
+    </nav>
   )
 }
 
@@ -78,24 +66,22 @@ const FrameMain = ({
   children,
   navbarCollapsed,
   navbarHidden,
-  headerHidden,
 }: {
   children?: React.ReactNode
   navbarCollapsed?: boolean
   navbarHidden?: boolean
-  headerHidden?: boolean
 }) => {
   const left = navbarCollapsed ? navbarCollapsedWidth : navbarWidth
   const styles: CSSProperties = {
     marginLeft: navbarHidden ? 0 : left,
-    marginTop: headerHidden ? 0 : headerHeight,
+    marginTop: headerHeight,
   }
 
   return (
     <main
       x-chunk="FRAME_MAIN"
       style={styles}
-      className={cn("p-4", "transition-all duration-150 ease-in-out")}
+      className={cn("p-4", "transition-all duration-100 ease-in-out")}
     >
       {children}
     </main>

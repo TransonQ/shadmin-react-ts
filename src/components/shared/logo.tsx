@@ -19,7 +19,7 @@ export const Logo = ({ collapsed }: useLogoProps = {}) => {
       className={cn(
         "shrink-0 h-full text-3xl font-bold p-3 text-nowrap",
         "text-blue-700 flex items-center",
-        "transition-all duration-150",
+        "transition-all duration-100",
         isCollapsed ? "justify-center" : "justify-start"
       )}
     >
