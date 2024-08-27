@@ -19,7 +19,7 @@ function App() {
           revalidateOnMount: true,
         }}
       >
-        <Toaster position="bottom-center" visibleToasts={4} />
+        <Toaster position="bottom-center" toastOptions={{ unstyled: true }} />
         <RouterProvider router={router} />
       </SWRConfig>
     </Suspense>

@@ -3,11 +3,12 @@ import type { LucideIcon } from "lucide-react"
 import { TriangleAlertIcon } from "lucide-react"
 import { createPortal } from "react-dom"
 import type { PageWidth } from "../lib"
-import { calcPageWidth, isInterface } from "../lib"
+import { calcPageWidth, isInterface, isReactElement } from "../lib"
 import { Button } from "../ui"
 import { frameVariants } from "./config"
+import { Frame, useFrameConfig } from "./frame"
 import { Icon } from "./icon"
-import { Logo } from "./logo"
+import { Show } from "./show"
 import { type BaseAction, type DisableableAction } from "./types"
 
 const { headerHeight } = frameVariants
@@ -25,13 +26,14 @@ type ContextualSaveBarProps = {
 }
 
 export const ContextualSaveBar = ({
-  logo,
   pageWidth = "defaultWidth",
   message,
   messageSuffixIcon,
   saveAction,
   discardAction,
 }: ContextualSaveBarProps) => {
+  const { logo, isNavbarCollapsed } = useFrameConfig()
+
   const discardActionMarkup = isInterface(discardAction) ? (
     <Button
       variant="ghost"
@@ -67,7 +69,12 @@ export const ContextualSaveBar = ({
         "animate-in animate-out"
       )}
     >
-      {logo || <Logo />}
+      <Frame.LogoBox collapsed={isNavbarCollapsed}>
+        <Show when={isReactElement(logo)} fallback={null}>
+          {logo}
+        </Show>
+      </Frame.LogoBox>
+
       <div className="w-full h-full px-4 flex-1">
         <div
           className={cn(

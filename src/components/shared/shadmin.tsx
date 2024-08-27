@@ -18,25 +18,25 @@ function CustomToast({
   const IconTag = icon
   return (
     <div
-      className={cn(
-        "p-3 rounded-lg bg-card shadow-lg",
-        "flex flex-nowrap justify-between gap-6"
-      )}
+      x-chunk="SHADMIN_TOAST"
+      className={cn("p-4 rounded-lg shadow-lg bg-card")}
     >
-      <div className="flex gap-4 items-center">
-        <IconTag
-          className={cn(
-            "p-1 h-5 w-5 text-primary-foreground rounded-full shrink-0",
-            className
-          )}
-        />
-        {children}
-      </div>
+      <div className="flex flex-nowrap justify-between gap-6">
+        <div className="flex gap-4 items-center">
+          <IconTag
+            className={cn(
+              "p-1 h-5 w-5 text-primary-foreground rounded-full shrink-0",
+              className
+            )}
+          />
+          {children}
+        </div>
 
-      <XIcon
-        className="h-3 w-3 cursor-pointer shrink-0"
-        onClick={onDismiss}
-      />
+        <XIcon
+          className="h-3 w-3 cursor-pointer shrink-0"
+          onClick={onDismiss}
+        />
+      </div>
     </div>
   )
 }

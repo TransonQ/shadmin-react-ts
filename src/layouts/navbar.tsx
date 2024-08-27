@@ -1,14 +1,18 @@
-import { InlineStack, NavCollapsed, Navgation } from "@/components/shared"
+import {
+  InlineStack,
+  NavCollapsed,
+  Navgation,
+  useFrameConfig,
+} from "@/components/shared"
 import { navs } from "@/configs"
-import { useNavCollapse } from "@/hooks"
 import { cn } from "@/lib"
 
 export const Navbar = () => {
-  const [navCollapsed] = useNavCollapse()
+  const { isNavbarCollapsed } = useFrameConfig()
 
   return (
-    <Navgation footer={<NavFooter collapsed={navCollapsed} />}>
-      <Navgation.Section items={navs} collapsed={navCollapsed} />
+    <Navgation footer={<NavFooter collapsed={isNavbarCollapsed} />}>
+      <Navgation.Section items={navs} collapsed={isNavbarCollapsed} />
     </Navgation>
   )
 }

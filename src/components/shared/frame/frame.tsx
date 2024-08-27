@@ -1,6 +1,6 @@
 import { cn } from "@/lib"
 import type { CSSProperties } from "react"
-import { frameVariants } from "./config"
+import { frameVariants } from "../config"
 
 const { headerHeight, navbarWidth, navbarCollapsedWidth, zIndex } =
   frameVariants
