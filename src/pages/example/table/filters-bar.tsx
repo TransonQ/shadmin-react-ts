@@ -15,7 +15,12 @@ import type {
   Table,
 } from "@tanstack/react-table"
 import { isEqual } from "lodash-es"
-import { SearchIcon, SlidersHorizontalIcon, XIcon } from "lucide-react"
+import {
+  Columns3Icon,
+  SearchIcon,
+  SlidersHorizontalIcon,
+  XIcon,
+} from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 import { statuses } from "./data"
 
@@ -54,17 +59,22 @@ export function FiltersBar<TData>({
   return (
     <Accordion
       type="single"
-      className="m-2"
+      x-chunk="Accordion"
+      className="flex"
       collapsible
       value={mode}
       onValueChange={onModeChange}
     >
-      <AccordionItem value="FILTERING" className="border-none">
+      <AccordionItem
+        value="FILTERING"
+        x-chunk="AccordionItem"
+        className="border-none p-2 flex-1 overflow-hidden"
+      >
         <div
           x-chunk="FILTER_DEFAULT"
           className={cn("flex gap-2", isFilteringMode && "hidden")}
         >
-          <ScrollArea className="w-full pb-2 line-clamp-1">
+          <ScrollArea className="w-full pb-2">
             <div x-chunk="TABS_INDEX" className="w-full flex gap-1">
               {generateArray(14, (i) => (
                 <Button
@@ -151,6 +161,11 @@ export function FiltersBar<TData>({
           )}
         </AccordionContent>
       </AccordionItem>
+      <div x-chunk="FILTER_EXTERNAL" className="py-2 pr-2">
+        <Button variant={"outline"} size={"sm"}>
+          <Columns3Icon className="h-4 w-4" />
+        </Button>
+      </div>
     </Accordion>
   )
 }
