@@ -88,12 +88,35 @@ const FrameMain = ({
   )
 }
 
+const FrameLogoBox = ({
+  collapsed,
+  children,
+}: {
+  collapsed?: boolean
+  children?: React.ReactNode
+}) => {
+  const styles: React.CSSProperties = {
+    width: collapsed ? navbarCollapsedWidth : navbarWidth,
+  }
+  return (
+    <div
+      x-chunk="FRAME_LOGOBOX"
+      style={styles}
+      className={cn("flex-shrink-0 transition-all duration-100")}
+    >
+      {children}
+    </div>
+  )
+}
+
 FrameHeader.displayName = "FrameHeader"
 FrameNavbar.displayName = "FrameNavbar"
 FrameMain.displayName = "FrameMain"
+FrameLogoBox.displayName = "FrameLogoBox"
 
 export const Frame = Object.assign(FrameShell, {
   Header: FrameHeader,
   Navbar: FrameNavbar,
   Main: FrameMain,
+  LogoBox: FrameLogoBox,
 })
