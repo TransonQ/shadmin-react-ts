@@ -25,6 +25,7 @@ export * from "./row-action"
 export * from "./shadmin"
 export * from "./show"
 export * from "./skeleton-app"
+export * from "./status-dot"
 export * from "./text"
 export * from "./types"
 

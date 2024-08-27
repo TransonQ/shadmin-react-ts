@@ -10,6 +10,7 @@ import {
   NavigationBlocker,
   Page,
   shadmin,
+  StatusDot,
 } from "@/components/shared"
 import { Alert, AlertDescription, AlertTitle, Button } from "@/components/ui"
 import { lorem } from "@/mocks/mock-data"
@@ -87,6 +88,15 @@ export const Home = () => {
                   { label: "narrowWidth", value: "narrowWidth" },
                 ]}
               />
+            </LegendCard>
+
+            <LegendCard title={"Status Dot"} sectioned>
+              <BlockStack gap="md" inlineAlign="start">
+                <StatusDot label="Success" className="bg-green-500" />
+                <StatusDot label="Error" className="bg-red-500" />
+                <StatusDot label="Warning" bordered className="bg-yellow-500" />
+                <StatusDot label="Info" bordered className="bg-blue-400" />
+              </BlockStack>
             </LegendCard>
 
             <LegendCard title={"Button"} sectioned>
