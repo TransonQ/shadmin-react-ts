@@ -22,7 +22,15 @@ export default tseslint.config({
       "warn",
       { allowConstantExport: true },
     ],
-    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        args: "none",
+        // TData 是在定制 react-table 时需要用到的变量(泛型)，因此不需要警告
+        varsIgnorePattern: "^(_|TData)",
+        caughtErrors: "none",
+      },
+    ],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-empty-object-type": "off",
     "@typescript-eslint/consistent-type-imports": "warn",

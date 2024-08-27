@@ -32,7 +32,7 @@ export const ContextualSaveBar = ({
   saveAction,
   discardAction,
 }: ContextualSaveBarProps) => {
-  const { logo, isNavbarCollapsed } = useFrameConfig()
+  const { logo } = useFrameConfig()
 
   const discardActionMarkup = isInterface(discardAction) ? (
     <Button

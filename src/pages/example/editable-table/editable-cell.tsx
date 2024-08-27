@@ -34,7 +34,6 @@ export function EditableCell<TData, TValue>({
   // We need to keep and update the state of the cell normally
   const [value, setValue] = useState(initialValue)
   const [fallbackValue, setFallbackValue] = useState(initialValue)
-  const [lastNotEmptyValue, setLastNotEmptyValue] = useState(initialValue)
 
   // 当输入失焦时，将调用表元的 updateData 函数
   const onBlur = async () => {
