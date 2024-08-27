@@ -41,7 +41,13 @@ export function EditableCell<TData, TValue>({
 
     try {
       await sleep(400)
-      // 请求数据更新成功, 更新当前列表的数据
+      /**
+       * 请求数据更新成功, 更新当前列表的数据.
+       * TODO 批量更新表格:
+       *  1. 将每一个修改的数据都做好标记，然后批量更新
+       *  2. 点击保存按钮，将数据进行一次批量更新
+       *  3. 点击取消按钮，将数据进行还原
+       */
       table.options.meta?.updateDataByRowIndex(rowIndex, columnId, value)
 
       console.log({

@@ -66,7 +66,7 @@ export function TableExample() {
   return (
     <Page title="TableExample">
       <LegendCard>
-        <FiltersBar />
+        <FiltersBar table={table} />
         <IndexTable
           table={table}
           columns={columns}
