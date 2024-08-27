@@ -22,16 +22,16 @@ export const AppShell = () => {
           <TooltipProvider delayDuration={500}>
             <Frame.Header>
               <InlineStack blockAlign="center" className="h-full">
-                <Frame.LogoBox collapsed={isCollapsed}>
+                <Frame.LogoBox>
                   <Logo />
                 </Frame.LogoBox>
                 <Header />
               </InlineStack>
             </Frame.Header>
-            <Frame.Navbar collapsed={isCollapsed}>
+            <Frame.Navbar>
               <Navbar />
             </Frame.Navbar>
-            <Frame.Main navbarCollapsed={isCollapsed}>
+            <Frame.Main>
               <Outlet />
             </Frame.Main>
           </TooltipProvider>

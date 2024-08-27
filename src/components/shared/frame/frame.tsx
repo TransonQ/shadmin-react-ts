@@ -1,6 +1,7 @@
 import { cn } from "@/lib"
 import type { CSSProperties } from "react"
 import { frameVariants } from "../config"
+import { useFrameConfig } from "./frame-provider"
 
 const { headerHeight, navbarWidth, navbarCollapsedWidth, zIndex } =
   frameVariants
@@ -31,16 +32,12 @@ const FrameHeader = ({ children }: { children?: React.ReactNode }) => {
   )
 }
 
-const FrameNavbar = ({
-  children,
-  collapsed,
-}: {
-  children?: React.ReactNode
-  collapsed?: boolean
-}) => {
+const FrameNavbar = ({ children }: { children?: React.ReactNode }) => {
+  const { isNavbarCollapsed } = useFrameConfig()
+
   const styles: CSSProperties = {
     position: "fixed",
-    width: collapsed ? navbarCollapsedWidth : navbarWidth,
+    width: isNavbarCollapsed ? navbarCollapsedWidth : navbarWidth,
     height: `calc(100vh - ${headerHeight}px)`,
     top: headerHeight,
     left: 0,
@@ -62,18 +59,12 @@ const FrameNavbar = ({
   )
 }
 
-const FrameMain = ({
-  children,
-  navbarCollapsed,
-  navbarHidden,
-}: {
-  children?: React.ReactNode
-  navbarCollapsed?: boolean
-  navbarHidden?: boolean
-}) => {
-  const left = navbarCollapsed ? navbarCollapsedWidth : navbarWidth
+const FrameMain = ({ children }: { children?: React.ReactNode }) => {
+  const { isNavbarCollapsed } = useFrameConfig()
+  const left = isNavbarCollapsed ? navbarCollapsedWidth : navbarWidth
+
   const styles: CSSProperties = {
-    marginLeft: navbarHidden ? 0 : left,
+    marginLeft: left,
     marginTop: headerHeight,
   }
 
@@ -88,15 +79,11 @@ const FrameMain = ({
   )
 }
 
-const FrameLogoBox = ({
-  collapsed,
-  children,
-}: {
-  collapsed?: boolean
-  children?: React.ReactNode
-}) => {
+const FrameLogoBox = ({ children }: { children?: React.ReactNode }) => {
+  const { isNavbarCollapsed } = useFrameConfig()
+
   const styles: React.CSSProperties = {
-    width: collapsed ? navbarCollapsedWidth : navbarWidth,
+    width: isNavbarCollapsed ? navbarCollapsedWidth : navbarWidth,
   }
   return (
     <div

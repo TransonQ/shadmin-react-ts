@@ -69,7 +69,7 @@ export const ContextualSaveBar = ({
         "animate-in animate-out"
       )}
     >
-      <Frame.LogoBox collapsed={isNavbarCollapsed}>
+      <Frame.LogoBox>
         <Show when={isReactElement(logo)} fallback={null}>
           {logo}
         </Show>
