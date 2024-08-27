@@ -1,5 +1,12 @@
 import { LegendSelect, shadmin } from "@/components/shared"
-import { Input } from "@/components/ui"
+import {
+  Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui"
 import { sleep } from "@/lib"
 import type { Cell, Column, Row, Table } from "@tanstack/react-table"
 import { useEffect, useState } from "react"
@@ -27,13 +34,14 @@ export function EditableCell<TData, TValue>({
   // We need to keep and update the state of the cell normally
   const [value, setValue] = useState(initialValue)
   const [fallbackValue, setFallbackValue] = useState(initialValue)
+  const [lastNotEmptyValue, setLastNotEmptyValue] = useState(initialValue)
 
   // 当输入失焦时，将调用表元的 updateData 函数
   const onBlur = async () => {
     if (initialValue === value) return
 
     try {
-      await sleep(400)
+      await sleep.error(400)
 
       table.options.meta?.updateDataByRowIndex(
         rowIndex,
@@ -51,8 +59,8 @@ export function EditableCell<TData, TValue>({
       // table.options.meta?.updateDataByRowId?.(rowId, columnId, value)
     } catch (error) {
       // 如果错误,当前值会被恢复为初始值，以便用户可以再次编辑
-      setValue(fallbackValue)
       shadmin.toast.error("Failed to update data")
+      setValue(fallbackValue)
     }
   }
 
@@ -66,24 +74,36 @@ export function EditableCell<TData, TValue>({
     case "priority":
       return (
         <LegendSelect
+          showSearch
           value={value as string}
           onChange={(v) => {
-            setValue(v)
+            if (v) {
+              setValue(v)
+            }
           }}
           options={priorities}
           className="h-8 bg-transparent border-none -ml-4"
+          onOpenChange={(boo) => !boo && onBlur()}
         />
       )
     case "status":
       return (
-        <LegendSelect
-          value={value as string}
-          onChange={(v) => {
-            setValue(v)
-          }}
-          options={statuses}
-          className="h-8 bg-transparent border-none -ml-4"
-        />
+        <Select
+          value={value}
+          onValueChange={(v) => setValue(v)}
+          onOpenChange={(boo) => !boo && onBlur()}
+        >
+          <SelectTrigger className="h-8 bg-transparent border-none -ml-4">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {statuses.map((status, idx) => (
+              <SelectItem key={idx} value={status.value}>
+                {status.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       )
     case "id":
     case "title":

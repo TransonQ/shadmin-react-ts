@@ -1,8 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
-import { cn } from "@/lib";
-import type { LucideIcon } from "lucide-react";
-import { CheckIcon, XIcon } from "lucide-react";
-import { toast as sonnerToast } from "sonner";
+import { cn } from "@/lib"
+import type { LucideIcon } from "lucide-react"
+import { CheckIcon, XIcon } from "lucide-react"
+import { toast as sonnerToast } from "sonner"
 
 function CustomToast({
   onDismiss,
@@ -34,7 +34,7 @@ function CustomToast({
       </div>
 
       <XIcon
-        className="h-3 w-3 cursor-pointer -mr-1 shrink-0"
+        className="h-3 w-3 cursor-pointer shrink-0"
         onClick={onDismiss}
       />
     </div>
@@ -67,7 +67,7 @@ const error = (message: React.ReactNode) =>
     )
   })
 
- const toast = Object.assign(
+const toast = Object.assign(
   {},
   {
     success,
@@ -75,6 +75,4 @@ const error = (message: React.ReactNode) =>
   }
 )
 
-
-export const shadmin =  Object.assign({}, {toast})
-
+export const shadmin = Object.assign({}, { toast })

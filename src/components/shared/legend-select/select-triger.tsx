@@ -1,6 +1,7 @@
 import { Badge, Button } from "@/components/ui"
 import { cn } from "@/lib"
 import { ChevronDownIcon } from "lucide-react"
+import { Icon } from "../icon"
 import { Show } from "../show"
 import type { LegendSelectTriggerProps } from "./types"
 
@@ -14,12 +15,17 @@ export function SelectTrigger({
   className,
 }: LegendSelectTriggerProps) {
   const fieldDisplay = (valuesSet: Set<string>) => {
-    const firstSelectedLabel = options.find(
+    const firstSelected = options.find(
       (option) => option.value === Array.from(valuesSet)[0]
-    )?.label
+    )
 
     if (valuesSet.size === 1) {
-      return firstSelectedLabel
+      return (
+        <span className="truncate flex items-center gap-2">
+          {firstSelected?.icon && <Icon source={firstSelected?.icon} />}
+          {firstSelected?.label}
+        </span>
+      )
     } else {
       return (
         <div className="w-full flex justify-between items-center line-clamp-1">

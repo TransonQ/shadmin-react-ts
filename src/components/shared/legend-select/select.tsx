@@ -35,6 +35,7 @@ function SelectBase(
     onChange,
     className,
     multiple,
+    onOpenChange,
   } = props
 
   const selectedValues = new Set(
@@ -58,11 +59,11 @@ function SelectBase(
   )
 
   return (
-    <Popover>
+    <Popover onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>
         <div
           x-chunk="LEGEND_SELECT_TRIGGER"
-          className={"group" /** NOTE :子元素获取 data-state="open"  */}
+          className={cn("group" /** NOTE :子元素获取 data-state="open"  */)}
         >
           <SelectTrigger
             title={title}

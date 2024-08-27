@@ -1,3 +1,5 @@
+import type { LucideIcon } from "lucide-react"
+
 export interface SelectBaseProps {
   title?: string
   placeholder?: string
@@ -7,9 +9,10 @@ export interface SelectBaseProps {
   options: {
     label: string
     value: string
-    icon?: React.ComponentType<{ className?: string }>
+    icon?: LucideIcon
   }[]
   className?: string
+  onOpenChange?: (open: boolean) => void
 }
 
 export interface LegendSelectSingleProps extends SelectBaseProps {
