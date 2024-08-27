@@ -93,7 +93,7 @@ export function FiltersBar<TData>({
             <Button
               variant={"outline"}
               size={"sm"}
-              className="flex-shrink-0"
+              className="flex-shrink-0 px-2"
               onClick={toggleFiltering}
             >
               <SearchIcon className="h-4 w-4" />
@@ -119,7 +119,7 @@ export function FiltersBar<TData>({
           <Button
             variant={"outline"}
             size={"sm"}
-            className="flex-shrink-0"
+            className="flex-shrink-0 px-2"
             onClick={() => {
               toggleFiltering()
             }}
@@ -127,9 +127,9 @@ export function FiltersBar<TData>({
             {"Cancel"}
           </Button>
           <Button
-            variant={"outline"}
+            variant={'default'}
             size={"sm"}
-            className="flex-shrink-0"
+            className="flex-shrink-0 px-2"
             onClick={() => {
               toggleFiltering()
             }}
@@ -162,7 +162,7 @@ export function FiltersBar<TData>({
         </AccordionContent>
       </AccordionItem>
       <div x-chunk="FILTER_EXTERNAL" className="py-2 pr-2">
-        <Button variant={"outline"} size={"sm"}>
+        <Button variant={"outline"} size={"icon"} className="w-8 h-8" >
           <Columns3Icon className="h-4 w-4" />
         </Button>
       </div>
