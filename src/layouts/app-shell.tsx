@@ -1,4 +1,4 @@
-import { Auth, Frame, FrameProvider, InlineStack } from "@/components/shared"
+import { Frame, FrameProvider, InlineStack } from "@/components/shared"
 import { TooltipProvider } from "@/components/ui"
 import { cn } from "@/lib"
 import { useState } from "react"
@@ -10,34 +10,32 @@ export const AppShell = () => {
   const [isCollapsed, setCollapsed] = useState(false)
 
   return (
-    <Auth>
-      <FrameProvider
-        config={{
-          logo: <Logo />,
-          isNavbarCollapsed: isCollapsed,
-          onNavbarCollapsedChange: setCollapsed,
-        }}
-      >
-        <Frame>
-          <TooltipProvider delayDuration={500}>
-            <Frame.Header>
-              <InlineStack blockAlign="center" className="h-full">
-                <Frame.LogoBox>
-                  <Logo />
-                </Frame.LogoBox>
-                <Header />
-              </InlineStack>
-            </Frame.Header>
-            <Frame.Navbar>
-              <Navbar />
-            </Frame.Navbar>
-            <Frame.Main>
-              <Outlet />
-            </Frame.Main>
-          </TooltipProvider>
-        </Frame>
-      </FrameProvider>
-    </Auth>
+    <FrameProvider
+      config={{
+        logo: <Logo />,
+        isNavbarCollapsed: isCollapsed,
+        onNavbarCollapsedChange: setCollapsed,
+      }}
+    >
+      <Frame>
+        <TooltipProvider delayDuration={500}>
+          <Frame.Header>
+            <InlineStack blockAlign="center" className="h-full">
+              <Frame.LogoBox>
+                <Logo />
+              </Frame.LogoBox>
+              <Header />
+            </InlineStack>
+          </Frame.Header>
+          <Frame.Navbar>
+            <Navbar />
+          </Frame.Navbar>
+          <Frame.Main>
+            <Outlet />
+          </Frame.Main>
+        </TooltipProvider>
+      </Frame>
+    </FrameProvider>
   )
 
   function Logo() {

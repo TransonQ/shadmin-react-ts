@@ -48,7 +48,7 @@ export function FilterCheckbox<TData, TValue>({
           )}
         >
           <CirclePlusIcon className="mr-2 h-4 w-4" />
-          <Text variant='bodyXs'>{title}</Text>
+          <Text variant="bodyXs">{title}</Text>
           {selectedValues?.size > 0 && (
             <>
               <Separator orientation="vertical" className="mx-2 h-4" />
@@ -62,7 +62,7 @@ export function FilterCheckbox<TData, TValue>({
                 {selectedValues.size > 2 ? (
                   <Badge
                     variant="secondary"
-                    className="rounded-sm px-1 font-normal"
+                    className="rounded-full px-1 font-normal"
                   >
                     {selectedValues.size} selected
                   </Badge>
@@ -88,7 +88,7 @@ export function FilterCheckbox<TData, TValue>({
         <Command>
           <CommandInput placeholder={title} />
           <CommandList>
-            <CommandEmpty>无结果</CommandEmpty>
+            <CommandEmpty>{"No results"}</CommandEmpty>
             <CommandGroup className="">
               {options.map((option) => {
                 const isSelected = selectedValues.has(option.value)
