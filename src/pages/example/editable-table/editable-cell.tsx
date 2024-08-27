@@ -1,4 +1,4 @@
-import { LegendSelect, shadmin } from "@/components/shared"
+import { Icon, LegendSelect, shadmin } from "@/components/shared"
 import {
   Input,
   Select,
@@ -41,7 +41,7 @@ export function EditableCell<TData, TValue>({
     if (initialValue === value) return
 
     try {
-      await sleep.error(400)
+      await sleep(400)
 
       table.options.meta?.updateDataByRowIndex(
         rowIndex,
@@ -99,7 +99,12 @@ export function EditableCell<TData, TValue>({
           <SelectContent>
             {statuses.map((status, idx) => (
               <SelectItem key={idx} value={status.value}>
-                {status.label}
+                <div className="flex items-center gap-2 truncate line-clamp-1">
+                  {status.icon && (
+                    <Icon source={status.icon} className="flex-shrink-0" />
+                  )}
+                  <span className="flex-1">{status.label}</span>
+                </div>
               </SelectItem>
             ))}
           </SelectContent>

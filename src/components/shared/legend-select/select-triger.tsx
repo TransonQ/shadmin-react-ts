@@ -5,7 +5,7 @@ import { Icon } from "../icon"
 import { Show } from "../show"
 import type { LegendSelectTriggerProps } from "./types"
 
-export function SelectTrigger({
+export function LegendSelectTrigger({
   selectedValues,
   title,
   requiredIndicator,

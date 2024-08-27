@@ -4,7 +4,7 @@ import { CheckIcon } from "lucide-react"
 import { Show } from "../show"
 import type { LegendSelectContentProps } from "./types"
 
-export function SelectContent({
+export function LegendSelectContent({
   selectedValues,
   options,
   onChange,

@@ -10,8 +10,8 @@ import {
 } from "@/components/ui"
 import { cn } from "@/lib"
 import { Show } from "../show"
-import { SelectContent } from "./select-content"
-import { SelectTrigger } from "./select-triger"
+import { LegendSelectContent } from "./select-content"
+import { LegendSelectTrigger } from "./select-triger"
 import type {
   LegendSelectContentProps,
   LegendSelectMultipleProps,
@@ -45,7 +45,7 @@ function SelectBase(
   const CmdMarkup = (
     <CommandList>
       <CommandEmpty>{"No results"}</CommandEmpty>
-      <SelectContent
+      <LegendSelectContent
         multiple={multiple}
         options={options}
         selectedValues={selectedValues as Set<string>}
@@ -65,7 +65,7 @@ function SelectBase(
           x-chunk="LEGEND_SELECT_TRIGGER"
           className={cn("group" /** NOTE :子元素获取 data-state="open"  */)}
         >
-          <SelectTrigger
+          <LegendSelectTrigger
             title={title}
             placeholder={placeholder}
             selectedValues={selectedValues as Set<string>}
