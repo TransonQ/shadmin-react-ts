@@ -59,8 +59,9 @@ const defaultColumn: Partial<ColumnDef<Task>> = {
   cell: EditableCell,
 }
 
+const initData = genfakeTableData(2)
 export function EditableTaleExample() {
-  const [data, setData] = useState(() => genfakeTableData(1000))
+  const [data, setData] = useState(initData)
   const [autoResetPageIndex, skipAutoResetPageIndex] = useSkipper()
 
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
@@ -69,8 +70,12 @@ export function EditableTaleExample() {
   const [sorting, setSorting] = useState<SortingState>([])
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 20,
+    pageSize: 10,
   })
+
+  useEffect(() => {
+    console.log("data: ", data)
+  }, [data])
 
   const table = useReactTable({
     data,

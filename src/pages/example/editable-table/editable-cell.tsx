@@ -41,12 +41,9 @@ export function EditableCell<TData, TValue>({
 
     try {
       await sleep(400)
+      // 请求数据更新成功, 更新当前列表的数据
+      table.options.meta?.updateDataByRowIndex(rowIndex, columnId, value)
 
-      table.options.meta?.updateDataByRowIndex(
-        rowIndex,
-        columnId,
-        fallbackValue
-      )
       console.log({
         rowIndex,
         rowId,
@@ -55,6 +52,7 @@ export function EditableCell<TData, TValue>({
         initialValue,
         fallbackValue,
       })
+      // 案例: 如果是后端分页,需要调用接口更新,通常需要根据每一行的 id 进行接口的调用
       // table.options.meta?.updateDataByRowId?.(rowId, columnId, value)
     } catch (error) {
       // 如果错误,当前值会被恢复为初始值，以便用户可以再次编辑
