@@ -1,5 +1,11 @@
 import {
   Button,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
@@ -11,7 +17,6 @@ import { isEmpty } from "lodash-es"
 import { ChevronDownIcon, PlusIcon } from "lucide-react"
 import { useRef, useState, type ReactNode } from "react"
 import { MenuDestructableItem } from "../menu-destrucable-item"
-import { Modal } from "../modal"
 import { Show } from "../show"
 import type { BaseAction } from "../types"
 
@@ -61,6 +66,10 @@ export const TableTabs = ({
   const [duplicateActive, setDuplicateActive] = useState(false)
   const [deleteActive, setDeleteActive] = useState(false)
   const actionRef = useRef<any>(null)
+  const reset = () => {
+    setInputValue("")
+    actionRef.current = null
+  }
 
   const updateTabs = tabs.map((tab, idx) => {
     if (idx === selected) {
@@ -171,6 +180,7 @@ export const TableTabs = ({
           if (typeof actionRef.current === "function") {
             const action = actionRef.current
             action(inputValue)
+            reset()
           }
         }}
       />
@@ -186,6 +196,7 @@ export const TableTabs = ({
           if (typeof actionRef.current === "function") {
             const action = actionRef.current
             action(inputValue)
+            reset()
           }
         }}
       />
@@ -198,6 +209,7 @@ export const TableTabs = ({
           if (typeof actionRef.current === "function") {
             const action = actionRef.current
             action()
+            reset()
           }
         }}
       />
@@ -222,20 +234,22 @@ function RenameModal({
   onSave,
 }: ViewActionModal) {
   return (
-    <Modal
+    <ModalDialog
       open={open}
       title="Rename view"
       onClose={onClose}
       primaryAction={{ content: "Rename", onAction: onSave }}
       secondaryAction={{ content: "Cancel", onAction: onClose }}
     >
-      <Modal.Section>
-        <Label>
-          {"Name"}
-          <Input value={value} onChange={(e) => onChange?.(e.target.value)} />
-        </Label>
-      </Modal.Section>
-    </Modal>
+      <Label>
+        {"Name"}
+        <Input
+          className="mt-1"
+          value={value}
+          onChange={(e) => onChange?.(e.target.value)}
+        />
+      </Label>
+    </ModalDialog>
   )
 }
 
@@ -248,38 +262,86 @@ function DuplicateModal({
   onSave,
 }: ViewActionModal) {
   return (
-    <Modal
+    <ModalDialog
       title="Duplicate view"
       open={open}
       onClose={onClose}
       primaryAction={{ content: "Rename", onAction: onSave }}
       secondaryAction={{ content: "Cancel", onAction: onClose }}
     >
-      <Modal.Section>
-        <Label>
-          {"Name"}
-          <Input value={value} onChange={(e) => onChange?.(e.target.value)} />
-        </Label>
-      </Modal.Section>
-    </Modal>
+      <Label>
+        {"Name"}
+        <Input
+          className="mt-1"
+          value={value}
+          onChange={(e) => onChange?.(e.target.value)}
+        />
+      </Label>
+    </ModalDialog>
   )
 }
 
 //~ DeleteModal
-function DeleteModal({ open, onClose, onSave }: ViewActionModal) {
+function DeleteModal({ open, onClose, onSave, value }: ViewActionModal) {
   return (
-    <Modal
+    <ModalDialog
       open={open}
       onClose={onClose}
       title="Delete view?"
       secondaryAction={{ content: "Cancel", onAction: onClose }}
       primaryAction={{ content: "Rename", destructive: true, onAction: onSave }}
     >
-      <Modal.Section>
-        <p>{"This can't be undone. "}</p>
-        <p>{`${"$NAME"} view will no longer be available in your admin.`}</p>
-      </Modal.Section>
-    </Modal>
+      <p>{"This can't be undone. "}</p>
+      <p>{`${
+        value || "This"
+      } view will no longer be available in your admin.`}</p>
+    </ModalDialog>
+  )
+}
+
+function ModalDialog({
+  title,
+  open,
+  onClose,
+  children,
+  secondaryAction,
+  primaryAction,
+}: {
+  title?: string
+  open: boolean
+  onClose?: () => void
+  children?: ReactNode
+  secondaryAction: {
+    content: string
+    onAction?: () => void
+  }
+  primaryAction: {
+    content: string
+    onAction?: () => void
+    destructive?: boolean
+  }
+}) {
+  return (
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent className="p-0 gap-0">
+        <DialogHeader className="p-4 border-b">
+          <DialogTitle>{title}</DialogTitle>
+          <DialogDescription></DialogDescription>
+        </DialogHeader>
+        <div className="p-4">{children}</div>
+        <DialogFooter className="p-4 flex gap-1">
+          <Button variant={"outline"} onClick={secondaryAction.onAction}>
+            {secondaryAction.content}
+          </Button>
+          <Button
+            onClick={primaryAction.onAction}
+            variant={primaryAction.destructive ? "destructive" : "default"}
+          >
+            {primaryAction.content}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   )
 }
 
