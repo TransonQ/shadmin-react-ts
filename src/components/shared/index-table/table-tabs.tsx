@@ -15,8 +15,10 @@ import type { BaseAction } from "../types"
 /** tab 下拉操作类型 */
 export type TableTabActionType = "rename" | "edit" | "duplicate" | "delete"
 
-interface TableTabAction extends BaseAction {
+interface TableTabAction extends Omit<BaseAction, "content"> {
   type: TableTabActionType
+  /** tab 下拉操作自定义名称 */
+  label?: string
 }
 
 export interface TableTab {
@@ -42,17 +44,13 @@ interface TableTabsProps {
   onSelect?: (selectedTabIndex: number) => void
   /** 是否可以新增 */
   canAddTab?: boolean
-  // /** 是否禁用 */
-  // disabled?: boolean
-  // /** 是否自适应 */
-  // fitted?: boolean
 }
 
 export const TableTabs = ({
   tabs,
   selected,
   onSelect,
-  canAddTab,
+  canAddTab = true,
 }: TableTabsProps) => {
   const updateTabs = tabs.map((tab, idx) => {
     if (idx === selected) {
@@ -62,7 +60,7 @@ export const TableTabs = ({
   })
 
   const TabsMarkup = updateTabs.map((tab, idx) => {
-    if (tab.selected) {
+    if (tab.selected && !tab.isLocked) {
       return (
         <DropdownMenu key={tab.id}>
           <DropdownMenuTrigger asChild>
@@ -77,29 +75,33 @@ export const TableTabs = ({
               }}
             >
               {tab.content}
-              <ChevronDownIcon className="ml-2 h-4 w-4" />
+              <ChevronDownIcon className="ml-1 h-4 w-4 text-muted-foreground" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <Show when={!isEmpty(tab.actions)}>
               {tab.actions?.map((action) => {
-                let content = ""
-                if (action.type === "rename") {
-                  content = "Rename"
-                }
-                if (action.type === "edit") {
-                  content = "Edit"
-                }
-                if (action.type === "duplicate") {
-                  content = "Duplicate"
-                }
-                if (action.type === "delete") {
-                  content = "Delete"
+                let label = ""
+                switch (action.type) {
+                  case "rename":
+                    label = action.label || "Rename"
+                    break
+                  case "edit":
+                    label = action.label || "Edit"
+                    break
+                  case "duplicate":
+                    label = action.label || "Duplicate"
+                    break
+                  case "delete":
+                    label = action.label || "Delete"
+                    break
+                  default:
+                    break
                 }
                 return (
                   <MenuDestructableItem
                     key={action.id}
-                    content={content}
+                    content={label}
                     onAction={action.onAction}
                     destructive={action.type === "delete"}
                   />

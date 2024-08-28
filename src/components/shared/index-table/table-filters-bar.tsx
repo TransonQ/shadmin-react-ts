@@ -67,35 +67,32 @@ export function TableFiltersBar({
     content: item,
     id: `${item}-${idx}`,
     isLocked: idx === 0,
-    actions:
-      idx === 0
-        ? []
-        : [
-            {
-              type: "rename",
-              onAction: () => {
-                console.log("rename")
-              },
-            },
-            {
-              type: "edit",
-              onAction: () => {
-                console.log("edit")
-              },
-            },
-            {
-              type: "duplicate",
-              onAction: () => {
-                console.log("duplicate")
-              },
-            },
-            {
-              type: "delete",
-              onAction: () => {
-                console.log("delete")
-              },
-            },
-          ],
+    actions: [
+      {
+        type: "rename",
+        onAction: () => {
+          console.log("rename")
+        },
+      },
+      {
+        type: "edit",
+        onAction: () => {
+          console.log("edit")
+        },
+      },
+      {
+        type: "duplicate",
+        onAction: () => {
+          console.log("duplicate")
+        },
+      },
+      {
+        type: "delete",
+        onAction: () => {
+          console.log("delete")
+        },
+      },
+    ],
   }))
 
   return (
