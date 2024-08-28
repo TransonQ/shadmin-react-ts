@@ -3,22 +3,26 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
+  Input,
+  Label,
 } from "@/components/ui"
 import { cn } from "@/lib"
 import { isEmpty } from "lodash-es"
 import { ChevronDownIcon, PlusIcon } from "lucide-react"
-import type { ReactNode } from "react"
+import { useRef, useState, type ReactNode } from "react"
 import { MenuDestructableItem } from "../menu-destrucable-item"
+import { Modal } from "../modal"
 import { Show } from "../show"
 import type { BaseAction } from "../types"
 
 /** tab 下拉操作类型 */
 export type TableTabActionType = "rename" | "edit" | "duplicate" | "delete"
 
-interface TableTabAction extends Omit<BaseAction, "content"> {
+interface TableTabAction extends Omit<BaseAction, "content" | "onAction"> {
   type: TableTabActionType
   /** tab 下拉操作自定义名称 */
   label?: string
+  onAction?: (value?: string) => void
 }
 
 export interface TableTab {
@@ -52,6 +56,12 @@ export const TableTabs = ({
   onSelect,
   canAddTab = true,
 }: TableTabsProps) => {
+  const [inputValue, setInputValue] = useState("")
+  const [renameActive, setRenameActive] = useState(false)
+  const [duplicateActive, setDuplicateActive] = useState(false)
+  const [deleteActive, setDeleteActive] = useState(false)
+  const actionRef = useRef<any>(null)
+
   const updateTabs = tabs.map((tab, idx) => {
     if (idx === selected) {
       return { ...tab, selected: true }
@@ -104,19 +114,17 @@ export const TableTabs = ({
                       tabAtion({
                         type: action.type,
                         onRename() {
-                          console.log("rename")
+                          setRenameActive(true)
                         },
-                        onEdit() {
-                          console.log("edit")
-                        },
+                        onEdit() {},
                         onDuplicate() {
-                          console.log("duplicate")
+                          setDuplicateActive(true)
                         },
                         onDelete() {
-                          console.log("delete")
+                          setDeleteActive(true)
                         },
                       })
-                      action.onAction?.()
+                      actionRef.current = action.onAction
                     }}
                     destructive={action.type === "delete"}
                   />
@@ -151,7 +159,127 @@ export const TableTabs = ({
           <PlusIcon className="h-4 w-4" />
         </Button>
       </Show>
+      <RenameModal
+        open={renameActive}
+        value={inputValue}
+        onChange={setInputValue}
+        onClose={() => {
+          setRenameActive(false)
+        }}
+        onSave={() => {
+          setRenameActive(false)
+          if (typeof actionRef.current === "function") {
+            const action = actionRef.current
+            action(inputValue)
+          }
+        }}
+      />
+      <DuplicateModal
+        open={duplicateActive}
+        value={inputValue}
+        onChange={setInputValue}
+        onClose={() => {
+          setDuplicateActive(false)
+        }}
+        onSave={() => {
+          setDuplicateActive(false)
+          if (typeof actionRef.current === "function") {
+            const action = actionRef.current
+            action(inputValue)
+          }
+        }}
+      />
+      <DeleteModal
+        open={deleteActive}
+        onClose={() => {
+          setDeleteActive(false)
+        }}
+        onSave={() => {
+          if (typeof actionRef.current === "function") {
+            const action = actionRef.current
+            action()
+          }
+        }}
+      />
     </div>
+  )
+}
+
+interface ViewActionModal {
+  open: boolean
+  onClose?: () => void
+  value?: string
+  onChange?: (v: string) => void
+  onSave?: () => void
+}
+
+//~ RenameModal
+function RenameModal({
+  open,
+  value,
+  onChange,
+  onClose,
+  onSave,
+}: ViewActionModal) {
+  return (
+    <Modal
+      open={open}
+      title="Rename view"
+      onClose={onClose}
+      primaryAction={{ content: "Rename", onAction: onSave }}
+      secondaryAction={{ content: "Cancel", onAction: onClose }}
+    >
+      <Modal.Section>
+        <Label>
+          {"Name"}
+          <Input value={value} onChange={(e) => onChange?.(e.target.value)} />
+        </Label>
+      </Modal.Section>
+    </Modal>
+  )
+}
+
+//~ DuplicateModal
+function DuplicateModal({
+  open,
+  value,
+  onChange,
+  onClose,
+  onSave,
+}: ViewActionModal) {
+  return (
+    <Modal
+      title="Duplicate view"
+      open={open}
+      onClose={onClose}
+      primaryAction={{ content: "Rename", onAction: onSave }}
+      secondaryAction={{ content: "Cancel", onAction: onClose }}
+    >
+      <Modal.Section>
+        <Label>
+          {"Name"}
+          <Input value={value} onChange={(e) => onChange?.(e.target.value)} />
+        </Label>
+      </Modal.Section>
+    </Modal>
+  )
+}
+
+//~ DeleteModal
+function DeleteModal({ open, onClose, onSave }: ViewActionModal) {
+  return (
+    <Modal
+      open={open}
+      onClose={onClose}
+      title="Delete view?"
+      secondaryAction={{ content: "Cancel", onAction: onClose }}
+      primaryAction={{ content: "Rename", destructive: true, onAction: onSave }}
+    >
+      <Modal.Section>
+        <p>{"This can't be undone. "}</p>
+        <p>{`${"$NAME"} view will no longer be available in your admin.`}</p>
+      </Modal.Section>
+    </Modal>
   )
 }
 
