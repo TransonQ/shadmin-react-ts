@@ -80,29 +80,44 @@ export const TableTabs = ({
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <Show when={!isEmpty(tab.actions)}>
-              {tab.actions?.map((action) => {
-                let label = ""
-                switch (action.type) {
-                  case "rename":
-                    label = action.label || "Rename"
-                    break
-                  case "edit":
-                    label = action.label || "Edit"
-                    break
-                  case "duplicate":
-                    label = action.label || "Duplicate"
-                    break
-                  case "delete":
-                    label = action.label || "Delete"
-                    break
-                  default:
-                    break
-                }
+              {tab.actions?.map((action, actionIdx) => {
+                const label = tabAtion({
+                  type: action.type,
+                  onRename() {
+                    return action.label || "Rename"
+                  },
+                  onEdit() {
+                    return action.label || "Edit"
+                  },
+                  onDuplicate() {
+                    return action.label || "Duplicate"
+                  },
+                  onDelete() {
+                    return action.label || "Delete"
+                  },
+                })
                 return (
                   <MenuDestructableItem
-                    key={action.id}
+                    key={actionIdx}
                     content={label}
-                    onAction={action.onAction}
+                    onAction={() => {
+                      tabAtion({
+                        type: action.type,
+                        onRename() {
+                          console.log("rename")
+                        },
+                        onEdit() {
+                          console.log("edit")
+                        },
+                        onDuplicate() {
+                          console.log("duplicate")
+                        },
+                        onDelete() {
+                          console.log("delete")
+                        },
+                      })
+                      action.onAction?.()
+                    }}
                     destructive={action.type === "delete"}
                   />
                 )
@@ -138,4 +153,33 @@ export const TableTabs = ({
       </Show>
     </div>
   )
+}
+
+function tabAtion({
+  type,
+  onRename,
+  onEdit,
+  onDuplicate,
+  onDelete,
+  onDefault,
+}: {
+  type: TableTabActionType
+  onRename: () => unknown
+  onEdit: () => unknown
+  onDuplicate: () => unknown
+  onDelete: () => unknown
+  onDefault?: () => unknown
+}): any {
+  switch (type) {
+    case "rename":
+      return onRename()
+    case "edit":
+      return onEdit()
+    case "duplicate":
+      return onDuplicate()
+    case "delete":
+      return onDelete()
+    default:
+      return onDefault?.()
+  }
 }

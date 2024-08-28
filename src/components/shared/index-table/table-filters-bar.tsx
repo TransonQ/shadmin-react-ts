@@ -32,6 +32,7 @@ interface TableFiltersBarProps {
   isFiltered?: boolean
   onClearAllFilters: () => void
   external?: ReactNode
+  tabs: TableTab[]
 }
 
 export function TableFiltersBar({
@@ -42,6 +43,7 @@ export function TableFiltersBar({
   isFiltered,
   onClearAllFilters,
   external,
+  tabs,
 }: TableFiltersBarProps) {
   const [mode, setMode] = useState<FilterMode>("DEFAULT")
   const isDefaultMode = mode === "DEFAULT"
@@ -61,39 +63,6 @@ export function TableFiltersBar({
   useEffect(() => {
     console.log("selected: ", selected)
   }, [selected])
-
-  const [itemString, setItemString] = useState(["All", "Active", "Completed"])
-  const tabs: TableTab[] = itemString.map((item, idx) => ({
-    content: item,
-    id: `${item}-${idx}`,
-    isLocked: idx === 0,
-    actions: [
-      {
-        type: "rename",
-        onAction: () => {
-          console.log("rename")
-        },
-      },
-      {
-        type: "edit",
-        onAction: () => {
-          console.log("edit")
-        },
-      },
-      {
-        type: "duplicate",
-        onAction: () => {
-          console.log("duplicate")
-        },
-      },
-      {
-        type: "delete",
-        onAction: () => {
-          console.log("delete")
-        },
-      },
-    ],
-  }))
 
   return (
     <Accordion

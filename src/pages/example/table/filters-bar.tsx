@@ -1,19 +1,15 @@
-import type {
-  AppliedFilters
-} from "@/components/shared";
-import {
-  FilterCheckbox,
-  TableFiltersBar,
-} from "@/components/shared";
-import { Button } from "@/components/ui";
+import type { AppliedFilters, TableTab } from "@/components/shared"
+import { FilterCheckbox, TableFiltersBar } from "@/components/shared"
+import { Button } from "@/components/ui"
 import type {
   ColumnFiltersState,
   ColumnOrderState,
   Table,
-} from "@tanstack/react-table";
-import { isEqual } from "lodash-es";
-import { Columns3Icon } from "lucide-react";
-import { statuses } from "./data";
+} from "@tanstack/react-table"
+import { isEqual } from "lodash-es"
+import { Columns3Icon } from "lucide-react"
+import { useState } from "react"
+import { statuses } from "./data"
 
 interface FiltersBarProps<TData> {
   table: Table<TData>
@@ -32,6 +28,31 @@ export function FiltersBar<TData>({
     isFiltered = !isEqual(filters, columnFilters)
   }
 
+  const [itemString, setItemString] = useState(["All", "Active", "Completed"])
+  const tabs: TableTab[] = itemString.map((item, idx) => ({
+    content: item,
+    id: `${item}-${idx}`,
+    isLocked: idx === 0,
+    actions: [
+      {
+        type: "rename",
+        onAction: () => {},
+      },
+      {
+        type: "edit",
+        onAction: () => {},
+      },
+      {
+        type: "duplicate",
+        onAction: () => {},
+      },
+      {
+        type: "delete",
+        onAction: () => {},
+      },
+    ],
+  }))
+
   const appliedfilters: AppliedFilters[] = []
 
   if (table.getColumn("status")) {
@@ -40,7 +61,7 @@ export function FiltersBar<TData>({
       filter: table.getColumn("status") && (
         <FilterCheckbox
           column={table.getColumn("status")}
-          title='Status'
+          title="Status"
           options={statuses}
         />
       ),
@@ -52,6 +73,7 @@ export function FiltersBar<TData>({
 
   return (
     <TableFiltersBar
+      tabs={tabs}
       queryValue={(table.getColumn("id")?.getFilterValue() as string) ?? ""}
       onQueryChange={(value) => table.getColumn("id")?.setFilterValue(value)}
       onClearAllFilters={() => table.resetColumnFilters()}
