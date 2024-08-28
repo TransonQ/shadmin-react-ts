@@ -176,12 +176,12 @@ export const TableTabs = ({
           setRenameActive(false)
         }}
         onSave={() => {
-          setRenameActive(false)
           if (typeof actionRef.current === "function") {
             const action = actionRef.current
             action(inputValue)
             reset()
           }
+          setRenameActive(false)
         }}
       />
       <DuplicateModal
@@ -192,12 +192,12 @@ export const TableTabs = ({
           setDuplicateActive(false)
         }}
         onSave={() => {
-          setDuplicateActive(false)
           if (typeof actionRef.current === "function") {
             const action = actionRef.current
             action(inputValue)
             reset()
           }
+          setDuplicateActive(false)
         }}
       />
       <DeleteModal
@@ -211,6 +211,7 @@ export const TableTabs = ({
             action()
             reset()
           }
+          setDeleteActive(false)
         }}
       />
     </div>
@@ -266,7 +267,7 @@ function DuplicateModal({
       title="Duplicate view"
       open={open}
       onClose={onClose}
-      primaryAction={{ content: "Rename", onAction: onSave }}
+      primaryAction={{ content: "Duplicate", onAction: onSave }}
       secondaryAction={{ content: "Cancel", onAction: onClose }}
     >
       <Label>
@@ -289,7 +290,7 @@ function DeleteModal({ open, onClose, onSave, value }: ViewActionModal) {
       onClose={onClose}
       title="Delete view?"
       secondaryAction={{ content: "Cancel", onAction: onClose }}
-      primaryAction={{ content: "Rename", destructive: true, onAction: onSave }}
+      primaryAction={{ content: "Delete", destructive: true, onAction: onSave }}
     >
       <p>{"This can't be undone. "}</p>
       <p>{`${
