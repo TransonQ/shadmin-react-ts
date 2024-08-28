@@ -29,6 +29,10 @@ export function FiltersBar<TData>({
     isFiltered = !isEqual(filters, columnFilters)
   }
 
+  const queryValue = (table.getColumn("id")?.getFilterValue() as string) ?? ""
+  const setQueryValue = (value: string | undefined) =>
+    table.getColumn("id")?.setFilterValue(value)
+
   const [selected, setSelected] = useState(0)
   const [itemString, setItemString] = useState([
     "All",
@@ -91,9 +95,9 @@ export function FiltersBar<TData>({
       tabs={tabs}
       selected={selected}
       onSelect={setSelected}
-      queryValue={(table.getColumn("id")?.getFilterValue() as string) ?? ""}
-      onQueryChange={(value) => table.getColumn("id")?.setFilterValue(value)}
-      onQueryClear={() => table.getColumn("id")?.setFilterValue(undefined)}
+      queryValue={queryValue}
+      onQueryChange={setQueryValue}
+      onQueryClear={() => setQueryValue(undefined)}
       onClearAllFilters={() => table.resetColumnFilters()}
       filters={appliedfilters}
       isFiltered={isFiltered}

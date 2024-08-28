@@ -60,6 +60,7 @@ export function TableFiltersBar({
   const isFilteringMode = mode === "FILTERING"
   const onModeChange = (v: FilterMode) => setMode(v)
   const toggleFiltering = () => setMode(isDefaultMode ? "FILTERING" : "DEFAULT")
+  const showClearButton = !!queryValue && typeof onQueryClear === "function"
 
   // 自动聚焦输入框
   const InputRef = useRef<HTMLInputElement>(null)
@@ -111,21 +112,23 @@ export function TableFiltersBar({
         // isDefaultMode && "hidden"
       )}
     >
-      <div className="relative flex-1">
+      <div className="relative h-full w-full flex-1">
         <Input
           ref={InputRef}
           placeholder={queryPlaceholder}
           autoFocus={true}
           value={queryValue}
           onChange={(event) => onQueryChange?.(event.target.value)}
-          className="h-8 w-full pr-8"
+          className={cn("h-8 w-full", showClearButton && "pr-8")}
         />
-        <div
-          onClick={() => onQueryClear?.()}
-          className="absolute top-0 right-0 h-8 w-8 flex items-center justify-center"
-        >
-          <XCircleIcon className="h-4 w-4 text-zinc-400 hover:text-muted-foreground" />
-        </div>
+        <Show when={showClearButton}>
+          <div
+            onClick={() => onQueryClear?.()}
+            className="absolute top-0 right-0 h-8 w-8 flex items-center justify-center"
+          >
+            <XCircleIcon className="h-4 w-4 text-zinc-400 hover:text-muted-foreground" />
+          </div>
+        </Show>
       </div>
       <Button
         variant={"outline"}
