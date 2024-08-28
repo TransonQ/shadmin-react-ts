@@ -1,4 +1,4 @@
-import { IndexTableHeader } from "@/components/shared"
+import { TableColumnHeader } from "@/components/shared"
 import { Badge, Checkbox } from "@/components/ui"
 import type { Task } from "@/schemas/task.schema"
 import type { ColumnDef } from "@tanstack/react-table"
@@ -37,14 +37,14 @@ export const columns: ColumnDef<Task>[] = [
   },
   {
     accessorKey: "id",
-    header: ({ column }) => <IndexTableHeader column={column} title="Task" />,
+    header: ({ column }) => <TableColumnHeader column={column} title="Task" />,
     cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: "title",
-    header: ({ column }) => <IndexTableHeader column={column} title="Title" />,
+    header: ({ column }) => <TableColumnHeader column={column} title="Title" />,
     cell: ({ row }) => {
       const label = labels.find((label) => label.value === row.original.label)
 
@@ -60,7 +60,9 @@ export const columns: ColumnDef<Task>[] = [
   },
   {
     accessorKey: "status",
-    header: ({ column }) => <IndexTableHeader column={column} title="Status" />,
+    header: ({ column }) => (
+      <TableColumnHeader column={column} title="Status" />
+    ),
     cell: ({ row }) => {
       const status = statuses.find(
         (status) => status.value === row.getValue("status")
@@ -86,7 +88,7 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: "priority",
     header: ({ column }) => (
-      <IndexTableHeader column={column} title="Priority" />
+      <TableColumnHeader column={column} title="Priority" />
     ),
     cell: ({ row }) => {
       const priority = priorities.find(

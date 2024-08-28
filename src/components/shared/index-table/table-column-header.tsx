@@ -21,7 +21,7 @@ interface IndexTableHeaderProps<TData, TValue>
   title?: string
 }
 
-export function IndexTableHeader<TData, TValue>({
+export function TableColumnHeader<TData, TValue>({
   column,
   title,
   className,

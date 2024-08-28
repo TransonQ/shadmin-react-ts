@@ -1,4 +1,4 @@
-import { IndexTableHeader } from "@/components/shared"
+import { TableColumnHeader } from "@/components/shared"
 import { Checkbox } from "@/components/ui"
 import type { Task } from "@/schemas/task.schema"
 import type { ColumnDef } from "@tanstack/react-table"
@@ -36,17 +36,19 @@ export const columns: ColumnDef<Task>[] = [
   },
   {
     accessorKey: "id",
-    header: ({ column }) => <IndexTableHeader column={column} title="Task" />,
+    header: ({ column }) => <TableColumnHeader column={column} title="Task" />,
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: "title",
-    header: ({ column }) => <IndexTableHeader column={column} title="Title" />,
+    header: ({ column }) => <TableColumnHeader column={column} title="Title" />,
   },
   {
     accessorKey: "status",
-    header: ({ column }) => <IndexTableHeader column={column} title="Status" />,
+    header: ({ column }) => (
+      <TableColumnHeader column={column} title="Status" />
+    ),
 
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id))
@@ -55,7 +57,7 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: "priority",
     header: ({ column }) => (
-      <IndexTableHeader column={column} title="Priority" />
+      <TableColumnHeader column={column} title="Priority" />
     ),
 
     filterFn: (row, id, value) => {
