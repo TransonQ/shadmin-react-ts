@@ -9,7 +9,12 @@ import {
   ScrollBar,
 } from "@/components/ui"
 import { cn } from "@/lib"
-import { SearchIcon, SlidersHorizontalIcon, XIcon } from "lucide-react"
+import {
+  SearchIcon,
+  SlidersHorizontalIcon,
+  XCircleIcon,
+  XIcon,
+} from "lucide-react"
 import type { ReactNode } from "react"
 import { Fragment, useEffect, useRef, useState } from "react"
 import { Show } from "../show"
@@ -33,17 +38,22 @@ interface TableFiltersBarProps {
   onClearAllFilters: () => void
   external?: ReactNode
   tabs: TableTab[]
+  selected: number
+  onSelect?: (tabIndex: number) => void
 }
 
 export function TableFiltersBar({
   queryValue,
   queryPlaceholder,
   onQueryChange,
+  onQueryClear,
   filters,
   isFiltered,
   onClearAllFilters,
   external,
   tabs,
+  selected,
+  onSelect,
 }: TableFiltersBarProps) {
   const [mode, setMode] = useState<FilterMode>("DEFAULT")
   const isDefaultMode = mode === "DEFAULT"
@@ -59,11 +69,7 @@ export function TableFiltersBar({
     }
   }, [isFilteringMode])
 
-  const [selected, setSelected] = useState(0)
-  useEffect(() => {
-    console.log("selected: ", selected)
-  }, [selected])
-
+  //~ tabs view
   const DefaultView = (
     <div
       x-chunk="FILTER_DEFAULT"
@@ -77,7 +83,7 @@ export function TableFiltersBar({
           tabs={tabs}
           selected={selected}
           setMode={setMode}
-          onSelect={setSelected}
+          onSelect={onSelect}
         />
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
@@ -96,6 +102,7 @@ export function TableFiltersBar({
     </div>
   )
 
+  //~ filters view
   const FilteringView = (
     <div
       x-chunk="FILTER_FILTERING"
@@ -104,14 +111,22 @@ export function TableFiltersBar({
         // isDefaultMode && "hidden"
       )}
     >
-      <Input
-        ref={InputRef}
-        placeholder={queryPlaceholder}
-        autoFocus={true}
-        value={queryValue}
-        onChange={(event) => onQueryChange?.(event.target.value)}
-        className="h-8 w-full flex-1"
-      />
+      <div className="relative flex-1">
+        <Input
+          ref={InputRef}
+          placeholder={queryPlaceholder}
+          autoFocus={true}
+          value={queryValue}
+          onChange={(event) => onQueryChange?.(event.target.value)}
+          className="h-8 w-full pr-8"
+        />
+        <div
+          onClick={() => onQueryClear?.()}
+          className="absolute top-0 right-0 h-8 w-8 flex items-center justify-center"
+        >
+          <XCircleIcon className="h-4 w-4 text-zinc-400 hover:text-muted-foreground" />
+        </div>
+      </div>
       <Button
         variant={"outline"}
         size={"sm"}

@@ -1,6 +1,7 @@
 import type { AppliedFilters, TableTab } from "@/components/shared"
 import { FilterCheckbox, TableFiltersBar } from "@/components/shared"
 import { Button } from "@/components/ui"
+import { generateArray } from "@/lib"
 import type {
   ColumnFiltersState,
   ColumnOrderState,
@@ -28,7 +29,13 @@ export function FiltersBar<TData>({
     isFiltered = !isEqual(filters, columnFilters)
   }
 
-  const [itemString, setItemString] = useState(["All", "Active", "Completed"])
+  const [selected, setSelected] = useState(0)
+  const [itemString, setItemString] = useState([
+    "All",
+    "Active",
+    "Completed",
+    ...generateArray(10, (i) => `Tab_${i + 3}`),
+  ])
   const tabs: TableTab[] = itemString.map((item, idx) => ({
     content: item,
     id: `${item}-${idx}`,
@@ -82,8 +89,11 @@ export function FiltersBar<TData>({
   return (
     <TableFiltersBar
       tabs={tabs}
+      selected={selected}
+      onSelect={setSelected}
       queryValue={(table.getColumn("id")?.getFilterValue() as string) ?? ""}
       onQueryChange={(value) => table.getColumn("id")?.setFilterValue(value)}
+      onQueryClear={() => table.getColumn("id")?.setFilterValue(undefined)}
       onClearAllFilters={() => table.resetColumnFilters()}
       filters={appliedfilters}
       isFiltered={isFiltered}
