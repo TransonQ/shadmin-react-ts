@@ -1,7 +1,14 @@
-import { Button } from "@/components/ui"
+import {
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui"
 import { cn } from "@/lib"
-import { PlusIcon } from "lucide-react"
+import { isEmpty } from "lodash-es"
+import { ChevronDownIcon, PlusIcon } from "lucide-react"
 import type { ReactNode } from "react"
+import { MenuDestructableItem } from "../menu-destrucable-item"
 import { Show } from "../show"
 import type { BaseAction } from "../types"
 
@@ -12,7 +19,7 @@ interface TableTabAction extends BaseAction {
   type: TableTabActionType
 }
 
-interface TableTab {
+export interface TableTab {
   /** 点击 tab 触发可选回调 */
   onAction?(): void
   /** 每个 tab 的唯一标识符 */
@@ -23,6 +30,8 @@ interface TableTab {
   actions?: TableTabAction[]
   /** 是否被选中 */
   selected?: boolean
+  /** 是否锁定, 如果为 true，将删除 编辑/重命名/删除 视图的功能。 */
+  isLocked?: boolean
 }
 
 interface TableTabsProps {
@@ -45,19 +54,74 @@ export const TableTabs = ({
   onSelect,
   canAddTab,
 }: TableTabsProps) => {
-  const TabsMarkup = tabs.map((tb, idx) => {
+  const updateTabs = tabs.map((tab, idx) => {
+    if (idx === selected) {
+      return { ...tab, selected: true }
+    }
+    return { ...tab, selected: false }
+  })
+
+  const TabsMarkup = updateTabs.map((tab, idx) => {
+    if (tab.selected) {
+      return (
+        <DropdownMenu key={tab.id}>
+          <DropdownMenuTrigger asChild>
+            <Button
+              key={tab.id}
+              variant={"ghost"}
+              size={"sm"}
+              className={cn("transition-all", selected === idx && "bg-muted")}
+              onClick={() => {
+                tab.onAction?.()
+                onSelect?.(idx)
+              }}
+            >
+              {tab.content}
+              <ChevronDownIcon className="ml-2 h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <Show when={!isEmpty(tab.actions)}>
+              {tab.actions?.map((action) => {
+                let content = ""
+                if (action.type === "rename") {
+                  content = "Rename"
+                }
+                if (action.type === "edit") {
+                  content = "Edit"
+                }
+                if (action.type === "duplicate") {
+                  content = "Duplicate"
+                }
+                if (action.type === "delete") {
+                  content = "Delete"
+                }
+                return (
+                  <MenuDestructableItem
+                    key={action.id}
+                    content={content}
+                    onAction={action.onAction}
+                    destructive={action.type === "delete"}
+                  />
+                )
+              })}
+            </Show>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )
+    }
     return (
       <Button
-        key={tb.id}
+        key={tab.id}
         variant={"ghost"}
         size={"sm"}
         className={cn(selected === idx && "bg-muted")}
         onClick={() => {
-          tb.onAction?.()
+          tab.onAction?.()
           onSelect?.(idx)
         }}
       >
-        {tb.content}
+        {tab.content}
       </Button>
     )
   })

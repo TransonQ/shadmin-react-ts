@@ -8,11 +8,12 @@ import {
   ScrollArea,
   ScrollBar,
 } from "@/components/ui"
-import { cn, generateArray } from "@/lib"
+import { cn } from "@/lib"
 import { SearchIcon, SlidersHorizontalIcon, XIcon } from "lucide-react"
 import type { ReactNode } from "react"
 import { Fragment, useEffect, useRef, useState } from "react"
 import { Show } from "../show"
+import type { TableTab } from "./table-tabs"
 import { TableTabs } from "./table-tabs"
 
 type FilterMode = "DEFAULT" | "FILTERING"
@@ -61,10 +62,40 @@ export function TableFiltersBar({
     console.log("selected: ", selected)
   }, [selected])
 
-  const tabs = generateArray(3, (i) => ({
-    id: `tab-${i}`,
-    content: `tab-${i}`,
-    onAction: () => {},
+  const [itemString, setItemString] = useState(["All", "Active", "Completed"])
+  const tabs: TableTab[] = itemString.map((item, idx) => ({
+    content: item,
+    id: `${item}-${idx}`,
+    isLocked: idx === 0,
+    actions:
+      idx === 0
+        ? []
+        : [
+            {
+              type: "rename",
+              onAction: () => {
+                console.log("rename")
+              },
+            },
+            {
+              type: "edit",
+              onAction: () => {
+                console.log("edit")
+              },
+            },
+            {
+              type: "duplicate",
+              onAction: () => {
+                console.log("duplicate")
+              },
+            },
+            {
+              type: "delete",
+              onAction: () => {
+                console.log("delete")
+              },
+            },
+          ],
   }))
 
   return (
@@ -85,7 +116,7 @@ export function TableFiltersBar({
           x-chunk="FILTER_DEFAULT"
           className={cn("flex gap-2", isFilteringMode && "hidden")}
         >
-          <ScrollArea className="w-full pb-2">
+          <ScrollArea className="w-full">
             <TableTabs tabs={tabs} selected={selected} onSelect={setSelected} />
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
