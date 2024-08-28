@@ -16,7 +16,7 @@ import { Show } from "../show"
 import type { TableTab } from "./table-tabs"
 import { TableTabs } from "./table-tabs"
 
-type FilterMode = "DEFAULT" | "FILTERING"
+export type FilterMode = "DEFAULT" | "FILTERING"
 
 export interface AppliedFilters {
   key: string
@@ -64,6 +64,77 @@ export function TableFiltersBar({
     console.log("selected: ", selected)
   }, [selected])
 
+  const DefaultView = (
+    <div
+      x-chunk="FILTER_DEFAULT"
+      className={cn(
+        "flex gap-2"
+        // isFilteringMode && "hidden"
+      )}
+    >
+      <ScrollArea className="w-full">
+        <TableTabs
+          tabs={tabs}
+          selected={selected}
+          setMode={setMode}
+          onSelect={setSelected}
+        />
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
+
+      <div x-chunk="TABS_TRIGGER" className="">
+        <Button
+          variant={"outline"}
+          size={"sm"}
+          className="flex-shrink-0 px-2"
+          onClick={toggleFiltering}
+        >
+          <SearchIcon className="h-4 w-4" />
+          <SlidersHorizontalIcon className="ml-1 h-4 w-4" />
+        </Button>
+      </div>
+    </div>
+  )
+
+  const FilteringView = (
+    <div
+      x-chunk="FILTER_FILTERING"
+      className={cn(
+        "flex items-center gap-2"
+        // isDefaultMode && "hidden"
+      )}
+    >
+      <Input
+        ref={InputRef}
+        placeholder={queryPlaceholder}
+        autoFocus={true}
+        value={queryValue}
+        onChange={(event) => onQueryChange?.(event.target.value)}
+        className="h-8 w-full flex-1"
+      />
+      <Button
+        variant={"outline"}
+        size={"sm"}
+        className="flex-shrink-0 px-2"
+        onClick={() => {
+          toggleFiltering()
+        }}
+      >
+        {"Cancel"}
+      </Button>
+      <Button
+        variant={"default"}
+        size={"sm"}
+        className="flex-shrink-0 px-2"
+        onClick={() => {
+          toggleFiltering()
+        }}
+      >
+        {"Sava as"}
+      </Button>
+    </div>
+  )
+
   return (
     <Accordion
       type="single"
@@ -78,61 +149,9 @@ export function TableFiltersBar({
         x-chunk="AccordionItem"
         className="border-none p-2 flex-1 overflow-hidden"
       >
-        <div
-          x-chunk="FILTER_DEFAULT"
-          className={cn("flex gap-2", isFilteringMode && "hidden")}
-        >
-          <ScrollArea className="w-full">
-            <TableTabs tabs={tabs} selected={selected} onSelect={setSelected} />
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
-
-          <div x-chunk="TABS_TRIGGER" className="">
-            <Button
-              variant={"outline"}
-              size={"sm"}
-              className="flex-shrink-0 px-2"
-              onClick={toggleFiltering}
-            >
-              <SearchIcon className="h-4 w-4" />
-              <SlidersHorizontalIcon className="ml-1 h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-
-        <div
-          x-chunk="FILTER_FILTERING"
-          className={cn("flex items-center gap-2", isDefaultMode && "hidden")}
-        >
-          <Input
-            ref={InputRef}
-            placeholder={queryPlaceholder}
-            autoFocus={true}
-            value={queryValue}
-            onChange={(event) => onQueryChange?.(event.target.value)}
-            className="h-8 w-full flex-1"
-          />
-          <Button
-            variant={"outline"}
-            size={"sm"}
-            className="flex-shrink-0 px-2"
-            onClick={() => {
-              toggleFiltering()
-            }}
-          >
-            {"Cancel"}
-          </Button>
-          <Button
-            variant={"default"}
-            size={"sm"}
-            className="flex-shrink-0 px-2"
-            onClick={() => {
-              toggleFiltering()
-            }}
-          >
-            {"Sava as"}
-          </Button>
-        </div>
+        <Show when={isDefaultMode} fallback={FilteringView}>
+          {DefaultView}
+        </Show>
 
         <AccordionContent className="pb-0 pt-2 flex flex-wrap gap-2 items-center">
           {filters.map((f) => {
@@ -141,6 +160,7 @@ export function TableFiltersBar({
               return <Fragment key={f.key}>{Comp}</Fragment>
             }
           })}
+
           <Show when={isFiltered} fallback={null}>
             <Button
               variant="ghost"

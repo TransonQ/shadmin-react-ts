@@ -37,25 +37,25 @@ export function FiltersBar<TData>({
       {
         type: "rename",
         onAction: (value) => {
-          console.log("rename action: ", value)
+          console.log("rename action: ", value, idx)
         },
       },
       {
         type: "edit",
         onAction: () => {
-          console.log("edit action")
+          console.log("edit action", idx)
         },
       },
       {
         type: "duplicate",
         onAction: (value) => {
-          console.log("duplicate action: ", value)
+          console.log("duplicate action: ", value, idx)
         },
       },
       {
         type: "delete",
         onAction: () => {
-          console.log("delete action")
+          console.log("delete action", idx)
         },
       },
     ],

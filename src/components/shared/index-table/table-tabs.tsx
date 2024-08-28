@@ -19,6 +19,7 @@ import { useRef, useState, type ReactNode } from "react"
 import { MenuDestructableItem } from "../menu-destrucable-item"
 import { Show } from "../show"
 import type { BaseAction } from "../types"
+import type { FilterMode } from "./table-filters-bar"
 
 /** tab 下拉操作类型 */
 export type TableTabActionType = "rename" | "edit" | "duplicate" | "delete"
@@ -53,6 +54,8 @@ interface TableTabsProps {
   onSelect?: (selectedTabIndex: number) => void
   /** 是否可以新增 */
   canAddTab?: boolean
+  /** 设置当前 filter mode */
+  setMode: (mode: FilterMode) => void
 }
 
 export const TableTabs = ({
@@ -60,6 +63,7 @@ export const TableTabs = ({
   selected,
   onSelect,
   canAddTab = true,
+  setMode,
 }: TableTabsProps) => {
   const [inputValue, setInputValue] = useState("")
   const [renameActive, setRenameActive] = useState(false)
@@ -125,7 +129,9 @@ export const TableTabs = ({
                         onRename() {
                           setRenameActive(true)
                         },
-                        onEdit() {},
+                        onEdit() {
+                          setMode("FILTERING")
+                        },
                         onDuplicate() {
                           setDuplicateActive(true)
                         },
