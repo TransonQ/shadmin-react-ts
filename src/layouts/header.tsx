@@ -15,13 +15,29 @@ import {
 } from "@/components/ui"
 import { useAuth } from "@/hooks"
 import { cn } from "@/lib"
+import { LinkIcon } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
 export const Header = () => {
   return (
     <div className="pr-4 w-full h-full flex items-center justify-end">
+      <GithubButton />
       <UserMenu />
     </div>
+  )
+}
+
+function GithubButton() {
+  return (
+    <Button
+      variant={"link"}
+      className="px-1"
+      onClick={() =>
+        window.open("https://github.com/TransonQ/shadmin-react-ts")
+      }
+    >
+      <span>Github</span> <LinkIcon className="h-4 w-4 ml-1" />
+    </Button>
   )
 }
 
