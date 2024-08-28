@@ -17,6 +17,7 @@ import type {
 import { isEqual } from "lodash-es"
 import {
   Columns3Icon,
+  PlusIcon,
   SearchIcon,
   SlidersHorizontalIcon,
   XIcon,
@@ -76,7 +77,7 @@ export function FiltersBar<TData>({
         >
           <ScrollArea className="w-full pb-2">
             <div x-chunk="TABS_INDEX" className="w-full flex gap-1">
-              {generateArray(14, (i) => (
+              {generateArray(4, (i) => (
                 <Button
                   variant={"ghost"}
                   size={"sm"}
@@ -85,6 +86,9 @@ export function FiltersBar<TData>({
                   {`tab-index-${i}`}
                 </Button>
               ))}
+              <Button variant={"ghost"} size={"sm"} className={cn("px-2")}>
+                <PlusIcon className="h-4 w-4" />
+              </Button>
             </div>
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
@@ -127,7 +131,7 @@ export function FiltersBar<TData>({
             {"Cancel"}
           </Button>
           <Button
-            variant={'default'}
+            variant={"default"}
             size={"sm"}
             className="flex-shrink-0 px-2"
             onClick={() => {
@@ -162,7 +166,7 @@ export function FiltersBar<TData>({
         </AccordionContent>
       </AccordionItem>
       <div x-chunk="FILTER_EXTERNAL" className="py-2 pr-2">
-        <Button variant={"outline"} size={"icon"} className="w-8 h-8" >
+        <Button variant={"outline"} size={"icon"} className="w-8 h-8">
           <Columns3Icon className="h-4 w-4" />
         </Button>
       </div>
