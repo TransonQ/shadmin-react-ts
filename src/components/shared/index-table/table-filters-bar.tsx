@@ -9,15 +9,11 @@ import {
   ScrollBar,
 } from "@/components/ui"
 import { cn, generateArray } from "@/lib"
-import {
-  PlusIcon,
-  SearchIcon,
-  SlidersHorizontalIcon,
-  XIcon,
-} from "lucide-react"
+import { SearchIcon, SlidersHorizontalIcon, XIcon } from "lucide-react"
 import type { ReactNode } from "react"
 import { Fragment, useEffect, useRef, useState } from "react"
 import { Show } from "../show"
+import { TableTabs } from "./table-tabs"
 
 type FilterMode = "DEFAULT" | "FILTERING"
 
@@ -60,6 +56,17 @@ export function TableFiltersBar({
     }
   }, [isFilteringMode])
 
+  const [selected, setSelected] = useState(0)
+  useEffect(() => {
+    console.log("selected: ", selected)
+  }, [selected])
+
+  const tabs = generateArray(3, (i) => ({
+    id: `tab-${i}`,
+    content: `tab-${i}`,
+    onAction: () => {},
+  }))
+
   return (
     <Accordion
       type="single"
@@ -79,25 +86,11 @@ export function TableFiltersBar({
           className={cn("flex gap-2", isFilteringMode && "hidden")}
         >
           <ScrollArea className="w-full pb-2">
-            <div x-chunk="TABS_INDEX" className="w-full flex gap-1">
-              {generateArray(4, (i) => (
-                <Button
-                  key={i}
-                  variant={"ghost"}
-                  size={"sm"}
-                  className={cn(i === 1 && "bg-muted")}
-                >
-                  {`tab-index-${i}`}
-                </Button>
-              ))}
-              <Button variant={"ghost"} size={"sm"} className={cn("px-2")}>
-                <PlusIcon className="h-4 w-4" />
-              </Button>
-            </div>
+            <TableTabs tabs={tabs} selected={selected} onSelect={setSelected} />
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
 
-          <div x-chunk="TABS_ACTION" className="">
+          <div x-chunk="TABS_TRIGGER" className="">
             <Button
               variant={"outline"}
               size={"sm"}
