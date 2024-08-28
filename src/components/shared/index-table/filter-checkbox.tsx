@@ -16,6 +16,7 @@ import {
 import { cn } from "@/lib"
 import type { Column } from "@tanstack/react-table"
 import { CheckIcon, CirclePlusIcon } from "lucide-react"
+import { Show } from "../show"
 import { Text } from "../text"
 
 interface FilterCheckboxProps<TData, TValue> {
@@ -47,8 +48,12 @@ export function FilterCheckbox<TData, TValue>({
             selectedValues?.size > 0 && "border-solid"
           )}
         >
-          <CirclePlusIcon className="mr-2 h-4 w-4" />
+          <Show when={!selectedValues?.size} fallback={null}>
+            <CirclePlusIcon className="mr-2 h-4 w-4" />
+          </Show>
+
           <Text variant="bodyXs">{title}</Text>
+
           {selectedValues?.size > 0 && (
             <>
               <Separator orientation="vertical" className="mx-2 h-4" />

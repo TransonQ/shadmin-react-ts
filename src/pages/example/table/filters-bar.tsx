@@ -40,7 +40,7 @@ export function FiltersBar<TData>({
       filter: table.getColumn("status") && (
         <FilterCheckbox
           column={table.getColumn("status")}
-          title="我方开票主体"
+          title='Status'
           options={statuses}
         />
       ),
