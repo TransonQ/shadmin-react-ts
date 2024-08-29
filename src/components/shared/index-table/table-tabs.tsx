@@ -109,6 +109,7 @@ export const TableTabs = ({
   }
 
   const onActionModalClose = () => {
+    setNewTabModalOpen?.(false)
     reset()
     setTabState(init)
   }

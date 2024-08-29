@@ -30,7 +30,7 @@ export enum ModeEnum {
 export type FilterMode = ModeEnum.default | ModeEnum.filtering
 
 export type FilterAction = {
-  onAction?: (tabName?: string) => void
+  onAction?: (tabName: string) => void
 }
 
 export interface AppliedFilters {

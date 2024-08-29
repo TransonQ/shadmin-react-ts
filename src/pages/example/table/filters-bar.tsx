@@ -106,7 +106,9 @@ export function FiltersBar<TData>({
   }
   const createViewActtion: FilterAction = {
     onAction: (tabName) => {
-      console.log("create action: ", tabName)
+      setItemString((prev) => {
+        return [...prev, tabName]
+      })
     },
   }
 
