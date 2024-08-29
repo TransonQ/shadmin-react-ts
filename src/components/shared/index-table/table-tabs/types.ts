@@ -1,7 +1,7 @@
 import type { BaseAction } from "../../types"
 
 /** tab 下拉操作类型 */
-export type TableTabActionType = "rename" | "edit" | "duplicate" | "delete"
+type TableTabActionType = "rename" | "edit" | "duplicate" | "delete"
 
 /** tab 下拉操作 */
 export interface TableTabAction
