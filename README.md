@@ -1,42 +1,72 @@
 # shadmin
 
-## admin built with shadcn/ui -> shadmin :)
+> admin built with shadcn/ui -> shadmin :)
 
-preview stie: 
+## preview stie:
+
 - https://shadmin.vercel.app
 - https://shadmin.netlify.app
+
+## roadmap
+
+- [x] `<FrameProvider/>` - global assets (eg. logo)
+- [x] `<Frame/>`, `useFrameConfig` - app layout base components
+- [x] `<AppShell/>` - the app layout, built with Frame
+- [x] `<BlockStack/>`, `<InlineStack/>` - base on flex
+- [x] `<Page/>` - app content layout
+- [x] `<Layout/>` - layout in page
+- [x] `<FormLayout/>` 
+- [x] `<PageBreadcrumb/>`
+- [x] `<PageHeader/>`
+- [x] `shadmin` (custom tools eg. shadmin.toast.success())
+- [x] `<RowAction/>`
+- [x] `<ContextualSaveBar/>`
+- [x] `<Icon/>`
+- [x] `<LegendCard/>`
+- [x] `<LegendSelect/>`
+- [x] `<Loading/>`
+- [x] `<MenuDestructableItem/>`
+- [x] `<NavCollapsed/>`
+- [x] `<Navgation/>`
+- [x] `<NavigationBlocker/>`
+- [x] `<Show/>`
+- [x] `<StatusDot/>`
+- [x] `<Text/>`
+- [x] `<IndexTable/>`
+  - [x] `<TableFilters/>`
+  - [x] `<TableTabs/>`
+  - [x] `<TableColumnHeader/>`
+  - [ ] `<TableColumnOptions/>`
+  - [x] `<TablePagination/>`
+  - [x] `tableConfig`
+  - [x] `<BulkActions/>`
+  - [x] `<FilterCheckbox/>`
+  - [ ] `<FilterDate/>`
+  - [ ] `useTableTabs`
+- [ ] ... more ... under construction
+- [ ] storybook
+- [ ] docs
 
 ## structure
 
 ```bash
 src
 ├───📁 api/
-│   ├───📁 handlers/
-│   │   └───...
-│   ├───📁 instances/
-│   │   └───...
 ├───📁 assets/
 ├───📁 components/
 │   ├───📁 errors/
-│   │   └───...
 │   ├───📁 lib/
-│   │   └───...
-│   ├───📁 shared/
-│   │   └───...
-│   └───📁 ui/
-│       └───...
+│   ├───📁 shared/  # custom components
+│   └───📁 ui/      # shadcn components
 ├───📁 configs/
 ├───📁 hooks/
 ├───📁 layouts/
 ├───📁 lib/
 ├───📁 mocks/
 ├───📁 pages/
-│   ├───📁 example/
-│   │   └───...
+│   ├───📁 example/ # demo
 │   ├───📁 login/
-│   │   └───...
 │   └───📁 root/
-│       └───...
 ├───📁 schemas/
 ├───📄 App.tsx
 ├───📄 global.css
@@ -44,8 +74,9 @@ src
 ├───📄 routes.tsx
 └───📄 vite-env.d.ts
 
-
 ```
+
+## packages
 
 - [pnpm](https://pnpm.io/)
 - [shadcn](https://ui.shadcn.com/)
@@ -63,4 +94,4 @@ src
 - [msw.js](https://mswjs.io/)
 - [vite](https://vitejs.dev/)
 - [typescript](https://www.typescriptlang.org/)
-- [knip](https://knip.dev/) 
+- [knip](https://knip.dev/)

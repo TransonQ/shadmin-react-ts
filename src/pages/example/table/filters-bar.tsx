@@ -1,5 +1,5 @@
 import type { AppliedFilters, FilterMode, TableTab } from "@/components/shared"
-import { FilterCheckbox, ModeEnum, TableFiltersBar } from "@/components/shared"
+import { FilterCheckbox, ModeEnum, TableFilters } from "@/components/shared"
 import { Button } from "@/components/ui"
 import { generateArray } from "@/lib"
 import type {
@@ -131,7 +131,7 @@ export function FiltersBar<TData>({
   }
 
   return (
-    <TableFiltersBar
+    <TableFilters
       tabs={tabs}
       selected={selected}
       onSelect={setSelected}

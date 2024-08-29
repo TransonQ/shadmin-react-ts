@@ -21,7 +21,7 @@ import { TableTabs } from "../table-tabs"
 import type { FilterMode, TableFiltersProps } from "./types"
 import { ModeEnum } from "./types"
 
-export function TableFiltersBar({
+export function TableFilters({
   queryValue,
   queryPlaceholder,
   onQueryChange,

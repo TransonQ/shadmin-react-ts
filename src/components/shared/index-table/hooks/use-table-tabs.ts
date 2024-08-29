@@ -2,6 +2,6 @@ interface UseTableTabsConfig {
   lockedTabs?: string[]
 }
 
-export function UseTableTabs({ lockedTabs }: UseTableTabsConfig) {
+export function useTableTabs({ lockedTabs }: UseTableTabsConfig) {
   return
 }

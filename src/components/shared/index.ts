@@ -1,6 +1,5 @@
 export * from "./auth"
 export * from "./block-stack"
-export * from "./button-group"
 export * from "./config/variants"
 export * from "./contextual-save-bar"
 export * from "./form-layout"
