@@ -63,7 +63,7 @@ export function FiltersBar<TData>({
       {
         type: "edit",
         onAction: () => {
-          console.log("edit action", idx)
+          setMode(ModeEnum.filtering)
         },
       },
       {

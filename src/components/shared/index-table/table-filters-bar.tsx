@@ -129,7 +129,6 @@ export function TableFiltersBar({
         <TableTabs
           tabs={tabs}
           selected={selected}
-          setMode={setMode}
           onSelect={onSelect}
           inputValue={inputTabName}
           setInputValue={setInputTabName}

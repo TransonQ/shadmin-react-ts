@@ -19,7 +19,6 @@ import { useReducer, useRef, type ReactNode } from "react"
 import { MenuDestructableItem } from "../menu-destrucable-item"
 import { Show } from "../show"
 import type { BaseAction } from "../types"
-import { ModeEnum, type FilterMode } from "./table-filters-bar"
 
 /** tab 下拉操作类型 */
 export type TableTabActionType = "rename" | "edit" | "duplicate" | "delete"
@@ -54,8 +53,6 @@ interface TableTabsProps {
   onSelect?: (selectedTabIndex: number) => void
   /** 是否可以新增 */
   canAddTab?: boolean
-  /** 设置当前 filter mode */
-  setMode: (mode: FilterMode) => void
   /** 输入框值 */
   inputValue?: string
   /** 输入框值变化回调 */
@@ -63,7 +60,7 @@ interface TableTabsProps {
   /** 新增 tab 激活状态 */
   isNewTabModalOpen?: boolean
   /** 设置新增 tab 激活状态 */
-  setNewTabModalOpen: (value: boolean) => void
+  setNewTabModalOpen?: (value: boolean) => void
   /** 新增 tab 回调 */
   onCreateNewView?: (inputValue?: string) => void
 }
@@ -89,7 +86,6 @@ export const TableTabs = ({
   selected,
   onSelect,
   canAddTab = true,
-  setMode,
   inputValue,
   setInputValue,
   isNewTabModalOpen,
@@ -116,14 +112,14 @@ export const TableTabs = ({
     reset()
     setTabState(init)
   }
-  //~ onCreateNewView (cancel)
+  //~ onCreateNewView
   const onSaveNewView = () => {
     onCreateNewView?.(inputValue)
     reset()
-    setNewTabModalOpen(false)
+    setNewTabModalOpen?.(false)
   }
 
-  //~ onRename (cancel)
+  //~ onRename
   const onRename = () => {
     if (typeof actionRef.current === "function") {
       const action = actionRef.current
@@ -133,7 +129,10 @@ export const TableTabs = ({
     setTabState({ isRenameModalOpen: false })
   }
 
-  //~  onDuplicate (cancel)
+  //~ onEdit
+  // 编辑的时候,不需要 modal,直接触发 tab action
+
+  //~  onDuplicate
   const onDuplicate = () => {
     if (typeof actionRef.current === "function") {
       const action = actionRef.current
@@ -143,7 +142,7 @@ export const TableTabs = ({
     setTabState({ isDuplicateModalOpen: false })
   }
 
-  //~ onDelete (cancel)
+  //~ onDelete
   const onDelete = () => {
     if (typeof actionRef.current === "function") {
       const action = actionRef.current
@@ -200,20 +199,22 @@ export const TableTabs = ({
                         onRename() {
                           setInputValue?.(tab.content)
                           setTabState({ isRenameModalOpen: true })
+                          actionRef.current = action.onAction
                         },
                         onEdit() {
-                          setMode(ModeEnum.filtering)
+                          action.onAction?.()
                         },
                         onDuplicate() {
                           setInputValue?.(tab.content)
                           setTabState({ isDuplicateModalOpen: true })
+                          actionRef.current = action.onAction
                         },
                         onDelete() {
                           setInputValue?.(tab.content)
                           setTabState({ isDeleteModalOpen: true })
+                          actionRef.current = action.onAction
                         },
                       })
-                      actionRef.current = action.onAction
                     }}
                     destructive={action.type === "delete"}
                   />
@@ -249,7 +250,7 @@ export const TableTabs = ({
           size={"sm"}
           className={cn("px-2")}
           onClick={() => {
-            setNewTabModalOpen(true)
+            setNewTabModalOpen?.(true)
           }}
         >
           <PlusIcon className="h-4 w-4" />
