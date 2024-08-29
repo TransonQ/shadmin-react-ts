@@ -1,69 +1,19 @@
 import {
   Button,
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
   Input,
-  Label,
+  Label
 } from "@/components/ui"
 import { cn } from "@/lib"
 import { isEmpty } from "lodash-es"
 import { ChevronDownIcon, PlusIcon } from "lucide-react"
-import { useReducer, useRef, type ReactNode } from "react"
-import { MenuDestructableItem } from "../menu-destrucable-item"
-import { Show } from "../show"
-import type { BaseAction } from "../types"
-
-/** tab 下拉操作类型 */
-export type TableTabActionType = "rename" | "edit" | "duplicate" | "delete"
-
-interface TableTabAction extends Omit<BaseAction, "content" | "onAction"> {
-  type: TableTabActionType
-  /** tab 下拉操作自定义名称 */
-  label?: string
-  onAction?: (value?: string) => void
-}
-
-export interface TableTab {
-  /** 点击 tab 触发可选回调 */
-  onAction?(): void
-  /** 每个 tab 的唯一标识符 */
-  id: string
-  /** tab name 展示的内容 */
-  content: string
-  /** 当前 tab 下的操作列表 */
-  actions?: TableTabAction[]
-  /** 是否被选中 */
-  selected?: boolean
-  /** 是否锁定, 如果为 true，将不具备下拉菜单操作视图的功能。 */
-  isLocked?: boolean
-}
-
-interface TableTabsProps {
-  tabs: TableTab[]
-  /** 当前选中的 tab 索引 */
-  selected: number
-  /** 选择 tab 回调 */
-  onSelect?: (selectedTabIndex: number) => void
-  /** 是否可以新增 */
-  canAddTab?: boolean
-  /** 输入框值 */
-  inputValue?: string
-  /** 输入框值变化回调 */
-  setInputValue?: (value: string) => void
-  /** 新增 tab 激活状态 */
-  isNewTabModalOpen?: boolean
-  /** 设置新增 tab 激活状态 */
-  setNewTabModalOpen?: (value: boolean) => void
-  /** 新增 tab 回调 */
-  onCreateNewView?: (inputValue?: string) => void
-}
+import { useReducer, useRef } from "react"
+import { MenuDestructableItem } from "../../menu-destrucable-item"
+import { Show } from "../../show"
+import { ModalDialog } from "./modal-dialog"
+import type { TableTabActionType, TableTabsProps } from "./types"
 
 type TabState = {
   isRenameModalOpen: boolean
@@ -398,58 +348,6 @@ function DeleteModal({ open, onClose, onSave, value }: ViewActionModal) {
         value || "This"
       } view will no longer be available in your admin.`}</p>
     </ModalDialog>
-  )
-}
-
-//~ ModalDialog
-function ModalDialog({
-  title,
-  open,
-  onClose,
-  children,
-  secondaryAction,
-  primaryAction,
-}: {
-  title?: string
-  open: boolean
-  onClose?: () => void
-  children?: ReactNode
-  secondaryAction: {
-    content: string
-    onAction?: () => void
-  }
-  primaryAction: {
-    content: string
-    onAction?: () => void
-    destructive?: boolean
-  }
-}) {
-  return (
-    <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="p-0 gap-0">
-        <DialogHeader className="p-4 border-b">
-          <DialogTitle>{title}</DialogTitle>
-          <DialogDescription></DialogDescription>
-        </DialogHeader>
-        <div className="p-4">{children}</div>
-        <DialogFooter className="p-4 flex gap-1">
-          <Button
-            size={"sm"}
-            variant={"outline"}
-            onClick={secondaryAction.onAction}
-          >
-            {secondaryAction.content}
-          </Button>
-          <Button
-            size={"sm"}
-            onClick={primaryAction.onAction}
-            variant={primaryAction.destructive ? "destructive" : "default"}
-          >
-            {primaryAction.content}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
   )
 }
 
