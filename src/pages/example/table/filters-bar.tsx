@@ -73,7 +73,8 @@ export function FiltersBar<TData>({
       {
         type: "duplicate",
         onAction: (value) => {
-          console.log("duplicate action: ", value, idx)
+          setItemString([...itemString, value as string])
+          setSelected(itemString.length)
         },
       },
       {

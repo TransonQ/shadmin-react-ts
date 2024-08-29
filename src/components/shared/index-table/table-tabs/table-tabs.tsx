@@ -131,7 +131,7 @@ export const TableTabs = ({
         break
       }
       case "duplicate": {
-        setInputValue?.(tab.content)
+        setInputValue?.("copy of " + tab.content)
         setTabState({ isDuplicateModalOpen: true })
         actionRef.current = action.onAction
         break
