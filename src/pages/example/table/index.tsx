@@ -21,7 +21,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { columns } from "./columns"
 import { genfakeTableData } from "./data"
 import { FiltersBar } from "./filters-bar"
@@ -62,6 +62,10 @@ export function TableExample() {
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   })
+
+  useEffect(() => {
+    console.log({ columnFilters })
+  }, [columnFilters])
 
   return (
     <Page title="TableExample">

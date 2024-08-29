@@ -28,7 +28,8 @@ export function FiltersBar<TData>({
   if (columnFilters?.length > 0) {
     isFiltered = !isEqual(filters, columnFilters)
   }
-
+  const setFilters = (filters: ColumnFiltersState) =>
+    table.setColumnFilters(filters)
   const queryValue = (table.getColumn("id")?.getFilterValue() as string) ?? ""
   const setQueryValue = (value: string | undefined) =>
     table.getColumn("id")?.setFilterValue(value)
@@ -52,13 +53,15 @@ export function FiltersBar<TData>({
       {
         type: "rename",
         onAction: (value) => {
-          const newItemsStrings = tabs.map((item, index) => {
-            if (idx === index) {
-              return value as string
-            }
-            return item.content
+          setItemString((itemString) => {
+            const newItemsStrings = itemString.map((item, index) => {
+              if (idx === index) {
+                return value as string
+              }
+              return item
+            })
+            return newItemsStrings
           })
-          setItemString(newItemsStrings)
         },
       },
       {
@@ -76,7 +79,6 @@ export function FiltersBar<TData>({
       {
         type: "delete",
         onAction: () => {
-          console.log("delete action", idx)
           setItemString(itemString.filter((_, index) => index !== idx))
           setSelected(0)
         },
@@ -85,7 +87,6 @@ export function FiltersBar<TData>({
   }))
 
   const appliedfilters: AppliedFilters[] = []
-
   if (table.getColumn("status")) {
     appliedfilters.push({
       key: "status",
@@ -102,17 +103,30 @@ export function FiltersBar<TData>({
           <FilterDate column={table.getColumn("start_date")} title="开始日期" />
         )} */
 
+  //~ cancel
   const onCancel = () => {
     console.log("onCancel")
   }
 
+  //~ save as
   const onCreateView = (tabName: string) => {
     setItemString([...itemString, tabName])
     setSelected(itemString.length)
   }
 
+  //~ save
   const onSaveView = () => {
-    console.log("onSaveView")
+    // 测试切换 tab 的时候设置本都存储的 filters
+    setFilters([
+      {
+        id: "id",
+        value: "12",
+      },
+      {
+        id: "status",
+        value: ["backlog", "todo"],
+      },
+    ])
   }
 
   return (
