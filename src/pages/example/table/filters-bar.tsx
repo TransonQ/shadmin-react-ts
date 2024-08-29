@@ -1,9 +1,10 @@
 import type {
   AppliedFilters,
   FilterAction,
+  FilterMode,
   TableTab,
 } from "@/components/shared"
-import { FilterCheckbox, TableFiltersBar } from "@/components/shared"
+import { FilterCheckbox, ModeEnum, TableFiltersBar } from "@/components/shared"
 import { Button } from "@/components/ui"
 import { generateArray } from "@/lib"
 import type {
@@ -37,17 +38,21 @@ export function FiltersBar<TData>({
   const setQueryValue = (value: string | undefined) =>
     table.getColumn("id")?.setFilterValue(value)
 
+  const [mode, setMode] = useState<FilterMode>(ModeEnum.default)
   const [selected, setSelected] = useState(0)
   const [itemString, setItemString] = useState([
     "All",
     "Active",
     "Completed",
-    ...generateArray(10, (i) => `Tab_${i + 3}`),
+    ...generateArray(5, (i) => `Tab ${i + 3}`),
   ])
   const tabs: TableTab[] = itemString.map((item, idx) => ({
     content: item,
     id: `${item}-${idx}`,
     isLocked: ["All", "Active", "Completed"].includes(item),
+    onAction: () => {
+      console.log("点击 tab 触发onAction: ", item, idx)
+    },
     actions: [
       {
         type: "rename",
@@ -122,6 +127,8 @@ export function FiltersBar<TData>({
       onClearAllFilters={() => table.resetColumnFilters()}
       filters={appliedfilters}
       isFiltered={isFiltered}
+      mode={mode}
+      setMode={setMode}
       createAction={createViewActtion}
       updateAction={updateViewActtion}
       cancelAction={cancelViewActtion}

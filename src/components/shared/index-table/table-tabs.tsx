@@ -56,12 +56,16 @@ interface TableTabsProps {
   canAddTab?: boolean
   /** 设置当前 filter mode */
   setMode: (mode: FilterMode) => void
-  /** 新增 tab 回调 */
-  onAddTab?: (inputValue?: string) => void
   /** 输入框值 */
   inputValue?: string
   /** 输入框值变化回调 */
-  onInputChange?: (value: string) => void
+  setInputValue?: (value: string) => void
+  /** 新增 tab 激活状态 */
+  newTabActive?: boolean
+  /** 设置新增 tab 激活状态 */
+  setNewTabActive: (value: boolean) => void
+  /** 新增 tab 回调 */
+  onCreateNewView?: (inputValue?: string) => void
 }
 
 export const TableTabs = ({
@@ -70,9 +74,11 @@ export const TableTabs = ({
   onSelect,
   canAddTab = true,
   setMode,
-  onAddTab,
   inputValue,
-  onInputChange,
+  setInputValue,
+  newTabActive,
+  setNewTabActive,
+  onCreateNewView,
 }: TableTabsProps) => {
   const selectTabs = tabs.map((tab, idx) => {
     if (idx === selected) {
@@ -81,29 +87,28 @@ export const TableTabs = ({
     return { ...tab, selected: false }
   })
 
-  const [createActive, setCreateActive] = useState(false)
   const [renameActive, setRenameActive] = useState(false)
   const [duplicateActive, setDuplicateActive] = useState(false)
   const [deleteActive, setDeleteActive] = useState(false)
   const actionRef = useRef<any>(null) // 存储遍历 tab 后点击当前 tab 的 action
 
   const reset = () => {
-    onInputChange?.("")
+    setInputValue?.("")
     actionRef.current = null
   }
 
   const onActionModalClose = () => {
     reset()
-    setCreateActive(false)
+    setNewTabActive(false)
     setRenameActive(false)
     setDuplicateActive(false)
     setDeleteActive(false)
   }
   //~ onCreateNewView (cancel)
-  const onCreateNewView = () => {
-    onAddTab?.(inputValue)
+  const onSaveNewView = () => {
+    onCreateNewView?.(inputValue)
     reset()
-    setCreateActive(false)
+    setNewTabActive(false)
   }
 
   //~ onRename (cancel)
@@ -181,18 +186,18 @@ export const TableTabs = ({
                       tabAtion({
                         type: action.type,
                         onRename() {
-                          onInputChange?.(tab.content)
+                          setInputValue?.(tab.content)
                           setRenameActive(true)
                         },
                         onEdit() {
                           setMode(ModeEnum.filtering)
                         },
                         onDuplicate() {
-                          onInputChange?.(tab.content)
+                          setInputValue?.(tab.content)
                           setDuplicateActive(true)
                         },
                         onDelete() {
-                          onInputChange?.(tab.content)
+                          setInputValue?.(tab.content)
                           setDeleteActive(true)
                         },
                       })
@@ -232,30 +237,30 @@ export const TableTabs = ({
           size={"sm"}
           className={cn("px-2")}
           onClick={() => {
-            setCreateActive(true)
+            setNewTabActive(true)
           }}
         >
           <PlusIcon className="h-4 w-4" />
         </Button>
       </Show>
       <CreateViewModal
-        open={createActive}
+        open={!!newTabActive}
         value={inputValue}
-        onChange={onInputChange}
+        onChange={setInputValue}
         onClose={onActionModalClose}
-        onSave={onCreateNewView}
+        onSave={onSaveNewView}
       />
       <RenameModal
         open={renameActive}
         value={inputValue}
-        onChange={onInputChange}
+        onChange={setInputValue}
         onClose={onActionModalClose}
         onSave={onRename}
       />
       <DuplicateModal
         open={duplicateActive}
         value={inputValue}
-        onChange={onInputChange}
+        onChange={setInputValue}
         onClose={onActionModalClose}
         onSave={onDuplicate}
       />

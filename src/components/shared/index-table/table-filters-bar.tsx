@@ -53,6 +53,8 @@ interface TableFiltersBarProps {
   createAction?: FilterAction
   updateAction?: FilterAction
   cancelAction?: FilterAction
+  mode: FilterMode
+  setMode: (mode: FilterMode) => void
 }
 
 export function TableFiltersBar({
@@ -70,8 +72,9 @@ export function TableFiltersBar({
   createAction,
   updateAction,
   cancelAction,
+  mode,
+  setMode,
 }: TableFiltersBarProps) {
-  const [mode, setMode] = useState<FilterMode>(ModeEnum.default)
   const isDefaultMode = mode === "DEFAULT"
   const isFilteringMode = mode === "FILTERING"
   const onModeChange = (v: FilterMode) => setMode(v)
@@ -81,6 +84,7 @@ export function TableFiltersBar({
   const queryRef = useRef<HTMLInputElement>(null)
   const activeTab = tabs[selected]
   const [inputTabName, setInputTabName] = useState("")
+  const [createActive, setCreateActive] = useState(false)
 
   // 自动聚焦输入框
   useEffect(() => {
@@ -96,7 +100,7 @@ export function TableFiltersBar({
   }
   const handleUpdateView = () => {
     if (typeof updateAction?.onAction === "function") {
-      updateAction.onAction()
+      updateAction.onAction("")
     }
   }
 
@@ -111,7 +115,7 @@ export function TableFiltersBar({
   //~ onSave
   const onSave = () => {
     if (activeTab.isLocked) {
-      handleCreateNewView()
+      setCreateActive(true)
     } else {
       handleUpdateView()
     }
@@ -120,22 +124,18 @@ export function TableFiltersBar({
 
   //~ tabs view
   const DefaultView = (
-    <div
-      x-chunk="FILTER_DEFAULT"
-      className={cn(
-        "flex gap-2"
-        // isFilteringMode && "hidden"
-      )}
-    >
+    <div x-chunk="FILTER_DEFAULT" className={cn("flex gap-2")}>
       <ScrollArea className="w-full">
         <TableTabs
           tabs={tabs}
           selected={selected}
           setMode={setMode}
           onSelect={onSelect}
-          onAddTab={handleCreateNewView}
           inputValue={inputTabName}
-          onInputChange={setInputTabName}
+          setInputValue={setInputTabName}
+          newTabActive={createActive}
+          setNewTabActive={setCreateActive}
+          onCreateNewView={handleCreateNewView}
         />
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
@@ -156,13 +156,7 @@ export function TableFiltersBar({
 
   //~ filters view
   const FilteringView = (
-    <div
-      x-chunk="FILTER_FILTERING"
-      className={cn(
-        "flex items-center gap-2"
-        // isDefaultMode && "hidden"
-      )}
-    >
+    <div x-chunk="FILTER_FILTERING" className={cn("flex items-center gap-2")}>
       <div className="relative h-full w-full flex-1">
         <Input
           ref={queryRef}
