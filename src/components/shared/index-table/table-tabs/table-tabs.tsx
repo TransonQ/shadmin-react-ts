@@ -8,7 +8,7 @@ import {
 } from "@/components/ui"
 import { cn } from "@/lib"
 import { isEmpty } from "lodash-es"
-import { ChevronDownIcon, PlusIcon } from "lucide-react"
+import { AlertCircleIcon, ChevronDownIcon, PlusIcon } from "lucide-react"
 import { useReducer, useRef } from "react"
 import { MenuDestructableItem } from "../../menu-destrucable-item"
 import { Show } from "../../show"
@@ -216,6 +216,7 @@ export const TableTabs = ({
         </Button>
       </Show>
       <CreateViewModal
+        tabs={tabs}
         open={!!isNewTabModalOpen}
         value={inputValue}
         onChange={setInputValue}
@@ -223,6 +224,8 @@ export const TableTabs = ({
         onSave={onSaveNewView}
       />
       <RenameModal
+        tabs={tabs}
+        selected={selected}
         open={isRenameModalOpen}
         value={inputValue}
         onChange={setInputValue}
@@ -230,6 +233,7 @@ export const TableTabs = ({
         onSave={onRename}
       />
       <DuplicateModal
+        tabs={tabs}
         open={isDuplicateModalOpen}
         value={inputValue}
         onChange={setInputValue}
@@ -251,6 +255,17 @@ interface ViewActionModal {
   value?: string
   onChange?: (v: string) => void
   onSave?: () => void
+  tabs?: TableTab[]
+  selected?: number
+}
+
+function ErrorMessage({ children }: { children: string }) {
+  return (
+    <p className="mt-2 text-destructive flex gap-2 items-center">
+      <AlertCircleIcon className="h-4 w-4" />
+      <span>{children}</span>
+    </p>
+  )
 }
 
 //~ CreateViewModal
@@ -260,22 +275,33 @@ function CreateViewModal({
   onChange,
   onClose,
   onSave,
+  tabs = [],
 }: ViewActionModal) {
+  const isValidInput = tabs.some((tab) => tab.content?.trim() === value?.trim())
+
   return (
     <ModalDialog
       open={open}
       title="Create new view"
       onClose={onClose}
-      primaryAction={{ content: "Create view", onAction: onSave }}
+      primaryAction={{
+        content: "Create view",
+        onAction: onSave,
+        disabled: !value?.trim() || isValidInput,
+      }}
       secondaryAction={{ content: "Cancel", onAction: onClose }}
     >
       <Label>
         {"Name"}
         <Input
-          className="mt-1"
+          data-invalid={isValidInput}
+          className={cn("mt-1", "data-[invalid=true]:border-destructive")}
           value={value}
           onChange={(e) => onChange?.(e.target.value)}
         />
+        <Show when={isValidInput}>
+          <ErrorMessage>{"A view with this name already exists."}</ErrorMessage>
+        </Show>
       </Label>
     </ModalDialog>
   )
@@ -283,27 +309,42 @@ function CreateViewModal({
 
 //~ RenameModal
 function RenameModal({
+  tabs = [],
+  selected,
   open,
   value,
   onChange,
   onClose,
   onSave,
 }: ViewActionModal) {
+  const resetTabs = tabs.filter((_, idx) => idx !== selected)
+  const isValidInput = resetTabs.some(
+    (tab) => tab.content?.trim() === value?.trim()
+  )
+
   return (
     <ModalDialog
       open={open}
       title="Rename view"
       onClose={onClose}
-      primaryAction={{ content: "Rename view", onAction: onSave }}
+      primaryAction={{
+        content: "Rename view",
+        onAction: onSave,
+        disabled: !value?.trim() || isValidInput,
+      }}
       secondaryAction={{ content: "Cancel", onAction: onClose }}
     >
       <Label>
         {"Name"}
         <Input
-          className="mt-1"
+          data-invalid={isValidInput}
+          className={cn("mt-1", "data-[invalid=true]:border-destructive")}
           value={value}
           onChange={(e) => onChange?.(e.target.value)}
         />
+        <Show when={isValidInput}>
+          <ErrorMessage>{"A view with this name already exists."}</ErrorMessage>
+        </Show>
       </Label>
     </ModalDialog>
   )
@@ -311,27 +352,38 @@ function RenameModal({
 
 //~ DuplicateModal
 function DuplicateModal({
+  tabs = [],
   open,
   value,
   onChange,
   onClose,
   onSave,
 }: ViewActionModal) {
+  const isValidInput = tabs.some((tab) => tab.content?.trim() === value?.trim())
+
   return (
     <ModalDialog
       title="Duplicate view"
       open={open}
       onClose={onClose}
-      primaryAction={{ content: "Create view", onAction: onSave }}
+      primaryAction={{
+        content: "Create view",
+        onAction: onSave,
+        disabled: !value?.trim() || isValidInput,
+      }}
       secondaryAction={{ content: "Cancel", onAction: onClose }}
     >
       <Label>
         {"Name"}
         <Input
-          className="mt-1"
+          data-invalid={isValidInput}
+          className={cn("mt-1", "data-[invalid=true]:border-destructive")}
           value={value}
           onChange={(e) => onChange?.(e.target.value)}
         />
+        <Show when={isValidInput}>
+          <ErrorMessage>{"A view with this name already exists."}</ErrorMessage>
+        </Show>
       </Label>
     </ModalDialog>
   )

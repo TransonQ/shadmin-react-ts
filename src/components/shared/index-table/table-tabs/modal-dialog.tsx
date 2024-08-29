@@ -29,6 +29,7 @@ export function ModalDialog({
     content: string
     onAction?: () => void
     destructive?: boolean
+    disabled?: boolean
   }
 }) {
   return (
@@ -51,6 +52,7 @@ export function ModalDialog({
             size={"sm"}
             onClick={primaryAction.onAction}
             variant={primaryAction.destructive ? "destructive" : "default"}
+            disabled={primaryAction.disabled}
           >
             {primaryAction.content}
           </Button>
