@@ -133,8 +133,8 @@ export function TableFiltersBar({
           onSelect={onSelect}
           inputValue={inputTabName}
           setInputValue={setInputTabName}
-          newTabActive={createActive}
-          setNewTabActive={setCreateActive}
+          isNewTabModalOpen={createActive}
+          setNewTabModalOpen={setCreateActive}
           onCreateNewView={handleCreateNewView}
         />
         <ScrollBar orientation="horizontal" />

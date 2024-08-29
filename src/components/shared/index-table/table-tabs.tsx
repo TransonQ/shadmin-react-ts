@@ -15,7 +15,7 @@ import {
 import { cn } from "@/lib"
 import { isEmpty } from "lodash-es"
 import { ChevronDownIcon, PlusIcon } from "lucide-react"
-import { useRef, useState, type ReactNode } from "react"
+import { useReducer, useRef, type ReactNode } from "react"
 import { MenuDestructableItem } from "../menu-destrucable-item"
 import { Show } from "../show"
 import type { BaseAction } from "../types"
@@ -61,11 +61,27 @@ interface TableTabsProps {
   /** 输入框值变化回调 */
   setInputValue?: (value: string) => void
   /** 新增 tab 激活状态 */
-  newTabActive?: boolean
+  isNewTabModalOpen?: boolean
   /** 设置新增 tab 激活状态 */
-  setNewTabActive: (value: boolean) => void
+  setNewTabModalOpen: (value: boolean) => void
   /** 新增 tab 回调 */
   onCreateNewView?: (inputValue?: string) => void
+}
+
+type TabState = {
+  isRenameModalOpen: boolean
+  isDuplicateModalOpen: boolean
+  isDeleteModalOpen: boolean
+}
+
+const init: TabState = {
+  isRenameModalOpen: false,
+  isDuplicateModalOpen: false,
+  isDeleteModalOpen: false,
+}
+
+const reducer = (data: TabState, partialData: Partial<TabState>): TabState => {
+  return { ...data, ...partialData }
 }
 
 export const TableTabs = ({
@@ -76,21 +92,20 @@ export const TableTabs = ({
   setMode,
   inputValue,
   setInputValue,
-  newTabActive,
-  setNewTabActive,
+  isNewTabModalOpen,
+  setNewTabModalOpen,
   onCreateNewView,
 }: TableTabsProps) => {
+  const actionRef = useRef<any>(null) // 存储遍历 tab 后点击当前 tab 的 action
+  const [tabState, setTabState] = useReducer(reducer, init)
+  const { isRenameModalOpen, isDuplicateModalOpen, isDeleteModalOpen } =
+    tabState
   const selectTabs = tabs.map((tab, idx) => {
     if (idx === selected) {
       return { ...tab, selected: true }
     }
     return { ...tab, selected: false }
   })
-
-  const [renameActive, setRenameActive] = useState(false)
-  const [duplicateActive, setDuplicateActive] = useState(false)
-  const [deleteActive, setDeleteActive] = useState(false)
-  const actionRef = useRef<any>(null) // 存储遍历 tab 后点击当前 tab 的 action
 
   const reset = () => {
     setInputValue?.("")
@@ -99,16 +114,13 @@ export const TableTabs = ({
 
   const onActionModalClose = () => {
     reset()
-    setNewTabActive(false)
-    setRenameActive(false)
-    setDuplicateActive(false)
-    setDeleteActive(false)
+    setTabState(init)
   }
   //~ onCreateNewView (cancel)
   const onSaveNewView = () => {
     onCreateNewView?.(inputValue)
     reset()
-    setNewTabActive(false)
+    setNewTabModalOpen(false)
   }
 
   //~ onRename (cancel)
@@ -118,7 +130,7 @@ export const TableTabs = ({
       action(inputValue)
       reset()
     }
-    setRenameActive(false)
+    setTabState({ isRenameModalOpen: false })
   }
 
   //~  onDuplicate (cancel)
@@ -128,7 +140,7 @@ export const TableTabs = ({
       action(inputValue)
       reset()
     }
-    setDuplicateActive(false)
+    setTabState({ isDuplicateModalOpen: false })
   }
 
   //~ onDelete (cancel)
@@ -138,7 +150,7 @@ export const TableTabs = ({
       action()
       reset()
     }
-    setDeleteActive(false)
+    setTabState({ isDeleteModalOpen: false })
   }
 
   const TabsMarkup = selectTabs.map((tab, idx) => {
@@ -187,18 +199,18 @@ export const TableTabs = ({
                         type: action.type,
                         onRename() {
                           setInputValue?.(tab.content)
-                          setRenameActive(true)
+                          setTabState({ isRenameModalOpen: true })
                         },
                         onEdit() {
                           setMode(ModeEnum.filtering)
                         },
                         onDuplicate() {
                           setInputValue?.(tab.content)
-                          setDuplicateActive(true)
+                          setTabState({ isDuplicateModalOpen: true })
                         },
                         onDelete() {
                           setInputValue?.(tab.content)
-                          setDeleteActive(true)
+                          setTabState({ isDeleteModalOpen: true })
                         },
                       })
                       actionRef.current = action.onAction
@@ -237,35 +249,35 @@ export const TableTabs = ({
           size={"sm"}
           className={cn("px-2")}
           onClick={() => {
-            setNewTabActive(true)
+            setNewTabModalOpen(true)
           }}
         >
           <PlusIcon className="h-4 w-4" />
         </Button>
       </Show>
       <CreateViewModal
-        open={!!newTabActive}
+        open={!!isNewTabModalOpen}
         value={inputValue}
         onChange={setInputValue}
         onClose={onActionModalClose}
         onSave={onSaveNewView}
       />
       <RenameModal
-        open={renameActive}
+        open={isRenameModalOpen}
         value={inputValue}
         onChange={setInputValue}
         onClose={onActionModalClose}
         onSave={onRename}
       />
       <DuplicateModal
-        open={duplicateActive}
+        open={isDuplicateModalOpen}
         value={inputValue}
         onChange={setInputValue}
         onClose={onActionModalClose}
         onSave={onDuplicate}
       />
       <DeleteModal
-        open={deleteActive}
+        open={isDeleteModalOpen}
         onClose={onActionModalClose}
         onSave={onDelete}
       />
