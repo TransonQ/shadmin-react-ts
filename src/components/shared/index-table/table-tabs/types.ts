@@ -4,7 +4,8 @@ import type { BaseAction } from "../../types"
 export type TableTabActionType = "rename" | "edit" | "duplicate" | "delete"
 
 /** tab 下拉操作 */
-interface TableTabAction extends Omit<BaseAction, "content" | "onAction"> {
+export interface TableTabAction
+  extends Omit<BaseAction, "content" | "onAction"> {
   type: TableTabActionType
   /** tab 下拉操作自定义名称 */
   label?: string

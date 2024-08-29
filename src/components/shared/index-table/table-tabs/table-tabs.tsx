@@ -13,7 +13,7 @@ import { useReducer, useRef } from "react"
 import { MenuDestructableItem } from "../../menu-destrucable-item"
 import { Show } from "../../show"
 import { ModalDialog } from "./modal-dialog"
-import type { TableTabActionType, TableTabsProps } from "./types"
+import type { TableTab, TableTabAction, TableTabsProps } from "./types"
 
 type TabState = {
   isRenameModalOpen: boolean
@@ -103,6 +103,50 @@ export const TableTabs = ({
     setTabState({ isDeleteModalOpen: false })
   }
 
+  const currentActionLabel = (action: TableTabAction) => {
+    switch (action.type) {
+      case "rename":
+        return action.label || "Rename"
+      case "edit":
+        return action.label || "Edit"
+      case "duplicate":
+        return action.label || "Duplicate"
+      case "delete":
+        return action.label || "Delete"
+      default:
+        return ""
+    }
+  }
+
+  const currentTabAction = (tab: TableTab, action: TableTabAction) => {
+    switch (action.type) {
+      case "rename": {
+        setInputValue?.(tab.content)
+        setTabState({ isRenameModalOpen: true })
+        actionRef.current = action.onAction
+        break
+      }
+      case "edit": {
+        action.onAction?.()
+        break
+      }
+      case "duplicate": {
+        setInputValue?.(tab.content)
+        setTabState({ isDuplicateModalOpen: true })
+        actionRef.current = action.onAction
+        break
+      }
+      case "delete": {
+        setInputValue?.(tab.content)
+        setTabState({ isDeleteModalOpen: true })
+        actionRef.current = action.onAction
+        break
+      }
+      default:
+        break
+    }
+  }
+
   const TabsMarkup = selectTabs.map((tab, idx) => {
     if (tab.selected && !tab.isLocked) {
       return (
@@ -124,48 +168,13 @@ export const TableTabs = ({
           <DropdownMenuContent>
             <Show when={!isEmpty(tab.actions)}>
               {tab.actions?.map((action, actionIdx) => {
-                const label = tabAtion({
-                  type: action.type,
-                  onRename() {
-                    return action.label || "Rename"
-                  },
-                  onEdit() {
-                    return action.label || "Edit"
-                  },
-                  onDuplicate() {
-                    return action.label || "Duplicate"
-                  },
-                  onDelete() {
-                    return action.label || "Delete"
-                  },
-                })
+                const label = currentActionLabel(action)
+
                 return (
                   <MenuDestructableItem
                     key={actionIdx}
                     content={label}
-                    onAction={() => {
-                      tabAtion({
-                        type: action.type,
-                        onRename() {
-                          setInputValue?.(tab.content)
-                          setTabState({ isRenameModalOpen: true })
-                          actionRef.current = action.onAction
-                        },
-                        onEdit() {
-                          action.onAction?.()
-                        },
-                        onDuplicate() {
-                          setInputValue?.(tab.content)
-                          setTabState({ isDuplicateModalOpen: true })
-                          actionRef.current = action.onAction
-                        },
-                        onDelete() {
-                          setInputValue?.(tab.content)
-                          setTabState({ isDeleteModalOpen: true })
-                          actionRef.current = action.onAction
-                        },
-                      })
-                    }}
+                    onAction={() => currentTabAction(tab, action)}
                     destructive={action.type === "delete"}
                   />
                 )
@@ -348,33 +357,4 @@ function DeleteModal({ open, onClose, onSave, value }: ViewActionModal) {
       } view will no longer be available in your admin.`}</p>
     </ModalDialog>
   )
-}
-
-function tabAtion({
-  type,
-  onRename,
-  onEdit,
-  onDuplicate,
-  onDelete,
-  onDefault,
-}: {
-  type: TableTabActionType
-  onRename: () => unknown
-  onEdit: () => unknown
-  onDuplicate: () => unknown
-  onDelete: () => unknown
-  onDefault?: () => unknown
-}): any {
-  switch (type) {
-    case "rename":
-      return onRename()
-    case "edit":
-      return onEdit()
-    case "duplicate":
-      return onDuplicate()
-    case "delete":
-      return onDelete()
-    default:
-      return onDefault?.()
-  }
 }
