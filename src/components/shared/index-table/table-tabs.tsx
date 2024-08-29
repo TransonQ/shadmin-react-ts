@@ -19,7 +19,7 @@ import { useRef, useState, type ReactNode } from "react"
 import { MenuDestructableItem } from "../menu-destrucable-item"
 import { Show } from "../show"
 import type { BaseAction } from "../types"
-import type { FilterMode } from "./table-filters-bar"
+import { ModeEnum, type FilterMode } from "./table-filters-bar"
 
 /** tab 下拉操作类型 */
 export type TableTabActionType = "rename" | "edit" | "duplicate" | "delete"
@@ -58,6 +58,10 @@ interface TableTabsProps {
   setMode: (mode: FilterMode) => void
   /** 新增 tab 回调 */
   onAddTab?: (inputValue?: string) => void
+  /** 输入框值 */
+  inputValue?: string
+  /** 输入框值变化回调 */
+  onInputChange?: (value: string) => void
 }
 
 export const TableTabs = ({
@@ -67,6 +71,8 @@ export const TableTabs = ({
   canAddTab = true,
   setMode,
   onAddTab,
+  inputValue,
+  onInputChange,
 }: TableTabsProps) => {
   const selectTabs = tabs.map((tab, idx) => {
     if (idx === selected) {
@@ -74,7 +80,7 @@ export const TableTabs = ({
     }
     return { ...tab, selected: false }
   })
-  const [inputValue, setInputValue] = useState("")
+
   const [createActive, setCreateActive] = useState(false)
   const [renameActive, setRenameActive] = useState(false)
   const [duplicateActive, setDuplicateActive] = useState(false)
@@ -82,7 +88,7 @@ export const TableTabs = ({
   const actionRef = useRef<any>(null) // 存储遍历 tab 后点击当前 tab 的 action
 
   const reset = () => {
-    setInputValue("")
+    onInputChange?.("")
     actionRef.current = null
   }
 
@@ -178,7 +184,7 @@ export const TableTabs = ({
                           setRenameActive(true)
                         },
                         onEdit() {
-                          setMode("FILTERING")
+                          setMode(ModeEnum.filtering)
                         },
                         onDuplicate() {
                           setDuplicateActive(true)
@@ -232,21 +238,21 @@ export const TableTabs = ({
       <CreateViewModal
         open={createActive}
         value={inputValue}
-        onChange={setInputValue}
+        onChange={onInputChange}
         onClose={onActionModalClose}
         onSave={onCreateNewView}
       />
       <RenameModal
         open={renameActive}
         value={inputValue}
-        onChange={setInputValue}
+        onChange={onInputChange}
         onClose={onActionModalClose}
         onSave={onRename}
       />
       <DuplicateModal
         open={duplicateActive}
         value={inputValue}
-        onChange={setInputValue}
+        onChange={onInputChange}
         onClose={onActionModalClose}
         onSave={onDuplicate}
       />

@@ -21,7 +21,12 @@ import { Show } from "../show"
 import type { TableTab } from "./table-tabs"
 import { TableTabs } from "./table-tabs"
 
-export type FilterMode = "DEFAULT" | "FILTERING"
+export enum ModeEnum {
+  default = "DEFAULT",
+  filtering = "FILTERING",
+}
+
+export type FilterMode = ModeEnum.default | ModeEnum.filtering
 
 export type FilterAction = {
   onAction?: (tabName?: string) => void
@@ -65,26 +70,27 @@ export function TableFiltersBar({
   updateAction,
   cancelAction,
 }: TableFiltersBarProps) {
-  const [mode, setMode] = useState<FilterMode>("DEFAULT")
+  const [mode, setMode] = useState<FilterMode>(ModeEnum.default)
   const isDefaultMode = mode === "DEFAULT"
   const isFilteringMode = mode === "FILTERING"
   const onModeChange = (v: FilterMode) => setMode(v)
-  const toggleFiltering = () => setMode(isDefaultMode ? "FILTERING" : "DEFAULT")
+  const toggleFiltering = () =>
+    setMode(isDefaultMode ? ModeEnum.filtering : ModeEnum.filtering)
   const showClearButton = !!queryValue && typeof onQueryClear === "function"
-  const InputRef = useRef<HTMLInputElement>(null)
+  const queryRef = useRef<HTMLInputElement>(null)
   const activeTab = tabs[selected]
+  const [inputTabName, setInputTabName] = useState("")
 
   // 自动聚焦输入框
   useEffect(() => {
-    if (isFilteringMode && InputRef.current) {
-      InputRef.current.focus()
+    if (isFilteringMode && queryRef.current) {
+      queryRef.current.focus()
     }
   }, [isFilteringMode])
 
   const handleCreateNewView = () => {
-    //TODO - 创建新视图应该传参输入的值
     if (typeof createAction?.onAction === "function") {
-      createAction.onAction()
+      createAction.onAction(inputTabName)
     }
   }
   const handleUpdateView = () => {
@@ -98,7 +104,7 @@ export function TableFiltersBar({
     if (typeof cancelAction?.onAction === "function") {
       cancelAction.onAction(activeTab.content)
     }
-    setMode("DEFAULT")
+    setMode(ModeEnum.default)
   }
 
   //~ onSave
@@ -108,7 +114,7 @@ export function TableFiltersBar({
     } else {
       handleUpdateView()
     }
-    setMode("DEFAULT")
+    setMode(ModeEnum.default)
   }
 
   //~ tabs view
@@ -127,6 +133,8 @@ export function TableFiltersBar({
           setMode={setMode}
           onSelect={onSelect}
           onAddTab={handleCreateNewView}
+          inputValue={inputTabName}
+          onInputChange={setInputTabName}
         />
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
@@ -156,7 +164,7 @@ export function TableFiltersBar({
     >
       <div className="relative h-full w-full flex-1">
         <Input
-          ref={InputRef}
+          ref={queryRef}
           placeholder={queryPlaceholder}
           autoFocus={true}
           value={queryValue}
