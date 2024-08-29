@@ -181,15 +181,18 @@ export const TableTabs = ({
                       tabAtion({
                         type: action.type,
                         onRename() {
+                          onInputChange?.(tab.content)
                           setRenameActive(true)
                         },
                         onEdit() {
                           setMode(ModeEnum.filtering)
                         },
                         onDuplicate() {
+                          onInputChange?.(tab.content)
                           setDuplicateActive(true)
                         },
                         onDelete() {
+                          onInputChange?.(tab.content)
                           setDeleteActive(true)
                         },
                       })

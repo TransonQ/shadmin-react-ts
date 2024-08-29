@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { isReactElement } from "@/components/lib"
 import {
   Accordion,
