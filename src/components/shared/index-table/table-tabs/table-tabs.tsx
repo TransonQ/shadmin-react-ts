@@ -4,7 +4,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
   Input,
-  Label
+  Label,
 } from "@/components/ui"
 import { cn } from "@/lib"
 import { isEmpty } from "lodash-es"
@@ -115,7 +115,6 @@ export const TableTabs = ({
               className={cn("transition-all", selected === idx && "bg-muted")}
               onClick={() => {
                 tab.onAction?.()
-                onSelect?.(idx)
               }}
             >
               {tab.content}

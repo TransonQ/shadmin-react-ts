@@ -33,9 +33,9 @@ export function TableFiltersBar({
   tabs,
   selected,
   onSelect,
-  createAction,
-  updateAction,
-  cancelAction,
+  onCreateView,
+  onSaveView,
+  onCancel,
   mode,
   setMode,
 }: TableFiltersProps) {
@@ -58,20 +58,20 @@ export function TableFiltersBar({
   }, [isFilteringMode])
 
   const handleCreateNewView = () => {
-    if (typeof createAction?.onAction === "function") {
-      createAction.onAction(inputTabName)
+    if (typeof onCreateView === "function") {
+      onCreateView(inputTabName)
     }
   }
   const handleUpdateView = () => {
-    if (typeof updateAction?.onAction === "function") {
-      updateAction.onAction("")
+    if (typeof onSaveView === "function") {
+      onSaveView()
     }
   }
 
   //~ onCancel
-  const onCancel = () => {
-    if (typeof cancelAction?.onAction === "function") {
-      cancelAction.onAction(activeTab.content)
+  const onCancelButtonClick = () => {
+    if (typeof onCancel === "function") {
+      onCancel()
     }
     setMode(ModeEnum.default)
   }
@@ -142,7 +142,7 @@ export function TableFiltersBar({
         variant={"outline"}
         size={"sm"}
         className="flex-shrink-0 px-2 hover:shadow"
-        onClick={onCancel}
+        onClick={onCancelButtonClick}
       >
         {"Cancel"}
       </Button>

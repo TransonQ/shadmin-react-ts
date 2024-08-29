@@ -1,9 +1,4 @@
-import type {
-  AppliedFilters,
-  FilterAction,
-  FilterMode,
-  TableTab,
-} from "@/components/shared"
+import type { AppliedFilters, FilterMode, TableTab } from "@/components/shared"
 import { FilterCheckbox, ModeEnum, TableFiltersBar } from "@/components/shared"
 import { Button } from "@/components/ui"
 import { generateArray } from "@/lib"
@@ -57,7 +52,13 @@ export function FiltersBar<TData>({
       {
         type: "rename",
         onAction: (value) => {
-          console.log("rename action: ", value, idx)
+          const newItemsStrings = tabs.map((item, index) => {
+            if (idx === index) {
+              return value as string
+            }
+            return item.content
+          })
+          setItemString(newItemsStrings)
         },
       },
       {
@@ -76,6 +77,8 @@ export function FiltersBar<TData>({
         type: "delete",
         onAction: () => {
           console.log("delete action", idx)
+          setItemString(itemString.filter((_, index) => index !== idx))
+          setSelected(0)
         },
       },
     ],
@@ -99,23 +102,17 @@ export function FiltersBar<TData>({
           <FilterDate column={table.getColumn("start_date")} title="开始日期" />
         )} */
 
-  const cancelViewActtion: FilterAction = {
-    onAction: (tabName) => {
-      console.log("cancel action: ", tabName)
-    },
-  }
-  const createViewActtion: FilterAction = {
-    onAction: (tabName) => {
-      setItemString((prev) => {
-        return [...prev, tabName]
-      })
-    },
+  const onCancel = () => {
+    console.log("onCancel")
   }
 
-  const updateViewActtion: FilterAction = {
-    onAction: (tabName) => {
-      console.log("update action: ", tabName)
-    },
+  const onCreateView = (tabName: string) => {
+    setItemString([...itemString, tabName])
+    setSelected(itemString.length)
+  }
+
+  const onSaveView = () => {
+    console.log("onSaveView")
   }
 
   return (
@@ -131,9 +128,9 @@ export function FiltersBar<TData>({
       isFiltered={isFiltered}
       mode={mode}
       setMode={setMode}
-      createAction={createViewActtion}
-      updateAction={updateViewActtion}
-      cancelAction={cancelViewActtion}
+      onCreateView={onCreateView}
+      onSaveView={onSaveView}
+      onCancel={onCancel}
       external={
         <Button variant={"outline"} size={"icon"} className="w-8 h-8">
           <Columns3Icon className="h-4 w-4" />

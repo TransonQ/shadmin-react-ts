@@ -8,10 +8,6 @@ export enum ModeEnum {
 
 export type FilterMode = ModeEnum.default | ModeEnum.filtering
 
-export type FilterAction = {
-  onAction?: (tabName: string) => void
-}
-
 export interface AppliedFilters {
   key: string
   filter: ReactNode
@@ -41,11 +37,11 @@ export interface TableFiltersProps {
   /** 选择 tab 时的回调 */
   onSelect?: (tabIndex: number) => void
   /** 创建视图 */
-  createAction?: FilterAction
-  /** 更新视图 */
-  updateAction?: FilterAction
+  onCreateView?: (newTabName: string) => void
+  /** 保存视图 */
+  onSaveView?: () => void
   /** 取消视图操作 */
-  cancelAction?: FilterAction
+  onCancel?: () => void
   /** 当前的筛选组件的模式: 默认模式-展示 tabs, 筛选模式-展示输入框和筛选项 */
   mode: FilterMode
   /** 切换筛选模式 */
