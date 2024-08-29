@@ -23,6 +23,10 @@ import { TableTabs } from "./table-tabs"
 
 export type FilterMode = "DEFAULT" | "FILTERING"
 
+export type FilterAction = {
+  onAction?: (tabName?: string) => void
+}
+
 export interface AppliedFilters {
   key: string
   filter: ReactNode
@@ -40,6 +44,9 @@ interface TableFiltersBarProps {
   tabs: TableTab[]
   selected: number
   onSelect?: (tabIndex: number) => void
+  createAction?: FilterAction
+  updateAction?: FilterAction
+  cancelAction?: FilterAction
 }
 
 export function TableFiltersBar({
@@ -54,6 +61,9 @@ export function TableFiltersBar({
   tabs,
   selected,
   onSelect,
+  createAction,
+  updateAction,
+  cancelAction,
 }: TableFiltersBarProps) {
   const [mode, setMode] = useState<FilterMode>("DEFAULT")
   const isDefaultMode = mode === "DEFAULT"
@@ -61,14 +71,45 @@ export function TableFiltersBar({
   const onModeChange = (v: FilterMode) => setMode(v)
   const toggleFiltering = () => setMode(isDefaultMode ? "FILTERING" : "DEFAULT")
   const showClearButton = !!queryValue && typeof onQueryClear === "function"
+  const InputRef = useRef<HTMLInputElement>(null)
+  const activeTab = tabs[selected]
 
   // 自动聚焦输入框
-  const InputRef = useRef<HTMLInputElement>(null)
   useEffect(() => {
     if (isFilteringMode && InputRef.current) {
       InputRef.current.focus()
     }
   }, [isFilteringMode])
+
+  const handleCreateNewView = () => {
+    //TODO - 创建新视图应该传参输入的值
+    if (typeof createAction?.onAction === "function") {
+      createAction.onAction()
+    }
+  }
+  const handleUpdateView = () => {
+    if (typeof updateAction?.onAction === "function") {
+      updateAction.onAction()
+    }
+  }
+
+  //~ onCancel
+  const onCancel = () => {
+    if (typeof cancelAction?.onAction === "function") {
+      cancelAction.onAction(activeTab.content)
+    }
+    setMode("DEFAULT")
+  }
+
+  //~ onSave
+  const onSave = () => {
+    if (activeTab.isLocked) {
+      handleCreateNewView()
+    } else {
+      handleUpdateView()
+    }
+    setMode("DEFAULT")
+  }
 
   //~ tabs view
   const DefaultView = (
@@ -85,6 +126,7 @@ export function TableFiltersBar({
           selected={selected}
           setMode={setMode}
           onSelect={onSelect}
+          onAddTab={handleCreateNewView}
         />
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
@@ -133,22 +175,18 @@ export function TableFiltersBar({
       <Button
         variant={"outline"}
         size={"sm"}
-        className="flex-shrink-0 px-2"
-        onClick={() => {
-          toggleFiltering()
-        }}
+        className="flex-shrink-0 px-2 hover:shadow"
+        onClick={onCancel}
       >
         {"Cancel"}
       </Button>
       <Button
         variant={"default"}
         size={"sm"}
-        className="flex-shrink-0 px-2"
-        onClick={() => {
-          toggleFiltering()
-        }}
+        className="flex-shrink-0 px-2 hover:shadow"
+        onClick={onSave}
       >
-        {"Sava as"}
+        {activeTab.isLocked ? "Sava as" : "Save"}
       </Button>
     </div>
   )

@@ -1,4 +1,8 @@
-import type { AppliedFilters, TableTab } from "@/components/shared"
+import type {
+  AppliedFilters,
+  FilterAction,
+  TableTab,
+} from "@/components/shared"
 import { FilterCheckbox, TableFiltersBar } from "@/components/shared"
 import { Button } from "@/components/ui"
 import { generateArray } from "@/lib"
@@ -43,7 +47,7 @@ export function FiltersBar<TData>({
   const tabs: TableTab[] = itemString.map((item, idx) => ({
     content: item,
     id: `${item}-${idx}`,
-    isLocked: idx === 0,
+    isLocked: ["All", "Active", "Completed"].includes(item),
     actions: [
       {
         type: "rename",
@@ -90,6 +94,23 @@ export function FiltersBar<TData>({
           <FilterDate column={table.getColumn("start_date")} title="开始日期" />
         )} */
 
+  const cancelViewActtion: FilterAction = {
+    onAction: (tabName) => {
+      console.log("cancel action: ", tabName)
+    },
+  }
+  const createViewActtion: FilterAction = {
+    onAction: (tabName) => {
+      console.log("create action: ", tabName)
+    },
+  }
+
+  const updateViewActtion: FilterAction = {
+    onAction: (tabName) => {
+      console.log("update action: ", tabName)
+    },
+  }
+
   return (
     <TableFiltersBar
       tabs={tabs}
@@ -101,6 +122,9 @@ export function FiltersBar<TData>({
       onClearAllFilters={() => table.resetColumnFilters()}
       filters={appliedfilters}
       isFiltered={isFiltered}
+      createAction={createViewActtion}
+      updateAction={updateViewActtion}
+      cancelAction={cancelViewActtion}
       external={
         <Button variant={"outline"} size={"icon"} className="w-8 h-8">
           <Columns3Icon className="h-4 w-4" />
