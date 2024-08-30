@@ -2,7 +2,7 @@ import { TableColumnHeader } from "@/components/shared"
 import { Badge, Checkbox } from "@/components/ui"
 import type { Task } from "@/schemas/task.schema"
 import type { ColumnDef } from "@tanstack/react-table"
-import { format, isWithinInterval } from "date-fns"
+import { format, isSameDay, isWithinInterval } from "date-fns"
 import { labels, priorities, statuses } from "./data"
 import { Operation } from "./operation"
 
@@ -128,10 +128,13 @@ export const columns: ColumnDef<Task>[] = [
     filterFn: (row, id, value) => {
       const date = row.getValue(id)
 
-      return isWithinInterval(date, {
-        start: value[0].from,
-        end: value[0].to || new Date(),
-      })
+      if (value[0].to) {
+        return isWithinInterval(date, {
+          start: value[0].from,
+          end: value[0].to || value[0].from,
+        })
+      }
+      return isSameDay(date, value[0].from)
     },
   },
   {

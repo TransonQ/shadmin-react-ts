@@ -31,10 +31,12 @@ export function FilterDate<TData, TValue>({
   const selectDate = column?.getFilterValue() as DateRangeValues
   const setSelectDate = (value: DateRangeValues) =>
     column?.setFilterValue(value)
+
   const fmtFrom =
     selectDate?.[0]?.from && format(selectDate[0].from, "yyyy/MM/dd")
-
   const fmtTo = selectDate?.[0]?.to && format(selectDate[0].to, "yyyy/MM/dd")
+
+  
 
   return (
     <Popover>
@@ -117,7 +119,6 @@ export function FilterDate<TData, TValue>({
               className={cn("h-8 px-4")}
               disabled={!selectDate}
               onClick={() => {
-                // setDate(undefined)
                 setSelectDate(undefined)
               }}
             >
