@@ -80,7 +80,7 @@ export function FiltersBar<TData>({
 
   // 模拟储存筛选
 
-  const [filtersData, dispatchfilters] = useReducer(reducer, {})
+  const [filtersData, dispatch] = useReducer(reducer, {})
 
   useEffect(() => {
     console.log("filtersData: ", filtersData)
@@ -91,8 +91,6 @@ export function FiltersBar<TData>({
     setSelected(tabIndex)
     if (has(filtersData, tabName)) {
       setFilters(filtersData[tabName])
-    } else {
-      setFilters([])
     }
   }
 
@@ -108,16 +106,27 @@ export function FiltersBar<TData>({
       {
         type: "rename",
         onAction: (value) => {
+          let oldValue = ""
           setItemString((itemString) => {
             const newItemsStrings = itemString.map((item, index) => {
               if (idx === index) {
+                oldValue = item
                 return value as string
               }
               return item
             })
             return newItemsStrings
           })
-          dispatchfilters({
+          if (oldValue) {
+            dispatch({
+              type: "DELETE",
+              payload: {
+                key: oldValue,
+                filterState: filters,
+              },
+            })
+          }
+          dispatch({
             type: "UPDATE",
             payload: {
               key: value,
@@ -137,7 +146,7 @@ export function FiltersBar<TData>({
         onAction: (value) => {
           setItemString([...itemString, value as string])
           setSelected(itemString.length)
-          dispatchfilters({
+          dispatch({
             type: "UPDATE",
             payload: {
               key: value,
@@ -151,7 +160,7 @@ export function FiltersBar<TData>({
         onAction: () => {
           setItemString(itemString.filter((_, index) => index !== idx))
           setSelected(0)
-          dispatchfilters({
+          dispatch({
             type: "DELETE",
             payload: {
               key: itemString[idx],
@@ -194,7 +203,7 @@ export function FiltersBar<TData>({
   const onCreateView = (tabName: string) => {
     setItemString([...itemString, tabName])
     setSelected(itemString.length)
-    dispatchfilters({
+    dispatch({
       type: "UPDATE",
       payload: {
         key: tabName,
@@ -205,7 +214,7 @@ export function FiltersBar<TData>({
 
   //~ save
   const onSaveView = () => {
-    dispatchfilters({
+    dispatch({
       type: "UPDATE",
       payload: {
         key: itemString[selected],
