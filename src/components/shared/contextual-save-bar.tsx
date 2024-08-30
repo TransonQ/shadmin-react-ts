@@ -6,7 +6,7 @@ import type { PageWidth } from "../lib"
 import { calcPageWidth, isInterface, isReactElement } from "../lib"
 import { Button } from "../ui"
 import { frameVariants } from "./config"
-import { Frame, useFrameConfig } from "./frame"
+import { FrameLogoBox, useFrameConfig } from "./frame"
 import { Icon } from "./icon"
 import { Show } from "./show"
 import { type BaseAction, type DisableableAction } from "./types"
@@ -69,11 +69,11 @@ export const ContextualSaveBar = ({
         "animate-in animate-out"
       )}
     >
-      <Frame.LogoBox>
+      <FrameLogoBox>
         <Show when={isReactElement(logo)} fallback={null}>
           {logo}
         </Show>
-      </Frame.LogoBox>
+      </FrameLogoBox>
 
       <div className="w-full h-full px-4 flex-1">
         <div

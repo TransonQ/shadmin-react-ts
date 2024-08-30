@@ -2,6 +2,7 @@ import {
   InlineStack,
   NavCollapsed,
   Navgation,
+  NavgationSection,
   useFrameConfig,
 } from "@/components/shared"
 import { navs } from "@/configs"
@@ -12,7 +13,7 @@ export const Navbar = () => {
 
   return (
     <Navgation footer={<NavFooter collapsed={isNavbarCollapsed} />}>
-      <Navgation.Section items={navs} collapsed={isNavbarCollapsed} />
+      <NavgationSection items={navs} collapsed={isNavbarCollapsed} />
     </Navgation>
   )
 }

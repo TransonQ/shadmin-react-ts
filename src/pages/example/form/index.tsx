@@ -3,6 +3,7 @@ import {
   BlockStack,
   ContextualSaveBar,
   FormLayout,
+  FormLayoutGroup,
   LegendCard,
   LegendSelect,
   Page,
@@ -132,7 +133,7 @@ export const FormExample = () => {
 
             <LegendCard sectioned>
               <FormLayout>
-                <FormLayout.Group>
+                <FormLayoutGroup>
                   <FormField
                     control={form.control}
                     name="amount"
@@ -166,7 +167,7 @@ export const FormExample = () => {
                       </FormItem>
                     )}
                   />
-                </FormLayout.Group>
+                </FormLayoutGroup>
 
                 <FormField
                   control={form.control}

@@ -34,7 +34,7 @@ interface NavgationSectionProps {
   collapsed?: boolean
 }
 
-function NavgationDefault({ children, footer }: NavgationProps) {
+export const Navgation = ({ children, footer }: NavgationProps) => {
   return (
     <div x-chunk="NAVGATION" className="h-full flex flex-col">
       <ScrollArea
@@ -76,7 +76,12 @@ const SectionItem = ({
   )
 }
 
-function Section({ title, fill, items, collapsed }: NavgationSectionProps) {
+export const NavgationSection = ({
+  title,
+  fill,
+  items,
+  collapsed,
+}: NavgationSectionProps) => {
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -140,9 +145,3 @@ function Footer({ children }: { children?: React.ReactNode }) {
     </div>
   )
 }
-
-NavgationDefault.displayName = "Navgation"
-Section.displayName = "NavgationSection"
-export const Navgation = Object.assign(NavgationDefault, {
-  Section,
-})

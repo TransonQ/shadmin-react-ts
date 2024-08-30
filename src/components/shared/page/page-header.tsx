@@ -1,17 +1,17 @@
 import { ArrowLeftIcon, Loader2Icon } from "lucide-react"
-import { isInterface } from "../lib"
-import { Button } from "../ui/button"
-import { Icon } from "./icon"
-import { InlineStack } from "./inline-stack"
-import { Show } from "./show"
-import { Text } from "./text"
+import { isInterface } from "../../lib"
+import { Button } from "../../ui/button"
+import { Icon } from "../icon"
+import { InlineStack } from "../inline-stack"
+import { Show } from "../show"
+import { Text } from "../text"
 import type {
   BaseAction,
   DestructableAction,
   DisableableAction,
   IconableAction,
   LoadableAction,
-} from "./types"
+} from "../types"
 
 interface PrimaryAction
   extends LoadableAction,

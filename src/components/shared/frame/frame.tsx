@@ -6,11 +6,11 @@ import { useFrameConfig } from "./frame-provider"
 const { headerHeight, navbarWidth, navbarCollapsedWidth, zIndex } =
   frameVariants
 
-const FrameShell = ({ children }: { children?: React.ReactNode }) => {
+export const Frame = ({ children }: { children?: React.ReactNode }) => {
   return <div x-chunk="FRAME">{children}</div>
 }
 
-const FrameHeader = ({ children }: { children?: React.ReactNode }) => {
+export const FrameHeader = ({ children }: { children?: React.ReactNode }) => {
   const styles: CSSProperties = {
     height: headerHeight,
     width: "100%",
@@ -32,7 +32,7 @@ const FrameHeader = ({ children }: { children?: React.ReactNode }) => {
   )
 }
 
-const FrameNavbar = ({ children }: { children?: React.ReactNode }) => {
+export const FrameNavbar = ({ children }: { children?: React.ReactNode }) => {
   const { isNavbarCollapsed } = useFrameConfig()
 
   const styles: CSSProperties = {
@@ -59,7 +59,7 @@ const FrameNavbar = ({ children }: { children?: React.ReactNode }) => {
   )
 }
 
-const FrameMain = ({ children }: { children?: React.ReactNode }) => {
+export const FrameMain = ({ children }: { children?: React.ReactNode }) => {
   const { isNavbarCollapsed } = useFrameConfig()
   const left = isNavbarCollapsed ? navbarCollapsedWidth : navbarWidth
 
@@ -79,7 +79,7 @@ const FrameMain = ({ children }: { children?: React.ReactNode }) => {
   )
 }
 
-const FrameLogoBox = ({ children }: { children?: React.ReactNode }) => {
+export const FrameLogoBox = ({ children }: { children?: React.ReactNode }) => {
   const { isNavbarCollapsed } = useFrameConfig()
 
   const styles: React.CSSProperties = {
@@ -95,15 +95,3 @@ const FrameLogoBox = ({ children }: { children?: React.ReactNode }) => {
     </div>
   )
 }
-
-FrameHeader.displayName = "FrameHeader"
-FrameNavbar.displayName = "FrameNavbar"
-FrameMain.displayName = "FrameMain"
-FrameLogoBox.displayName = "FrameLogoBox"
-
-export const Frame = Object.assign(FrameShell, {
-  Header: FrameHeader,
-  Navbar: FrameNavbar,
-  Main: FrameMain,
-  LogoBox: FrameLogoBox,
-})

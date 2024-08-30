@@ -13,7 +13,7 @@ interface LegendCardProps {
   sticky?: boolean
 }
 
-const LegendCardRoot = ({
+export const LegendCard = ({
   children,
   sectioned,
   className,
@@ -48,6 +48,5 @@ const LegendCardRoot = ({
     </Card>
   )
 }
-export const LegendCard = Object.assign(LegendCardRoot, {
-  Section: CardContent,
-})
+
+export const LegendCardSection = CardContent

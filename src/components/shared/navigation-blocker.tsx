@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useBlocker } from "react-router-dom"
-import { Modal } from "./modal"
+import { Modal, ModalSection } from "./modal"
 
 type NavigationBlockerProps = {
   isBlocked: boolean
@@ -43,9 +43,9 @@ export const NavigationBlocker = ({ isBlocked }: NavigationBlockerProps) => {
         onAction: confirmLeave,
       }}
     >
-      <Modal.Section>
+      <ModalSection>
         <p>{"Are you sure you want to leave?"}</p>
-      </Modal.Section>
+      </ModalSection>
     </Modal>
   )
 }

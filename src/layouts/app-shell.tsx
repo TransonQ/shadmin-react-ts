@@ -1,4 +1,12 @@
-import { Frame, FrameProvider, InlineStack } from "@/components/shared"
+import {
+  Frame,
+  FrameHeader,
+  FrameLogoBox,
+  FrameMain,
+  FrameNavbar,
+  FrameProvider,
+  InlineStack,
+} from "@/components/shared"
 import { TooltipProvider } from "@/components/ui"
 import { cn } from "@/lib"
 import { useState } from "react"
@@ -19,20 +27,20 @@ export const AppShell = () => {
     >
       <Frame>
         <TooltipProvider delayDuration={500}>
-          <Frame.Header>
+          <FrameHeader>
             <InlineStack blockAlign="center" className="h-full">
-              <Frame.LogoBox>
+              <FrameLogoBox>
                 <Logo />
-              </Frame.LogoBox>
+              </FrameLogoBox>
               <Header />
             </InlineStack>
-          </Frame.Header>
-          <Frame.Navbar>
+          </FrameHeader>
+          <FrameNavbar>
             <Navbar />
-          </Frame.Navbar>
-          <Frame.Main>
+          </FrameNavbar>
+          <FrameMain>
             <Outlet />
-          </Frame.Main>
+          </FrameMain>
         </TooltipProvider>
       </Frame>
     </FrameProvider>

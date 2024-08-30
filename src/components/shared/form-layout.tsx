@@ -2,13 +2,11 @@ import { cn } from "@/lib"
 import { Children } from "react"
 import { isReactElement } from "../lib"
 
-const FormLayoutRoot = ({ children }: { children?: React.ReactNode }) => {
+export const FormLayout = ({ children }: { children?: React.ReactNode }) => {
   return <div className="w-full flex flex-col gap-4">{children}</div>
 }
 
-FormLayoutRoot.displayName = "FormLayout"
-
-const Group = ({
+export const FormLayoutGroup = ({
   children,
   condensed,
 }: {
@@ -35,7 +33,3 @@ const Group = ({
     </div>
   )
 }
-
-Group.displayName = "FormLayoutGroup"
-
-export const FormLayout = Object.assign(FormLayoutRoot, { Group })

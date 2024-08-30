@@ -15,7 +15,7 @@
 - [x] `<BlockStack/>`, `<InlineStack/>` - base on flex
 - [x] `<Page/>` - app content layout
 - [x] `<Layout/>` - layout in page
-- [x] `<FormLayout/>` 
+- [x] `<FormLayout/>`
 - [x] `<PageBreadcrumb/>`
 - [x] `<PageHeader/>`
 - [x] `shadmin` (custom tools eg. shadmin.toast.success())
@@ -46,6 +46,10 @@
 - [ ] ... more ... under construction
 - [ ] storybook
 - [ ] docs
+
+## reference
+
+- [Multipart Namespace Components:Addressing RSC and Dot Notation Issues](https://ivicabatinic.from.hr/posts/multipart-namespace-components-addressing-rsc-and-dot-notation-issues) (eg. `<Page.Header/>` -> `<PageHeader/>`)
 
 ## structure
 

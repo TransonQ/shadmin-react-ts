@@ -28,6 +28,7 @@ interface PrimaryAction
 interface SecondaryAction extends BaseAction {}
 
 interface ModalProps {
+  type?: "alert" | "dialog"
   children?: React.ReactNode
   title?: string
   open?: boolean
@@ -36,7 +37,8 @@ interface ModalProps {
   secondaryAction?: SecondaryAction
 }
 
-const ModalDefault = ({
+export const Modal = ({
+  type = "dialog",
   title,
   children,
   open,
@@ -101,7 +103,7 @@ const ModalDefault = ({
   )
 }
 
-const ModalSection = ({
+export const ModalSection = ({
   children,
   className,
   bordered,
@@ -116,7 +118,3 @@ const ModalSection = ({
     </div>
   )
 }
-
-export const Modal = Object.assign(ModalDefault, {
-  Section: ModalSection,
-})

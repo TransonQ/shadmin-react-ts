@@ -5,6 +5,7 @@ import {
   Icon,
   InlineStack,
   Layout,
+  LayoutSection,
   LegendCard,
   LegendSelect,
   NavigationBlocker,
@@ -75,7 +76,7 @@ export const Home = () => {
       )}
 
       <Layout>
-        <Layout.Section>
+        <LayoutSection>
           <BlockStack gap="lg" inlineAlign="stretch">
             <LegendCard title={"Page width"} sectioned>
               <LegendSelect
@@ -172,9 +173,9 @@ export const Home = () => {
               </BlockStack>
             </LegendCard>
           </BlockStack>
-        </Layout.Section>
+        </LayoutSection>
 
-        <Layout.Section variant="quarter">
+        <LayoutSection variant="quarter">
           <LegendCard sticky sectioned title={"Navigation blocker"}>
             <Alert variant="info" className="mb-4">
               <Icon source={AlertCircleIcon} />
@@ -197,11 +198,11 @@ export const Home = () => {
               </Button>
             </InlineStack>
           </LegendCard>
-        </Layout.Section>
+        </LayoutSection>
       </Layout>
 
       <Layout>
-        <Layout.Section>
+        <LayoutSection>
           <LegendCard title={"Alert"} sectioned>
             <BlockStack gap="lg">
               <Alert variant="info">
@@ -218,13 +219,13 @@ export const Home = () => {
               </Alert>
             </BlockStack>
           </LegendCard>
-        </Layout.Section>
+        </LayoutSection>
 
-        <Layout.Section variant="quarter">
+        <LayoutSection variant="quarter">
           <LegendCard sticky sectioned title={"Heading 标题2"}>
             {lorem(100)}
           </LegendCard>
-        </Layout.Section>
+        </LayoutSection>
       </Layout>
     </Page>
   )

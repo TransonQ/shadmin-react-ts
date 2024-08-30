@@ -18,10 +18,9 @@ import type {
   LegendSelectSingleProps,
 } from "./types"
 
-function SelectBase(props: LegendSelectSingleProps): React.ReactNode
-function SelectBase(props: LegendSelectMultipleProps): React.ReactNode
-
-function SelectBase(
+export function LegendSelect(props: LegendSelectSingleProps): React.ReactNode
+export function LegendSelect(props: LegendSelectMultipleProps): React.ReactNode
+export function LegendSelect(
   props: LegendSelectSingleProps | LegendSelectMultipleProps
 ) {
   const {
@@ -87,7 +86,3 @@ function SelectBase(
     </Popover>
   )
 }
-
-SelectBase.displayName = "LegendSelect"
-
-export const LegendSelect = Object.assign(SelectBase, {})

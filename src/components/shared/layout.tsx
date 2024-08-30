@@ -18,8 +18,12 @@ interface SectionProps {
   className?: string
 }
 
-function LayoutDefault({ children, sectioned }: LayoutProps) {
-  const content = sectioned ? <Section>{children}</Section> : children
+export const Layout = ({ children, sectioned }: LayoutProps) => {
+  const content = sectioned ? (
+    <LayoutSection>{children}</LayoutSection>
+  ) : (
+    children
+  )
   return (
     <div
       className={cn(
@@ -34,7 +38,11 @@ function LayoutDefault({ children, sectioned }: LayoutProps) {
   )
 }
 
-function Section({ children, variant = "fullWidth", className }: SectionProps) {
+export function LayoutSection({
+  children,
+  variant = "fullWidth",
+  className,
+}: SectionProps) {
   const clacVariant = (v: SectionProps["variant"]) => {
     switch (v) {
       case "quarter":
@@ -52,9 +60,3 @@ function Section({ children, variant = "fullWidth", className }: SectionProps) {
     </div>
   )
 }
-
-LayoutDefault.displayName = "Layout"
-Section.displayName = "LayoutSection"
-export const Layout = Object.assign(LayoutDefault, {
-  Section: Section,
-})

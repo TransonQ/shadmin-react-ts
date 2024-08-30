@@ -1,14 +1,14 @@
 import { LoaderIcon } from "lucide-react"
 import { Skeleton } from "../ui"
 import { BlockStack } from "./block-stack"
-import { Frame } from "./frame"
+import { Frame, FrameHeader, FrameMain, FrameNavbar } from "./frame"
 import { InlineStack } from "./inline-stack"
 import { Page } from "./page"
 
 export const SkeletonApp = () => {
   return (
     <Frame>
-      <Frame.Header>
+      <FrameHeader>
         <InlineStack
           blockAlign="center"
           align="space-between"
@@ -17,8 +17,8 @@ export const SkeletonApp = () => {
           <Skeleton className="w-52 h-8" />
           <Skeleton className="w-10 h-10 rounded-full" />
         </InlineStack>
-      </Frame.Header>
-      <Frame.Navbar>
+      </FrameHeader>
+      <FrameNavbar>
         <BlockStack gap="lg" className="p-4">
           <Skeleton className="w-full h-6" />
           <Skeleton className="w-full h-6" />
@@ -26,8 +26,8 @@ export const SkeletonApp = () => {
           <Skeleton className="w-full h-6" />
           <Skeleton className="w-full h-6" />
         </BlockStack>
-      </Frame.Navbar>
-      <Frame.Main>
+      </FrameNavbar>
+      <FrameMain>
         <div className="absolute inset-[56px_0_0_240px] z-10 grid place-items-center">
           <LoaderIcon className="w-20 h-20 animate-spin text-muted-foreground/20 -mt-40" />
         </div>
@@ -43,7 +43,7 @@ export const SkeletonApp = () => {
             <Skeleton className="w-4/5 h-6" />
           </BlockStack>
         </Page>
-      </Frame.Main>
+      </FrameMain>
     </Frame>
   )
 }
