@@ -43,8 +43,10 @@
   - [x] `<FilterCheckbox/>`
   - [ ] `<FilterDate/>`
   - [ ] `useTableTabs`
-- [ ] ... more ... under construction
-- [ ] storybook
+
+### under construction
+
+- [ ] [storybook](https://storybook.js.org/docs) / [reactcosmos](https://reactcosmos.org/)
 - [ ] docs
 
 ## reference

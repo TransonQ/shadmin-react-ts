@@ -5,6 +5,8 @@ import type { FrameConfig } from "./types"
 
 const FrameConfigContext = createContext<FrameConfig>({})
 
+export const useFrameConfig = (): FrameConfig => useContext(FrameConfigContext)
+
 export const FrameProvider = ({
   config,
   children,
@@ -25,10 +27,4 @@ export const FrameProvider = ({
       {children}
     </FrameConfigContext.Provider>
   )
-}
-
-export function useFrameConfig(): FrameConfig {
-  const context = useContext(FrameConfigContext)
-
-  return context
 }
