@@ -14,6 +14,8 @@ import {
   StatusDot,
 } from "@/components/shared"
 import { Alert, AlertDescription, AlertTitle, Button } from "@/components/ui"
+import { ToastProvider } from "@/components/ui/toast"
+import { useToast } from "@/components/ui/use-toast"
 import { lorem } from "@/mocks/mock-data"
 import { AlertCircleIcon, ArrowRightIcon, StarIcon } from "lucide-react"
 import { useState } from "react"
@@ -24,7 +26,7 @@ export const Home = () => {
   const [isSavebarActive, setIsSavebarActive] = useState(false)
   const [isBlocked, setIsBlocked] = useState(false)
   const [pageWidth, setPageWidth] = useState<PageWidth>("defaultWidth")
-
+  const { toast } = useToast()
   return (
     <Page
       fullWidth={pageWidth === "fullWidth"}
@@ -44,17 +46,25 @@ export const Home = () => {
       }}
       secondaryActions={[
         {
-          content: "Secondary Action 1",
+          content: "shadmin.toast.success",
           onAction() {
             shadmin.toast.success("Secondary Action 1")
           },
         },
         {
-          content: "Secondary Action 2",
-          onAction: () => shadmin.toast.error("Secondary Action 2"),
+          content: "shadcn use-toast",
+          onAction: () => {
+            toast({
+              title: "Secondary Action 2",
+              variant: "destructive",
+              description: "This action cannot be undone",
+            })
+            console.log(123)
+          },
         },
       ]}
     >
+      <ToastProvider />
       <NavigationBlocker isBlocked={isBlocked} />
 
       {isSavebarActive && (

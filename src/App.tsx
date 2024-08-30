@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { SWRConfig } from "swr"
 import { Loading } from "./components/shared"
 import { Toaster } from "./components/ui"
+import { Toaster as ShadcnToaster } from "./components/ui/toaster"
 import { routesMerge } from "./routes"
 
 const routes = routesMerge()
@@ -19,6 +20,7 @@ function App() {
           revalidateOnMount: true,
         }}
       >
+        <ShadcnToaster />
         <Toaster position="bottom-center" toastOptions={{ unstyled: true }} />
         <RouterProvider router={router} />
       </SWRConfig>
