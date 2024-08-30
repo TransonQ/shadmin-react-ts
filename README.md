@@ -26,8 +26,8 @@
 - [x] `<LegendSelect/>`
 - [x] `<Loading/>`
 - [x] `<MenuDestructableItem/>`
-- [x] `<NavCollapsed/>`
-- [x] `<Navgation/>`
+- [x] `<Navigation/>`
+- [x] `<NavigationCollapsed/>`
 - [x] `<NavigationBlocker/>`
 - [x] `<Show/>`
 - [x] `<StatusDot/>`

@@ -34,7 +34,7 @@ interface NavgationSectionProps {
   collapsed?: boolean
 }
 
-export const Navgation = ({ children, footer }: NavgationProps) => {
+export const Navigation = ({ children, footer }: NavgationProps) => {
   return (
     <div x-chunk="NAVGATION" className="h-full flex flex-col">
       <ScrollArea
@@ -76,7 +76,7 @@ const SectionItem = ({
   )
 }
 
-export const NavgationSection = ({
+export const NavigationSection = ({
   title,
   fill,
   items,

@@ -1,8 +1,8 @@
 import {
   InlineStack,
-  NavCollapsed,
-  Navgation,
-  NavgationSection,
+  Navigation,
+  NavigationCollapsed,
+  NavigationSection,
   useFrameConfig,
 } from "@/components/shared"
 import { navs } from "@/configs"
@@ -12,9 +12,9 @@ export const Navbar = () => {
   const { isNavbarCollapsed } = useFrameConfig()
 
   return (
-    <Navgation footer={<NavFooter collapsed={isNavbarCollapsed} />}>
-      <NavgationSection items={navs} collapsed={isNavbarCollapsed} />
-    </Navgation>
+    <Navigation footer={<NavFooter collapsed={isNavbarCollapsed} />}>
+      <NavigationSection items={navs} collapsed={isNavbarCollapsed} />
+    </Navigation>
   )
 }
 
@@ -37,7 +37,7 @@ function NavFooter({ collapsed }: { collapsed?: boolean }) {
     >
       {!collapsed && <div className="flex-1">{NavFooterContent}</div>}
       <div x-chunk="COLLAPSER" className={cn(!collapsed && "pr-1")}>
-        <NavCollapsed />
+        <NavigationCollapsed />
       </div>
     </div>
   )

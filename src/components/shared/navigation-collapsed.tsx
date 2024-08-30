@@ -3,7 +3,7 @@ import { PanelLeftCloseIcon, PanelLeftOpenIcon } from "lucide-react"
 import { buttonVariants } from "../ui/button"
 import { useFrameConfig } from "./frame"
 
-export const NavCollapsed = () => {
+export const NavigationCollapsed = () => {
   const { isNavbarCollapsed, onNavbarCollapsedChange } = useFrameConfig()
 
   return !isNavbarCollapsed ? (
