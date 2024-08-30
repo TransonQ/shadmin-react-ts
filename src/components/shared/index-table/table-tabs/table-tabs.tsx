@@ -192,7 +192,6 @@ export const TableTabs = ({
         className={cn(selected === idx && "bg-muted")}
         onClick={() => {
           tab.onAction?.()
-          onSelect?.(idx)
         }}
       >
         {tab.content}
