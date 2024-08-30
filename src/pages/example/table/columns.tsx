@@ -2,6 +2,7 @@ import { TableColumnHeader } from "@/components/shared"
 import { Badge, Checkbox } from "@/components/ui"
 import type { Task } from "@/schemas/task.schema"
 import type { ColumnDef } from "@tanstack/react-table"
+import { format, isWithinInterval } from "date-fns"
 import { labels, priorities, statuses } from "./data"
 import { Operation } from "./operation"
 
@@ -110,6 +111,27 @@ export const columns: ColumnDef<Task>[] = [
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id))
+    },
+  },
+  {
+    accessorKey: "created_at",
+    header: ({ column }) => (
+      <TableColumnHeader column={column} title="Created At" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="min-w-[160px]">
+          {format(row.getValue("created_at"), "yyyy-MM-dd")}
+        </div>
+      )
+    },
+    filterFn: (row, id, value) => {
+      const date = row.getValue(id)
+
+      return isWithinInterval(date, {
+        start: value[0].from,
+        end: value[0].to || new Date(),
+      })
     },
   },
   {

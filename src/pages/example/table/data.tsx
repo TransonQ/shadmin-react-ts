@@ -85,4 +85,5 @@ export const genfakeTableData = (len = 1000) =>
     ]),
     label: faker.helpers.arrayElement(["Bug", "Feature", "Documentation"]),
     priority: faker.helpers.arrayElement(["low", "medium", "high"]),
+    created_at: faker.date.recent({ days: 40 }),
   }))

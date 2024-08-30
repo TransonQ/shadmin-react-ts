@@ -1,5 +1,10 @@
 import type { AppliedFilters, FilterMode, TableTab } from "@/components/shared"
-import { FilterCheckbox, ModeEnum, TableFilters } from "@/components/shared"
+import {
+  FilterCheckbox,
+  FilterDate,
+  ModeEnum,
+  TableFilters,
+} from "@/components/shared"
 import { Button } from "@/components/ui"
 import { generateArray } from "@/lib"
 import type {
@@ -100,9 +105,14 @@ export function FiltersBar<TData>({
       ),
     })
   }
-  /* {table.getColumn("start_date") && (
-          <FilterDate column={table.getColumn("start_date")} title="开始日期" />
-        )} */
+  if (table.getColumn("created_at")) {
+    appliedfilters.push({
+      key: "created_at",
+      filter: table.getColumn("created_at") && (
+        <FilterDate column={table.getColumn("created_at")} title="Created At" />
+      ),
+    })
+  }
 
   //~ cancel
   const onCancel = () => {

@@ -146,7 +146,7 @@ export function FilterCheckbox<TData, TValue>({
                   onSelect={() => column?.setFilterValue(undefined)}
                   className="justify-center text-center"
                 >
-                  重置
+                  {"Clear"}
                 </CommandItem>
               </CommandGroup>
             </>
