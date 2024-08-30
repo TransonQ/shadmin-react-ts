@@ -64,7 +64,7 @@ export function TableExample() {
   })
 
   useEffect(() => {
-    console.log({ columnFilters })
+    console.log("columnFilters", JSON.stringify(columnFilters, null, 2))
   }, [columnFilters])
 
   return (

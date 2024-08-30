@@ -127,7 +127,7 @@ export const TableTabs = ({
         break
       }
       case "edit": {
-        action.onAction?.()
+        action.onAction?.("")
         break
       }
       case "duplicate": {

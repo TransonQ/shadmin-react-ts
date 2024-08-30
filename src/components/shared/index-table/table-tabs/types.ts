@@ -9,7 +9,7 @@ export interface TableTabAction
   type: TableTabActionType
   /** tab 下拉操作自定义名称 */
   label?: string
-  onAction?: (value?: string) => void
+  onAction?: (value: string) => void
 }
 
 export interface TableTab {

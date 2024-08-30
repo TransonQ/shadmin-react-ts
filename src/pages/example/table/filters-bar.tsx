@@ -12,15 +12,45 @@ import type {
   ColumnOrderState,
   Table,
 } from "@tanstack/react-table"
-import { isEqual } from "lodash-es"
+import { has, isEqual } from "lodash-es"
 import { Columns3Icon } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useReducer, useState } from "react"
 import { statuses } from "./data"
 
 interface FiltersBarProps<TData> {
   table: Table<TData>
   columnOrders?: ColumnOrderState
   columnFilters?: ColumnFiltersState
+}
+
+type StoreFilters = { [key: string]: ColumnFiltersState }
+const reducer = (
+  data: StoreFilters,
+  action: {
+    type: "UPDATE" | "DELETE"
+    payload: {
+      key: string
+      filterState: ColumnFiltersState
+    }
+  }
+): StoreFilters => {
+  switch (action.type) {
+    case "UPDATE": {
+      const { key, filterState } = action.payload
+      return {
+        ...data,
+        [key]: filterState,
+      }
+    }
+    case "DELETE": {
+      const { key } = action.payload
+      const newData = { ...data }
+      delete newData[key]
+      return newData
+    }
+    default:
+      return data
+  }
 }
 
 export function FiltersBar<TData>({
@@ -47,12 +77,32 @@ export function FiltersBar<TData>({
     "Completed",
     ...generateArray(5, (i) => `Tab ${i + 3}`),
   ])
+
+  // 模拟储存筛选
+
+  const [filtersData, dispatchfilters] = useReducer(reducer, {})
+
+  useEffect(() => {
+    console.log("filtersData: ", filtersData)
+  }, [filtersData])
+
+  //~ onTabChange
+  const handleTabChange = (tabName: string, tabIndex: number) => {
+    setSelected(tabIndex)
+    if (has(filtersData, tabName)) {
+      setFilters(filtersData[tabName])
+    } else {
+      setFilters([])
+    }
+  }
+
+  //~ tabs
   const tabs: TableTab[] = itemString.map((item, idx) => ({
     content: item,
     id: `${item}-${idx}`,
     isLocked: ["All", "Active", "Completed"].includes(item),
     onAction: () => {
-      console.log("点击 tab 触发onAction: ", item, idx)
+      handleTabChange(item, idx)
     },
     actions: [
       {
@@ -67,6 +117,13 @@ export function FiltersBar<TData>({
             })
             return newItemsStrings
           })
+          dispatchfilters({
+            type: "UPDATE",
+            payload: {
+              key: value,
+              filterState: filters,
+            },
+          })
         },
       },
       {
@@ -80,6 +137,13 @@ export function FiltersBar<TData>({
         onAction: (value) => {
           setItemString([...itemString, value as string])
           setSelected(itemString.length)
+          dispatchfilters({
+            type: "UPDATE",
+            payload: {
+              key: value,
+              filterState: filters,
+            },
+          })
         },
       },
       {
@@ -87,6 +151,13 @@ export function FiltersBar<TData>({
         onAction: () => {
           setItemString(itemString.filter((_, index) => index !== idx))
           setSelected(0)
+          dispatchfilters({
+            type: "DELETE",
+            payload: {
+              key: itemString[idx],
+              filterState: filters,
+            },
+          })
         },
       },
     ],
@@ -123,21 +194,24 @@ export function FiltersBar<TData>({
   const onCreateView = (tabName: string) => {
     setItemString([...itemString, tabName])
     setSelected(itemString.length)
+    dispatchfilters({
+      type: "UPDATE",
+      payload: {
+        key: tabName,
+        filterState: filters,
+      },
+    })
   }
 
   //~ save
   const onSaveView = () => {
-    // 测试切换 tab 的时候设置本都存储的 filters
-    setFilters([
-      {
-        id: "id",
-        value: "12",
+    dispatchfilters({
+      type: "UPDATE",
+      payload: {
+        key: itemString[selected],
+        filterState: filters,
       },
-      {
-        id: "status",
-        value: ["backlog", "todo"],
-      },
-    ])
+    })
   }
 
   return (
