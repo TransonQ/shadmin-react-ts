@@ -32,25 +32,20 @@ import {
 } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 
-function sortByOrders<TData>(
-  array: Column<TData, unknown>[],
-  orders: string[] = []
-) {
-  const orderedColumns = [...array]
-  orderedColumns.sort((a, b) => orders.indexOf(a.id) - orders.indexOf(b.id))
-  return orderedColumns
+type InitialState = {
+  /** 初始话的列顺序,可以存在localStorage,也可以是后端返回 */
+  columnOrder?: string[]
+}
+
+type OptionConfig = {
+  /** 自定义获取列标题:根据 id 获取列的标题 */
+  getColumnTitle?: (columnId: any) => string
 }
 
 interface TableColumnOptionsProps<TData> {
   table: Table<TData>
-  initialState?: {
-    /** 初始话的列顺序,可以存在localStorage,也可以是后端返回 */
-    columnOrder?: string[]
-  }
-  config?: {
-    /** 自定义获取列标题:根据 id 获取列的标题 */
-    getColumnTitle?: (columnId: string) => string
-  }
+  initialState?: InitialState
+  config?: OptionConfig
 }
 
 export function TableColumnOptions<TData>({
@@ -136,6 +131,15 @@ export function TableColumnOptions<TData>({
       </PopoverContent>
     </Popover>
   )
+}
+
+function sortByOrders<TData>(
+  array: Column<TData, unknown>[],
+  orders: string[] = []
+) {
+  const orderedColumns = [...array]
+  orderedColumns.sort((a, b) => orders.indexOf(a.id) - orders.indexOf(b.id))
+  return orderedColumns
 }
 
 function SortItem({

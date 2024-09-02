@@ -14,6 +14,7 @@ import type {
 } from "@tanstack/react-table"
 import { has, isEqual } from "lodash-es"
 import { useEffect, useReducer, useState } from "react"
+import { getColumnTitle } from "./columns"
 import { statuses } from "./data"
 
 interface FiltersBarProps<TData> {
@@ -239,7 +240,11 @@ export function FiltersBar<TData>({
       onSaveView={onSaveView}
       onCancel={onCancel}
       external={
-        <TableColumnOptions table={table} initialState={{ columnOrder }} />
+        <TableColumnOptions
+          table={table}
+          initialState={{ columnOrder }}
+          config={{ getColumnTitle }}
+        />
       }
     />
   )

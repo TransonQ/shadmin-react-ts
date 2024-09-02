@@ -6,6 +6,25 @@ import { format, isSameDay, isWithinInterval } from "date-fns"
 import { labels, priorities, statuses } from "./data"
 import { Operation } from "./operation"
 
+export const getColumnTitle = (columnId: keyof Task) => {
+  switch (columnId) {
+    case "id":
+      return "ID"
+    case "title":
+      return "Title"
+    case "label":
+      return "Label"
+    case "priority":
+      return "Priority"
+    case "status":
+      return "Status"
+    case "created_at":
+      return "Created At"
+    default:
+      return columnId
+  }
+}
+
 export const columns: ColumnDef<Task>[] = [
   {
     id: "select",
@@ -38,14 +57,18 @@ export const columns: ColumnDef<Task>[] = [
   },
   {
     accessorKey: "id",
-    header: ({ column }) => <TableColumnHeader column={column} title="Task" />,
+    header: ({ column }) => (
+      <TableColumnHeader column={column} title={getColumnTitle("id")} />
+    ),
     cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: "title",
-    header: ({ column }) => <TableColumnHeader column={column} title="Title" />,
+    header: ({ column }) => (
+      <TableColumnHeader column={column} title={getColumnTitle("title")} />
+    ),
     cell: ({ row }) => {
       const label = labels.find((label) => label.value === row.original.label)
 
@@ -62,7 +85,7 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: "status",
     header: ({ column }) => (
-      <TableColumnHeader column={column} title="Status" />
+      <TableColumnHeader column={column} title={getColumnTitle("status")} />
     ),
     cell: ({ row }) => {
       const status = statuses.find(
@@ -89,7 +112,7 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: "priority",
     header: ({ column }) => (
-      <TableColumnHeader column={column} title="Priority" />
+      <TableColumnHeader column={column} title={getColumnTitle("priority")} />
     ),
     cell: ({ row }) => {
       const priority = priorities.find(
@@ -116,7 +139,7 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: "created_at",
     header: ({ column }) => (
-      <TableColumnHeader column={column} title="Created At" />
+      <TableColumnHeader column={column} title={getColumnTitle("created_at")} />
     ),
     cell: ({ row }) => {
       return (
