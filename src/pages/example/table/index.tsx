@@ -22,18 +22,22 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
+import { useAtom } from "jotai/react"
+import { atomWithStorage } from "jotai/utils"
 import { useEffect, useState } from "react"
 import { columns } from "./columns"
 import { genfakeTableData } from "./data"
 import { FiltersBar } from "./filters-bar"
 
 const data = genfakeTableData(1000)
+const ColumnOrderAtom = atomWithStorage<ColumnOrderState>("columnOrder", [])
 
 export function TableExample() {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-  const [columnOrder, setColumnOrder] = useState<ColumnOrderState>([])
+  // const [columnOrder, setColumnOrder] = useState<ColumnOrderState>([])
+  const [columnOrder, setColumnOrder] = useAtom(ColumnOrderAtom)
   const [sorting, setSorting] = useState<SortingState>([])
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
