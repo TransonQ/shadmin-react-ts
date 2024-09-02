@@ -3,9 +3,9 @@ import {
   FilterCheckbox,
   FilterDate,
   ModeEnum,
+  TableColumnOptions,
   TableFilters,
 } from "@/components/shared"
-import { Button } from "@/components/ui"
 import { generateArray } from "@/lib"
 import type {
   ColumnFiltersState,
@@ -13,13 +13,12 @@ import type {
   Table,
 } from "@tanstack/react-table"
 import { has, isEqual } from "lodash-es"
-import { Columns3Icon } from "lucide-react"
 import { useEffect, useReducer, useState } from "react"
 import { statuses } from "./data"
 
 interface FiltersBarProps<TData> {
   table: Table<TData>
-  columnOrders?: ColumnOrderState
+  columnOrder?: ColumnOrderState
   columnFilters?: ColumnFiltersState
 }
 
@@ -55,7 +54,7 @@ const reducer = (
 
 export function FiltersBar<TData>({
   table,
-  columnOrders,
+  columnOrder,
   columnFilters = [],
 }: FiltersBarProps<TData>) {
   const filters = table.getState().columnFilters
@@ -240,9 +239,7 @@ export function FiltersBar<TData>({
       onSaveView={onSaveView}
       onCancel={onCancel}
       external={
-        <Button variant={"outline"} size={"icon"} className="w-8 h-8">
-          <Columns3Icon className="h-4 w-4" />
-        </Button>
+        <TableColumnOptions table={table} initialState={{ columnOrder }} />
       }
     />
   )

@@ -7,6 +7,7 @@ import {
 } from "@/components/shared"
 import type {
   ColumnFiltersState,
+  ColumnOrderState,
   PaginationState,
   RowSelectionState,
   SortingState,
@@ -32,6 +33,7 @@ export function TableExample() {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [columnOrder, setColumnOrder] = useState<ColumnOrderState>([])
   const [sorting, setSorting] = useState<SortingState>([])
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -46,12 +48,14 @@ export function TableExample() {
       columnVisibility,
       rowSelection,
       columnFilters,
+      columnOrder,
       pagination,
     },
     enableRowSelection: true,
     getRowId: tableConfig.getRowId,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
+    onColumnOrderChange: setColumnOrder,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
     onPaginationChange: setPagination,
@@ -70,7 +74,7 @@ export function TableExample() {
   return (
     <Page title="TableExample">
       <LegendCard>
-        <FiltersBar table={table} />
+        <FiltersBar table={table} columnOrder={columnOrder} />
         <IndexTable
           table={table}
           columns={columns}
