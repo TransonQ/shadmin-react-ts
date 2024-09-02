@@ -2,6 +2,9 @@ import type { PageWidth } from "@/components/lib"
 import {
   BlockStack,
   ContextualSaveBar,
+  DatePicker,
+  FormLayout,
+  FormLayoutGroup,
   Icon,
   InlineStack,
   Layout,
@@ -13,12 +16,19 @@ import {
   shadmin,
   StatusDot,
 } from "@/components/shared"
-import { Alert, AlertDescription, AlertTitle, Button } from "@/components/ui"
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+  Button,
+  Label,
+} from "@/components/ui"
 import { ToastProvider } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
 import { lorem } from "@/mocks/mock-data"
 import { AlertCircleIcon, ArrowRightIcon, StarIcon } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import type { DateRange } from "react-day-picker"
 import { useNavigate } from "react-router-dom"
 
 export const Home = () => {
@@ -27,6 +37,15 @@ export const Home = () => {
   const [isBlocked, setIsBlocked] = useState(false)
   const [pageWidth, setPageWidth] = useState<PageWidth>("defaultWidth")
   const { toast } = useToast()
+  const [dateValue, setDateValue] = useState<Date | undefined>(undefined)
+  const [dateRangeValue, setDateRangeValue] = useState<DateRange | undefined>(
+    undefined
+  )
+
+  useEffect(() => {
+    console.log({ dateValue, dateRangeValue })
+  }, [dateValue, dateRangeValue])
+
   return (
     <Page
       fullWidth={pageWidth === "fullWidth"}
@@ -99,6 +118,26 @@ export const Home = () => {
                   { label: "narrowWidth", value: "narrowWidth" },
                 ]}
               />
+            </LegendCard>
+            <LegendCard title={"Date Picker"} sectioned>
+              <FormLayout>
+                <FormLayoutGroup>
+                  <Label>
+                    <span className="inline-block pb-2">{"Date Picker"}</span>
+                    <DatePicker value={dateValue} onChange={setDateValue} />
+                  </Label>
+                  <Label>
+                    <span className="inline-block pb-2">
+                      {"Date Range Picker"}
+                    </span>
+                    <DatePicker
+                      isRangeMode
+                      value={dateRangeValue}
+                      onChange={setDateRangeValue}
+                    />
+                  </Label>
+                </FormLayoutGroup>
+              </FormLayout>
             </LegendCard>
 
             <LegendCard title={"Status Dot"} sectioned>

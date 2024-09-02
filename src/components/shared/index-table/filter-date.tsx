@@ -36,8 +36,6 @@ export function FilterDate<TData, TValue>({
     selectDate?.[0]?.from && format(selectDate[0].from, "yyyy/MM/dd")
   const fmtTo = selectDate?.[0]?.to && format(selectDate[0].to, "yyyy/MM/dd")
 
-  
-
   return (
     <Popover>
       <PopoverTrigger asChild>

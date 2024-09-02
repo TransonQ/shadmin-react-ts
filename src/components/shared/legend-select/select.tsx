@@ -75,7 +75,7 @@ export function LegendSelect(
           />
         </div>
       </PopoverTrigger>
-      <PopoverContent className={cn("p-0")} align="start">
+      <PopoverContent className={cn("p-0")} align="start" fill>
         <Command>
           {showSearch && <CommandInput placeholder={title} />}
           <Show when={multiple || showSearch} fallback={ClickThenClosePopover}>
