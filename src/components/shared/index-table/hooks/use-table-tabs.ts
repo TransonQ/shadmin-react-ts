@@ -1,7 +1,9 @@
-import { useState } from "react"
 import type { TableTab } from "../table-tabs"
 
+export type Updater<T> = T | ((old: T) => T)
 interface UseTableTabsConfig {
+  itemString: string[]
+  setItemString: (value: Updater<string[]>) => void
   lockedTabs: string[]
   onTabChange?: (tabLabel: string, index: number) => void
   onRenameTab?: (prevTabLabel: string, tabLabel: string) => void
@@ -12,14 +14,14 @@ interface UseTableTabsConfig {
 
 export function useTableTabs({
   lockedTabs,
+  itemString,
+  setItemString,
   onTabChange,
   onRenameTab,
   onEditTab,
   onDuplicateTab,
   onDeleteTab,
 }: UseTableTabsConfig) {
-  const [itemString, setItemString] = useState(lockedTabs)
-
   const tabs: TableTab[] = itemString.map((item, idx) => ({
     content: item,
     id: `${item}-${idx}`,
@@ -67,8 +69,6 @@ export function useTableTabs({
   }))
 
   return {
-    itemString,
-    setItemString,
     tabs,
   }
 }

@@ -8,10 +8,10 @@ import {
   useFilterStore,
   useTableTabs,
 } from "@/components/shared"
-import { useAuth } from "@/hooks"
+import { useAuth, useLocalStorageState } from "@/hooks"
 import type { ColumnFiltersState, Table } from "@tanstack/react-table"
 import { has, isEqual } from "lodash-es"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { getColumnTitle } from "./columns"
 import { statuses } from "./data"
 
@@ -38,22 +38,23 @@ export function FiltersBar<TData>({
   const [mode, setMode] = useState<FilterMode>(ModeEnum.default)
   const [selected, setSelected] = useState(0)
 
-  const lockedTabStrings = ["All"]
-  // const [itemString, setItemString] = useState(lockedTabStrings)
-
   const { data: auth } = useAuth()
+
+  const lockedTabStrings = ["All"]
+  const [itemString, setItemString] = useLocalStorageState<string[]>(
+    "tableTabs",
+    lockedTabStrings,
+    { keyPrefix: auth?.id }
+  )
+
   // 模拟储存筛选
-  // const [filtersData, dispatch] = useReducer(reducer, {})
+  const store = useFilterStore("table", { keyPrefix: auth?.id })
   const {
     filterStore,
     updateFilters,
     deleteUpdateFilters,
     renameUpdateFilters,
-  } = useFilterStore("table", { keyPrefix: auth?.id })
-
-  useEffect(() => {
-    console.log("filtersData: ", filterStore)
-  }, [filterStore])
+  } = store
 
   //~ onTabChange
   const handleTabChange = (tabName: string, tabIndex: number) => {
@@ -71,7 +72,9 @@ export function FiltersBar<TData>({
     }
   }
   //~ tabs
-  const { tabs, itemString, setItemString } = useTableTabs({
+  const { tabs } = useTableTabs({
+    itemString,
+    setItemString,
     lockedTabs: lockedTabStrings,
     onTabChange: handleTabChange,
     onRenameTab: (prevTabLabel, tabLabel) => {
