@@ -43,7 +43,6 @@ export function TableExample() {
     pageIndex: 0,
     pageSize: 20,
   })
-
   const table = useReactTable({
     data,
     columns,
@@ -78,7 +77,7 @@ export function TableExample() {
   return (
     <Page title="TableExample">
       <LegendCard>
-        <FiltersBar table={table} columnOrder={columnOrder} />
+        <FiltersBar table={table} />
         <IndexTable
           table={table}
           columns={columns}

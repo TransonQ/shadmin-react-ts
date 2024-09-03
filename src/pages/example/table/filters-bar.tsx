@@ -9,8 +9,7 @@ import {
 import { generateArray } from "@/lib"
 import type {
   ColumnFiltersState,
-  ColumnOrderState,
-  Table,
+  Table
 } from "@tanstack/react-table"
 import { has, isEqual } from "lodash-es"
 import { useEffect, useReducer, useState } from "react"
@@ -19,7 +18,6 @@ import { statuses } from "./data"
 
 interface FiltersBarProps<TData> {
   table: Table<TData>
-  columnOrder?: ColumnOrderState
   columnFilters?: ColumnFiltersState
 }
 
@@ -55,7 +53,6 @@ const reducer = (
 
 export function FiltersBar<TData>({
   table,
-  columnOrder,
   columnFilters = [],
 }: FiltersBarProps<TData>) {
   const filters = table.getState().columnFilters
@@ -240,11 +237,7 @@ export function FiltersBar<TData>({
       onSaveView={onSaveView}
       onCancel={onCancel}
       external={
-        <TableColumnOptions
-          table={table}
-          initialState={{ columnOrder }}
-          config={{ getColumnTitle }}
-        />
+        <TableColumnOptions table={table} config={{ getColumnTitle }} />
       }
     />
   )

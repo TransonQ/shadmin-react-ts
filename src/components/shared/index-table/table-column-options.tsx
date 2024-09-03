@@ -32,11 +32,6 @@ import {
 } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 
-type InitialState = {
-  /** 初始话的列顺序,可以存在localStorage,也可以是后端返回 */
-  columnOrder?: string[]
-}
-
 type OptionConfig = {
   /** 自定义获取列标题:根据 id 获取列的标题 */
   getColumnTitle?: (columnId: any) => string
@@ -44,27 +39,30 @@ type OptionConfig = {
 
 interface TableColumnOptionsProps<TData> {
   table: Table<TData>
-  initialState?: InitialState
   config?: OptionConfig
 }
 
 export function TableColumnOptions<TData>({
   table,
-  initialState,
   config,
 }: TableColumnOptionsProps<TData>) {
-  const columnsRef = useRef(
-    table.getAllColumns().filter((column) => {
-      return typeof column.accessorFn !== "undefined" //&& column.getCanHide()
-    })
+  const tableColumnOrder = table.getState().columnOrder
+  const allColumns = table.getAllColumns()
+  const displayColumns = allColumns.filter(
+    (column) => typeof column.accessorFn !== "undefined"
   )
-  const [sortColumns, setSortColumns] = useState(() => columnsRef.current)
+  const columnsRef = useRef(displayColumns)
+
+  const [sortColumns, setSortColumns] = useState(columnsRef.current)
 
   useEffect(() => {
-    if (initialState && Array.isArray(initialState.columnOrder)) {
-      setSortColumns(sortByOrders(columnsRef.current, initialState.columnOrder))
-    }
-  }, [initialState])
+    setSortColumns(sortByOrders(columnsRef.current, tableColumnOrder))
+  }, [tableColumnOrder])
+
+  useEffect(() => {
+    console.log("allColumns: ", allColumns)
+    console.log("displayColumns: ", displayColumns)
+  }, [allColumns, displayColumns])
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -81,11 +79,12 @@ export function TableColumnOptions<TData>({
         const newIndex = items.findIndex((item) => item.id === over?.id)
         const newItems = arrayMove(items, oldIndex, newIndex)
         table.setColumnOrder(newItems.map((item) => item.id))
+        // 需要保持其他列的位置不变,比如 selectable column
+
         return newItems
       })
     }
   }
-
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -95,7 +94,7 @@ export function TableColumnOptions<TData>({
       </PopoverTrigger>
       <PopoverContent
         // style={{ width: width }}
-        className="w-[160px] p-0"
+        className="p-0"
         align="end"
       >
         <DndContext

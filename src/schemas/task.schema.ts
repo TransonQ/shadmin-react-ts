@@ -9,4 +9,6 @@ export const taskSchema = z.object({
   created_at: z.date(),
 })
 
+export const taskColumnOrder = Object.keys(taskSchema.shape)
+
 export type Task = z.infer<typeof taskSchema>
