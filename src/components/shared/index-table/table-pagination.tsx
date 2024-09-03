@@ -25,7 +25,7 @@ export function TablePagination<TData>({ table }: TablePaginationProps<TData>) {
         {table.getFilteredRowModel().rows.length} item(s) total
       </div>
       <div className="flex items-center space-x-6 lg:space-x-8">
-        <div className="flex items-center space-x-2">
+        <div className="hidden sm:flex items-center space-x-2">
           <p className="text-sm font-medium">{"Rows per page"}</p>
           <Select
             value={`${table.getState().pagination.pageSize}`}
@@ -45,7 +45,7 @@ export function TablePagination<TData>({ table }: TablePaginationProps<TData>) {
             </SelectContent>
           </Select>
         </div>
-        <div className="flex w-[100px] items-center justify-center text-sm font-medium">
+        <div className="flex items-center justify-center text-sm font-medium">
           Page {table.getState().pagination.pageIndex + 1} of{" "}
           {table.getPageCount()}
         </div>
