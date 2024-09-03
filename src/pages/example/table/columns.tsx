@@ -163,5 +163,7 @@ export const columns: ColumnDef<Task>[] = [
   {
     id: "actions",
     cell: ({ row }) => <Operation row={row} />,
+    enableSorting: false,
+    enableHiding: false,
   },
 ]

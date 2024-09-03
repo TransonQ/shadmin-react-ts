@@ -7,10 +7,7 @@ import {
   TableFilters,
 } from "@/components/shared"
 import { generateArray } from "@/lib"
-import type {
-  ColumnFiltersState,
-  Table
-} from "@tanstack/react-table"
+import type { ColumnFiltersState, Table } from "@tanstack/react-table"
 import { has, isEqual } from "lodash-es"
 import { useEffect, useReducer, useState } from "react"
 import { getColumnTitle } from "./columns"
@@ -237,7 +234,10 @@ export function FiltersBar<TData>({
       onSaveView={onSaveView}
       onCancel={onCancel}
       external={
-        <TableColumnOptions table={table} config={{ getColumnTitle }} />
+        <TableColumnOptions
+          table={table}
+          config={{ getColumnTitle, excludeColumnIds: ["select", "actions"] }}
+        />
       }
     />
   )

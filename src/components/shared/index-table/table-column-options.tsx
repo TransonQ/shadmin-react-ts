@@ -35,6 +35,8 @@ import { CSS } from "@dnd-kit/utilities"
 type OptionConfig = {
   /** 自定义获取列标题:根据 id 获取列的标题 */
   getColumnTitle?: (columnId: any) => string
+  /** 排除指定的列: 这些列通常是不需要参与拖拽和展示的, 比如定义的包含选择框的列和包含操作的列 */
+  excludeColumnIds?: string[]
 }
 
 interface TableColumnOptionsProps<TData> {
@@ -48,10 +50,7 @@ export function TableColumnOptions<TData>({
 }: TableColumnOptionsProps<TData>) {
   const tableColumnOrder = table.getState().columnOrder
   const allColumns = table.getAllColumns()
-  const displayColumns = allColumns.filter(
-    (column) => typeof column.accessorFn !== "undefined"
-  )
-  const columnsRef = useRef(displayColumns)
+  const columnsRef = useRef(allColumns)
 
   const [sortColumns, setSortColumns] = useState(columnsRef.current)
 
@@ -61,8 +60,7 @@ export function TableColumnOptions<TData>({
 
   useEffect(() => {
     console.log("allColumns: ", allColumns)
-    console.log("displayColumns: ", displayColumns)
-  }, [allColumns, displayColumns])
+  }, [allColumns])
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -78,9 +76,8 @@ export function TableColumnOptions<TData>({
         const oldIndex = items.findIndex((item) => item.id === active.id)
         const newIndex = items.findIndex((item) => item.id === over?.id)
         const newItems = arrayMove(items, oldIndex, newIndex)
-        table.setColumnOrder(newItems.map((item) => item.id))
-        // 需要保持其他列的位置不变,比如 selectable column
-
+        const newOrder = newItems.map((item) => item.id)
+        table.setColumnOrder(newOrder)
         return newItems
       })
     }
@@ -108,6 +105,10 @@ export function TableColumnOptions<TData>({
             strategy={verticalListSortingStrategy}
           >
             {sortColumns.map((item) => {
+              if (Array.isArray(config?.excludeColumnIds)) {
+                // 对于排除的列不展示在列选项中, 不参与拖拽
+                if (config.excludeColumnIds.includes(item.id)) return null
+              }
               return (
                 <SortItem
                   key={item.id}
