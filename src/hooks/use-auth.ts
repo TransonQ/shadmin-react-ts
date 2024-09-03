@@ -2,8 +2,9 @@ import { sleep } from "@/lib"
 import useSWR from "swr"
 
 const fakeData = {
+  id: "transon",
   usename: "Transon",
-  avatar:"/shadmin.svg",
+  avatar: "/shadmin.svg",
   role: "admin",
   email: "exmaple@admin.com",
 }

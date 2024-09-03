@@ -6,7 +6,6 @@ import {
   TableColumnOptions,
   TableFilters,
 } from "@/components/shared"
-import { generateArray } from "@/lib"
 import type { ColumnFiltersState, Table } from "@tanstack/react-table"
 import { has, isEqual } from "lodash-es"
 import { useEffect, useReducer, useState } from "react"
@@ -65,15 +64,11 @@ export function FiltersBar<TData>({
 
   const [mode, setMode] = useState<FilterMode>(ModeEnum.default)
   const [selected, setSelected] = useState(0)
-  const [itemString, setItemString] = useState([
-    "All",
-    "Active",
-    "Completed",
-    ...generateArray(5, (i) => `Tab ${i + 3}`),
-  ])
+
+  const lockedTabStrings = ["All"]
+  const [itemString, setItemString] = useState(lockedTabStrings)
 
   // 模拟储存筛选
-
   const [filtersData, dispatch] = useReducer(reducer, {})
 
   useEffect(() => {
@@ -92,7 +87,7 @@ export function FiltersBar<TData>({
   const tabs: TableTab[] = itemString.map((item, idx) => ({
     content: item,
     id: `${item}-${idx}`,
-    isLocked: ["All", "Active", "Completed"].includes(item),
+    isLocked: lockedTabStrings.includes(item),
     onAction: () => {
       handleTabChange(item, idx)
     },

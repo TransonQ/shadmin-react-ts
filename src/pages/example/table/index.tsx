@@ -5,6 +5,7 @@ import {
   TablePagination,
   tableConfig,
 } from "@/components/shared"
+import { useAuth, useLocalStorageState } from "@/hooks"
 import type {
   ColumnFiltersState,
   ColumnOrderState,
@@ -22,22 +23,26 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { useAtom } from "jotai/react"
-import { atomWithStorage } from "jotai/utils"
 import { useEffect, useState } from "react"
 import { columns } from "./columns"
 import { genfakeTableData } from "./data"
 import { FiltersBar } from "./filters-bar"
 
 const data = genfakeTableData(1000)
-const ColumnOrderAtom = atomWithStorage<ColumnOrderState>("columnOrder", [])
 
 export function TableExample() {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const { data: auth } = useAuth()
+
   // const [columnOrder, setColumnOrder] = useState<ColumnOrderState>([])
-  const [columnOrder, setColumnOrder] = useAtom(ColumnOrderAtom)
+  const [columnOrder, setColumnOrder] = useLocalStorageState<ColumnOrderState>(
+    "columnOrder",
+    [],
+    { keyPrefix: auth?.id }
+  )
+
   const [sorting, setSorting] = useState<SortingState>([])
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
