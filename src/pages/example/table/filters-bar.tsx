@@ -1,50 +1,23 @@
-import type { AppliedFilters, FilterMode, TableTab } from "@/components/shared"
+import type { AppliedFilters, FilterMode } from "@/components/shared"
 import {
   FilterCheckbox,
   FilterDate,
   ModeEnum,
   TableColumnOptions,
   TableFilters,
+  useFilterStore,
+  useTableTabs,
 } from "@/components/shared"
+import { useAuth } from "@/hooks"
 import type { ColumnFiltersState, Table } from "@tanstack/react-table"
 import { has, isEqual } from "lodash-es"
-import { useEffect, useReducer, useState } from "react"
+import { useEffect, useState } from "react"
 import { getColumnTitle } from "./columns"
 import { statuses } from "./data"
 
 interface FiltersBarProps<TData> {
   table: Table<TData>
   columnFilters?: ColumnFiltersState
-}
-
-type StoreFilters = { [key: string]: ColumnFiltersState }
-const reducer = (
-  data: StoreFilters,
-  action: {
-    type: "UPDATE" | "DELETE"
-    payload: {
-      key: string
-      filterState: ColumnFiltersState
-    }
-  }
-): StoreFilters => {
-  switch (action.type) {
-    case "UPDATE": {
-      const { key, filterState } = action.payload
-      return {
-        ...data,
-        [key]: filterState,
-      }
-    }
-    case "DELETE": {
-      const { key } = action.payload
-      const newData = { ...data }
-      delete newData[key]
-      return newData
-    }
-    default:
-      return data
-  }
 }
 
 export function FiltersBar<TData>({
@@ -66,100 +39,63 @@ export function FiltersBar<TData>({
   const [selected, setSelected] = useState(0)
 
   const lockedTabStrings = ["All"]
-  const [itemString, setItemString] = useState(lockedTabStrings)
+  // const [itemString, setItemString] = useState(lockedTabStrings)
 
+  const { data: auth } = useAuth()
   // 模拟储存筛选
-  const [filtersData, dispatch] = useReducer(reducer, {})
+  // const [filtersData, dispatch] = useReducer(reducer, {})
+  const {
+    filterStore,
+    updateFilters,
+    deleteUpdateFilters,
+    renameUpdateFilters,
+  } = useFilterStore("table", { keyPrefix: auth?.id })
 
   useEffect(() => {
-    console.log("filtersData: ", filtersData)
-  }, [filtersData])
+    console.log("filtersData: ", filterStore)
+  }, [filterStore])
 
   //~ onTabChange
   const handleTabChange = (tabName: string, tabIndex: number) => {
     setSelected(tabIndex)
-    if (has(filtersData, tabName)) {
-      setFilters(filtersData[tabName])
+    if (has(filterStore, tabName)) {
+      setFilters(filterStore[tabName])
+    } else {
+      if (lockedTabStrings.includes(tabName)) {
+        /** 固定 tab 对应的初始化操作 */
+        setFilters([])
+      } else {
+        /** 自定义的 tab 对应的初始化操作 */
+        setFilters([])
+      }
     }
   }
-
   //~ tabs
-  const tabs: TableTab[] = itemString.map((item, idx) => ({
-    content: item,
-    id: `${item}-${idx}`,
-    isLocked: lockedTabStrings.includes(item),
-    onAction: () => {
-      handleTabChange(item, idx)
+  const { tabs, itemString, setItemString } = useTableTabs({
+    lockedTabs: lockedTabStrings,
+    onTabChange: handleTabChange,
+    onRenameTab: (prevTabLabel, tabLabel) => {
+      renameUpdateFilters({
+        key: tabLabel,
+        prevKey: prevTabLabel,
+        filterState: filters,
+      })
     },
-    actions: [
-      {
-        type: "rename",
-        onAction: (value) => {
-          let oldValue = ""
-          setItemString((itemString) => {
-            const newItemsStrings = itemString.map((item, index) => {
-              if (idx === index) {
-                oldValue = item
-                return value as string
-              }
-              return item
-            })
-            return newItemsStrings
-          })
-          if (oldValue) {
-            dispatch({
-              type: "DELETE",
-              payload: {
-                key: oldValue,
-                filterState: filters,
-              },
-            })
-          }
-          dispatch({
-            type: "UPDATE",
-            payload: {
-              key: value,
-              filterState: filters,
-            },
-          })
-        },
-      },
-      {
-        type: "edit",
-        onAction: () => {
-          setMode(ModeEnum.filtering)
-        },
-      },
-      {
-        type: "duplicate",
-        onAction: (value) => {
-          setItemString([...itemString, value as string])
-          setSelected(itemString.length)
-          dispatch({
-            type: "UPDATE",
-            payload: {
-              key: value,
-              filterState: filters,
-            },
-          })
-        },
-      },
-      {
-        type: "delete",
-        onAction: () => {
-          setItemString(itemString.filter((_, index) => index !== idx))
-          setSelected(0)
-          dispatch({
-            type: "DELETE",
-            payload: {
-              key: itemString[idx],
-              filterState: filters,
-            },
-          })
-        },
-      },
-    ],
-  }))
+    onEditTab: () => {
+      setMode(ModeEnum.filtering)
+    },
+    onDuplicateTab: (tabLabel) => {
+      setSelected(itemString.length)
+      updateFilters({
+        key: tabLabel,
+        filterState: filters,
+      })
+    },
+    onDeleteTab: (idx) => {
+      setSelected(0)
+      deleteUpdateFilters({ key: itemString[idx], filterState: filters })
+    },
+  })
 
   const appliedfilters: AppliedFilters[] = []
   if (table.getColumn("status")) {
@@ -185,31 +121,35 @@ export function FiltersBar<TData>({
 
   //~ cancel
   const onCancel = () => {
-    console.log("onCancel")
+    const tabIndex = selected
+    const tabName = itemString[tabIndex]
+    handleTabChange(tabName, tabIndex)
   }
 
   //~ save as
   const onCreateView = (tabName: string) => {
     setItemString([...itemString, tabName])
     setSelected(itemString.length)
-    dispatch({
-      type: "UPDATE",
-      payload: {
-        key: tabName,
-        filterState: filters,
-      },
-    })
+    // dispatch({
+    //   type: "UPDATE",
+    //   payload: {
+    //     key: tabName,
+    //     filterState: filters,
+    //   },
+    // })
+    updateFilters({ key: tabName, filterState: filters })
   }
 
   //~ save
   const onSaveView = () => {
-    dispatch({
-      type: "UPDATE",
-      payload: {
-        key: itemString[selected],
-        filterState: filters,
-      },
-    })
+    // dispatch({
+    //   type: "UPDATE",
+    //   payload: {
+    //     key: itemString[selected],
+    //     filterState: filters,
+    //   },
+    // })
+    updateFilters({ key: itemString[selected], filterState: filters })
   }
 
   return (
