@@ -47,7 +47,7 @@ export function FiltersBar<TData>({
     { keyPrefix: auth?.id }
   )
 
-  // 模拟储存筛选
+  //~ useFilterStore
   const store = useFilterStore("table", { keyPrefix: auth?.id })
   const {
     filterStore,
@@ -71,6 +71,7 @@ export function FiltersBar<TData>({
       }
     }
   }
+
   //~ tabs
   const { tabs } = useTableTabs({
     itemString,
@@ -100,6 +101,7 @@ export function FiltersBar<TData>({
     },
   })
 
+  //~ filters
   const appliedfilters: AppliedFilters[] = []
   if (table.getColumn("status")) {
     appliedfilters.push({
@@ -133,25 +135,11 @@ export function FiltersBar<TData>({
   const onCreateView = (tabName: string) => {
     setItemString([...itemString, tabName])
     setSelected(itemString.length)
-    // dispatch({
-    //   type: "UPDATE",
-    //   payload: {
-    //     key: tabName,
-    //     filterState: filters,
-    //   },
-    // })
     updateFilters({ key: tabName, filterState: filters })
   }
 
   //~ save
   const onSaveView = () => {
-    // dispatch({
-    //   type: "UPDATE",
-    //   payload: {
-    //     key: itemString[selected],
-    //     filterState: filters,
-    //   },
-    // })
     updateFilters({ key: itemString[selected], filterState: filters })
   }
 

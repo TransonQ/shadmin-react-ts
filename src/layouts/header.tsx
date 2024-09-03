@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui"
 import { useAuth } from "@/hooks"
-import { cn } from "@/lib"
+import { clearLocalStorage, cn } from "@/lib"
 import { LinkIcon } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
@@ -74,19 +74,19 @@ function UserMenu() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            Profile
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Billing
-            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+          <DropdownMenuItem
+            onClick={() => {
+              clearLocalStorage()
+              window.location.reload()
+            }}
+          >
+            Clear LocalStorage
+            <DropdownMenuShortcut>delete</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
             Settings
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem>New Team</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <MenuDestructableItem
