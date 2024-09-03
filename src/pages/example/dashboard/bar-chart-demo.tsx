@@ -29,7 +29,7 @@ const chartConfig = {
 
 export const BarChartDemo = () => {
   return (
-    <Card className="w-[500px] shrink-0">
+    <Card className="w-full md:w-[500px] shrink-0">
       <CardHeader>
         <CardTitle>Bar Chart</CardTitle>
         <CardDescription>January - June 2024</CardDescription>

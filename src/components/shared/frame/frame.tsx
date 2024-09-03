@@ -72,7 +72,7 @@ export const FrameMain = ({ children }: { children?: React.ReactNode }) => {
     <main
       x-chunk="FRAME_MAIN"
       style={styles}
-      className={cn("p-4", "transition-all duration-100 ease-in-out")}
+      className={cn("p-1 md:p-4", "transition-all duration-100 ease-in-out")}
     >
       {children}
     </main>
