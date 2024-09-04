@@ -32,7 +32,6 @@ export function TableFilters({
   external,
   tabs,
   selected,
-  onSelect,
   onCreateView,
   onSaveView,
   onCancel,

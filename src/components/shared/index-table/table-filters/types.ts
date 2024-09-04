@@ -34,8 +34,6 @@ export interface TableFiltersProps {
   tabs: TableTab[]
   /** 当前选中的 tab 索引 */
   selected: number
-  /** 选择 tab 时的回调 */
-  onSelect?: (tabIndex: number) => void
   /** 创建视图 */
   onCreateView?: (newTabName: string) => void
   /** 保存视图 */

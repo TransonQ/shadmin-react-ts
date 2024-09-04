@@ -147,7 +147,6 @@ export function FiltersBar<TData>({
     <TableFilters
       tabs={tabs}
       selected={selected}
-      onSelect={setSelected}
       queryValue={queryValue}
       onQueryChange={setQueryValue}
       onQueryClear={() => setQueryValue(undefined)}
