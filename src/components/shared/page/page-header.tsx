@@ -109,21 +109,25 @@ function SecondaryActions({
 }: Pick<PageHeaderProps, "secondaryActions">) {
   /** 需要根据屏幕宽度收缩不同的按钮 */
   const md = useMediaQuery(Screens.md)
-  console.log("md: ", md)
 
   if (isInterface(secondaryActions)) {
-    return secondaryActions.map((action, idx) => {
-      return (
-        <Button
-          key={idx}
-          size={"sm"}
-          variant={"secondary"}
-          onClick={action.onAction}
-        >
-          {action.content}
-        </Button>
-      )
-    })
+    if (md) {
+      return secondaryActions.map((action, idx) => {
+        return (
+          <Button
+            key={idx}
+            size={"sm"}
+            variant={"secondary"}
+            onClick={action.onAction}
+          >
+            {action.content}
+          </Button>
+        )
+      })
+    } else {
+      /** TODO 小屏幕收缩 */
+      return null
+    }
   } else {
     return secondaryActions
   }
