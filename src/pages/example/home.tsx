@@ -21,10 +21,12 @@ import {
   AlertDescription,
   AlertTitle,
   Button,
+  Input,
   Label,
 } from "@/components/ui"
 import { ToastProvider } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
+import { useObjectState } from "@/hooks/use-object-state"
 import { lorem } from "@/mocks/mock-data"
 import { AlertCircleIcon, ArrowRightIcon, StarIcon } from "lucide-react"
 import { useEffect, useState } from "react"
@@ -41,10 +43,14 @@ export const Home = () => {
   const [dateRangeValue, setDateRangeValue] = useState<DateRange | undefined>(
     undefined
   )
+  const [objectState, setObjectState] = useObjectState({
+    name: "",
+    address: "",
+  })
 
   useEffect(() => {
-    console.log({ dateValue, dateRangeValue })
-  }, [dateValue, dateRangeValue])
+    console.log("objectState", objectState)
+  }, [objectState])
 
   return (
     <Page
@@ -118,6 +124,27 @@ export const Home = () => {
                   { label: "narrowWidth", value: "narrowWidth" },
                 ]}
               />
+            </LegendCard>
+            <LegendCard title="useObjectState" sectioned>
+              <FormLayout>
+                <FormLayoutGroup>
+                  <Input
+                    placeholder="{name: input }"
+                    value={objectState.name}
+                    onChange={(e) => setObjectState({ name: e.target.value })}
+                  />
+                  <Input
+                    placeholder="{address: input }"
+                    value={objectState.address}
+                    onChange={(e) =>
+                      setObjectState((state) => {
+                        state.address = e.target.value
+                        return state
+                      })
+                    }
+                  />
+                </FormLayoutGroup>
+              </FormLayout>
             </LegendCard>
             <LegendCard title={"Date Picker"} sectioned>
               <FormLayout>
