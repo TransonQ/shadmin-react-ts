@@ -8,8 +8,9 @@ import {
   useFilterStore,
   useTableTabs,
 } from "@/components/shared"
-import { useAuth, useLocalStorageState } from "@/hooks"
 import type { ColumnFiltersState, Table } from "@tanstack/react-table"
+import { useAtom } from "jotai/react"
+import { atomWithStorage } from "jotai/utils"
 import { has, isEqual } from "lodash-es"
 import { useState } from "react"
 import { getColumnTitle } from "./columns"
@@ -19,6 +20,8 @@ interface FiltersBarProps<TData> {
   table: Table<TData>
   columnFilters?: ColumnFiltersState
 }
+
+const itemStringAtom = atomWithStorage<string[]>("table_tabs", ["All"])
 
 export function FiltersBar<TData>({
   table,
@@ -38,17 +41,11 @@ export function FiltersBar<TData>({
   const [mode, setMode] = useState<FilterMode>(ModeEnum.default)
   const [selected, setSelected] = useState(0)
 
-  const { data: auth } = useAuth()
-
   const lockedTabStrings = ["All"]
-  const [itemString, setItemString] = useLocalStorageState<string[]>(
-    "table_tabs",
-    lockedTabStrings,
-    { keyPrefix: auth?.id }
-  )
+  const [itemString, setItemString] = useAtom(itemStringAtom)
 
   //~ useFilterStore
-  const store = useFilterStore("table", { keyPrefix: auth?.id })
+  const store = useFilterStore("table")
   const {
     filterStore,
     updateFilters,

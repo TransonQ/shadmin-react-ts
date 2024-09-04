@@ -8,20 +8,13 @@ type FiltersPayload = {
   filterState: ColumnFiltersState
 }
 
-interface UseFilterStoreConfig {
-  keyPrefix?: string
-}
-
-export function useFilterStore(key: string, config?: UseFilterStoreConfig) {
-  const { keyPrefix } = config || {}
-  const identifier = keyPrefix ? keyPrefix + "_" : ""
-  const mergeKey = identifier + key
+export function useFilterStore(key: string) {
   /** 如果存在 localstorage, 读取数据 */
-  const initialState = getInitialValue(mergeKey, {})
+  const initialState = getInitialValue(key, {})
   const [filterStore, dispatch] = useReducer(reducer, initialState)
   useEffect(() => {
-    localStorage.setItem(mergeKey, JSON.stringify(filterStore))
-  }, [mergeKey, filterStore])
+    localStorage.setItem(key, JSON.stringify(filterStore))
+  }, [key, filterStore])
 
   const updateFilters = useCallback(({ key, filterState }: FiltersPayload) => {
     dispatch({
