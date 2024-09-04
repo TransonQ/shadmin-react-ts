@@ -31,7 +31,7 @@ export interface TableTabsProps {
   tabs: TableTab[]
   /** 当前选中的 tab 索引 */
   selected: number
-  /** 是否可以新增 */
+  /** 是否可以新增, 默认 true, 显示"+"按钮  */
   canCreateNewView?: boolean
   /** 输入框值 */
   inputValue?: string
