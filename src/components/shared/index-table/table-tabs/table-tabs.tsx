@@ -10,7 +10,7 @@ import { cn } from "@/lib"
 import { isEmpty } from "lodash-es"
 import { AlertCircleIcon, ChevronDownIcon, PlusIcon } from "lucide-react"
 import { useReducer, useRef } from "react"
-import { MenuDestructableItem } from "../../menu-destrucable-item"
+import { MenuItem } from "../../menu-item"
 import { Show } from "../../show"
 import { ModalDialog } from "./modal-dialog"
 import type { TableTab, TableTabAction, TableTabsProps } from "./types"
@@ -170,7 +170,7 @@ export const TableTabs = ({
                 const label = currentActionLabel(action)
 
                 return (
-                  <MenuDestructableItem
+                  <MenuItem
                     key={actionIdx}
                     content={label}
                     onAction={() => currentTabAction(tab, action)}

@@ -25,7 +25,7 @@
 - [x] `<LegendCard/>`
 - [x] `<LegendSelect/>`
 - [x] `<Loading/>`
-- [x] `<MenuDestructableItem/>`
+- [x] `<MenuItem/>`
 - [x] `<Navigation/>`
 - [x] `<NavigationCollapsed/>`
 - [x] `<NavigationBlocker/>`

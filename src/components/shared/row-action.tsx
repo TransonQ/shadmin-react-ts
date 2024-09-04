@@ -4,13 +4,13 @@ import {
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from "@/components/ui"
 import { isMatrix } from "@/lib"
 import { isEmpty } from "lodash-es"
 import { MoreHorizontalIcon } from "lucide-react"
 import { Icon } from "./icon"
-import { MenuDestructableItem } from "./menu-destrucable-item"
+import { MenuItem } from "./menu-item"
 import { Show } from "./show"
 import type {
   DestructableAction,
@@ -47,7 +47,7 @@ export const RowAction = ({ label, actions, sections }: RowActionProps) => {
     .filter((action) => !action.hidden)
     .map((action, idx) => {
       return (
-        <MenuDestructableItem
+        <MenuItem
           key={idx}
           content={action.content}
           destructive={action.destructive}
@@ -70,7 +70,7 @@ export const RowAction = ({ label, actions, sections }: RowActionProps) => {
             .filter((action) => !action.hidden)
             .map((action, idx) => {
               return (
-                <MenuDestructableItem
+                <MenuItem
                   key={idx}
                   content={action.content}
                   destructive={action.destructive}

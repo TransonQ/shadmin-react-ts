@@ -1,10 +1,16 @@
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui"
 import { useMediaQuery } from "@/hooks"
-import { ArrowLeftIcon, Loader2Icon } from "lucide-react"
+import { ArrowLeftIcon, EllipsisIcon, Loader2Icon } from "lucide-react"
 import { isInterface } from "../../lib"
 import { Button } from "../../ui/button"
 import { Screens } from "../config"
 import { Icon } from "../icon"
 import { InlineStack } from "../inline-stack"
+import { MenuItem } from "../menu-item"
 import { Show } from "../show"
 import { Text } from "../text"
 import type {
@@ -13,17 +19,20 @@ import type {
   DisableableAction,
   IconableAction,
   LoadableAction,
+  PinnableAction,
 } from "../types"
 
 interface PrimaryAction
   extends LoadableAction,
     DestructableAction,
     DisableableAction,
-    IconableAction {}
+    IconableAction,
+    PinnableAction {}
 
 interface SecondaryAction
   extends LoadableAction,
     DisableableAction,
+    DestructableAction,
     IconableAction {}
 
 export interface PageHeaderProps {
@@ -41,7 +50,7 @@ export const PageHeader = ({
 }: PageHeaderProps) => {
   const TitleMarkup = (
     <Show when={!!title} fallback={null}>
-      <Text as="h1" variant="headingXl" fontWeight="bold">
+      <Text as="h1" variant="headingXl" fontWeight="bold" className="truncate">
         {title}
       </Text>
     </Show>
@@ -117,16 +126,44 @@ function SecondaryActions({
           <Button
             key={idx}
             size={"sm"}
-            variant={"secondary"}
+            variant={action.destructive ? "destructive-outline" : "secondary"}
             onClick={action.onAction}
+            disabled={action.disabled || action.loading}
+            className="flex gap-1"
           >
+            <Show when={action.loading} fallback={action.icon}>
+              <Loader2Icon className="w-4 h-4 animate-spin" />
+            </Show>
             {action.content}
           </Button>
         )
       })
     } else {
-      /** TODO 小屏幕收缩 */
-      return null
+      // 小屏幕收缩
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant={"outline"} size={"sm"}>
+              <EllipsisIcon className="w-4 h-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {secondaryActions.map((action, idx) => {
+              return (
+                <MenuItem
+                  key={idx}
+                  onAction={action.onAction}
+                  loading={action.loading}
+                  icon={action.icon}
+                  content={action.content}
+                  disabled={action.disabled}
+                  destructive={action.destructive}
+                />
+              )
+            })}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )
     }
   } else {
     return secondaryActions

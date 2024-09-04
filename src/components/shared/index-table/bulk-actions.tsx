@@ -8,7 +8,7 @@ import {
 import { cn } from "@/lib"
 import { Loader2, MoreHorizontalIcon } from "lucide-react"
 import { InlineStack } from "../inline-stack"
-import { MenuDestructableItem } from "../menu-destrucable-item"
+import { MenuItem } from "../menu-item"
 import { Show } from "../show"
 import { Text } from "../text"
 import type {
@@ -130,7 +130,7 @@ function FoldActions({ actions }: { actions: BulkActionItem[] }) {
       <DropdownMenuContent align="end">
         {actions.map((action, idx) => {
           return (
-            <MenuDestructableItem
+            <MenuItem
               key={idx}
               content={action.content}
               onAction={action.onAction}

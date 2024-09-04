@@ -1,4 +1,4 @@
-import { MenuDestructableItem } from "@/components/shared"
+import { MenuItem } from "@/components/shared"
 import {
   Avatar,
   AvatarFallback,
@@ -89,7 +89,7 @@ function UserMenu() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <MenuDestructableItem
+        <MenuItem
           content="Log out"
           destructive
           onAction={() => {

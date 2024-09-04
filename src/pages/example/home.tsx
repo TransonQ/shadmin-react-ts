@@ -72,6 +72,7 @@ export const Home = () => {
       secondaryActions={[
         {
           content: "shadmin.toast.success",
+          icon: <Icon source={StarIcon} />,
           onAction() {
             shadmin.toast.success("Secondary Action 1")
           },
@@ -81,7 +82,7 @@ export const Home = () => {
           onAction: () => {
             toast({
               title: "Secondary Action 2",
-              variant: "destructive",
+              // variant: "destructive",
               description: "This action cannot be undone",
             })
             console.log(123)
