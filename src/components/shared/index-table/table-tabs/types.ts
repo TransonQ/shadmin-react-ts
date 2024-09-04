@@ -31,8 +31,6 @@ export interface TableTabsProps {
   tabs: TableTab[]
   /** 当前选中的 tab 索引 */
   selected: number
-  /** 选择 tab 回调 */
-  onSelect?: (selectedTabIndex: number) => void
   /** 是否可以新增 */
   canAddTab?: boolean
   /** 输入框值 */

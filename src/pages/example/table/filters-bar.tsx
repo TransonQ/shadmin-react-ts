@@ -42,7 +42,7 @@ export function FiltersBar<TData>({
 
   const lockedTabStrings = ["All"]
   const [itemString, setItemString] = useLocalStorageState<string[]>(
-    "tableTabs",
+    "table_tabs",
     lockedTabStrings,
     { keyPrefix: auth?.id }
   )

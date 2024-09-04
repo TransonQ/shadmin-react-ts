@@ -34,7 +34,6 @@ const reducer = (data: TabState, partialData: Partial<TabState>): TabState => {
 export const TableTabs = ({
   tabs,
   selected,
-  onSelect,
   canAddTab = true,
   inputValue,
   setInputValue,

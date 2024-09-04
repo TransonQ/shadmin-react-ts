@@ -93,7 +93,6 @@ export function TableFilters({
         <TableTabs
           tabs={tabs}
           selected={selected}
-          onSelect={onSelect}
           inputValue={inputTabName}
           setInputValue={setInputTabName}
           isNewTabModalOpen={createActive}
