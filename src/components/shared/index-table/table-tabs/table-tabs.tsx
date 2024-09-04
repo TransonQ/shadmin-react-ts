@@ -34,9 +34,9 @@ const reducer = (data: TabState, partialData: Partial<TabState>): TabState => {
 export const TableTabs = ({
   tabs,
   selected,
-  canAddTab = true,
   inputValue,
   setInputValue,
+  canCreateNewView = true,
   isNewTabModalOpen,
   setNewTabModalOpen,
   onCreateNewView,
@@ -201,7 +201,7 @@ export const TableTabs = ({
   return (
     <div x-chunk="TABS_INDEX" className="w-full flex gap-1">
       {TabsMarkup}
-      <Show when={canAddTab} fallback={null}>
+      <Show when={canCreateNewView} fallback={null}>
         <Button
           variant={"ghost"}
           size={"sm"}

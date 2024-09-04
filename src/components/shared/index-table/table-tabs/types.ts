@@ -32,7 +32,7 @@ export interface TableTabsProps {
   /** 当前选中的 tab 索引 */
   selected: number
   /** 是否可以新增 */
-  canAddTab?: boolean
+  canCreateNewView?: boolean
   /** 输入框值 */
   inputValue?: string
   /** 输入框值变化回调 */
