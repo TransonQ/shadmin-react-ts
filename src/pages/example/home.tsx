@@ -26,7 +26,7 @@ import {
 } from "@/components/ui"
 import { ToastProvider } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
-import { useObjectState } from "@/hooks/use-object-state"
+import { useObjectState } from "@/hooks"
 import { lorem } from "@/mocks/mock-data"
 import { AlertCircleIcon, ArrowRightIcon, StarIcon } from "lucide-react"
 import { useEffect, useState } from "react"

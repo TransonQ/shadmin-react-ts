@@ -1,4 +1,5 @@
 import { ArrowLeftIcon, Loader2Icon } from "lucide-react"
+import { useEffect } from "react"
 import { isInterface } from "../../lib"
 import { Button } from "../../ui/button"
 import { Icon } from "../icon"
@@ -105,6 +106,13 @@ function PrimaryAction({
 function SecondaryActions({
   secondaryActions,
 }: Pick<PageHeaderProps, "secondaryActions">) {
+  /** 需要根据屏幕宽度收缩不同的按钮 */
+  
+  useEffect(() => {
+    window.matchMedia("(max-width: 768px)").addEventListener("change", (e) => {
+      console.log(e)
+    })
+  }, [])
   if (isInterface(secondaryActions)) {
     return secondaryActions.map((action, idx) => {
       return (
