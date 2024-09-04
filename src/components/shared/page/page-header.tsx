@@ -2,8 +2,12 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
+  Tooltip,
+  TooltipProvider,
+  TooltipTrigger,
 } from "@/components/ui"
 import { useMediaQuery } from "@/hooks"
+import { TooltipContent } from "@radix-ui/react-tooltip"
 import { ArrowLeftIcon, EllipsisIcon, Loader2Icon } from "lucide-react"
 import { isInterface } from "../../lib"
 import { Button } from "../../ui/button"
@@ -48,11 +52,33 @@ export const PageHeader = ({
   primaryAction,
   secondaryActions,
 }: PageHeaderProps) => {
+  const md = useMediaQuery(Screens.md)
+
+  const TitleLabel = (
+    <Text
+      as="h1"
+      variant="headingXl"
+      fontWeight="bold"
+      className="line-clamp-1 text-left"
+    >
+      {title}
+    </Text>
+  )
   const TitleMarkup = (
-    <Show when={!!title} fallback={null}>
-      <Text as="h1" variant="headingXl" fontWeight="bold" className="truncate">
-        {title}
-      </Text>
+    <Show when={!md} fallback={TitleLabel}>
+      <TooltipProvider>
+        <Show when={!!title} fallback={null}>
+          <Tooltip>
+            <TooltipTrigger>{TitleLabel}</TooltipTrigger>
+            <TooltipContent
+              side="bottom"
+              className="bg-card py-2 px-4 border rounded-md shadow-md"
+            >
+              {title}
+            </TooltipContent>
+          </Tooltip>
+        </Show>
+      </TooltipProvider>
     </Show>
   )
 
@@ -116,7 +142,6 @@ function PrimaryAction({
 function SecondaryActions({
   secondaryActions,
 }: Pick<PageHeaderProps, "secondaryActions">) {
-  /** 需要根据屏幕宽度收缩不同的按钮 */
   const md = useMediaQuery(Screens.md)
 
   if (isInterface(secondaryActions)) {

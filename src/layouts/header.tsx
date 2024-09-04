@@ -1,3 +1,4 @@
+import githubIcon from "@/assets/github.svg"
 import { MenuItem } from "@/components/shared"
 import {
   Avatar,
@@ -15,7 +16,6 @@ import {
 } from "@/components/ui"
 import { useAuth } from "@/hooks"
 import { clearLocalStorage, cn } from "@/lib"
-import { LinkIcon } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
 export const Header = () => {
@@ -30,13 +30,13 @@ export const Header = () => {
 function GithubButton() {
   return (
     <Button
-      variant={"link"}
-      className="px-1"
+      variant={"ghost"}
+      className="px-3 rounded-full border border-transparent hover:border-border"
       onClick={() =>
         window.open("https://github.com/TransonQ/shadmin-react-ts")
       }
     >
-      <span>Github</span> <LinkIcon className="h-4 w-4 ml-1" />
+      <img src={githubIcon} className="w-5 h-5" />
     </Button>
   )
 }
