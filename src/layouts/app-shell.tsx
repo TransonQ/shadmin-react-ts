@@ -50,15 +50,16 @@ export const AppShell = () => {
   )
 
   function Logo() {
+    const md = useMediaQuery(Screens.md)
     return (
       <div
         className={cn(
           "w-full h-full text-3xl font-bold p-3 text-nowrap",
           "text-blue-700 flex items-center",
-          isCollapsed ? "justify-center" : "justify-start"
+          isCollapsed || !md ? "justify-center" : "justify-start"
         )}
       >
-        {isCollapsed ? "S" : "shadmin"}
+        {isCollapsed || !md ? "S" : "shadmin"}
       </div>
     )
   }
