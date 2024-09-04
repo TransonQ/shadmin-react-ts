@@ -1,21 +1,27 @@
+import { useMediaQuery } from "@/hooks"
 import { cn } from "@/lib"
 import { PanelLeftCloseIcon, PanelLeftOpenIcon } from "lucide-react"
 import { buttonVariants } from "../ui/button"
+import { Screens } from "./config"
 import { useFrameConfig } from "./frame"
 import { Show } from "./show"
 
 export const NavigationCollapsed = () => {
+  const md = useMediaQuery(Screens.md)
+
   const { isNavbarCollapsed, onNavbarCollapsedChange } = useFrameConfig()
 
   const CollapsedButton = (
-    <PanelLeftCloseIcon
-      className={cn(
-        buttonVariants({ variant: "ghost", size: "sm" }),
-        "p-2 w-8 h-8 text-gray-500",
-        "shrink-0"
-      )}
-      onClick={() => onNavbarCollapsedChange?.(true)}
-    />
+    <Show when={md}>
+      <PanelLeftCloseIcon
+        className={cn(
+          buttonVariants({ variant: "ghost", size: "sm" }),
+          "p-2 w-8 h-8 text-gray-500",
+          "shrink-0"
+        )}
+        onClick={() => onNavbarCollapsedChange?.(true)}
+      />
+    </Show>
   )
 
   const ExpandedButton = (
@@ -30,7 +36,7 @@ export const NavigationCollapsed = () => {
   )
 
   return (
-    <Show when={isNavbarCollapsed} fallback={CollapsedButton}>
+    <Show when={isNavbarCollapsed && md} fallback={CollapsedButton}>
       {ExpandedButton}
     </Show>
   )

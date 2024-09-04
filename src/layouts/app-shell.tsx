@@ -6,8 +6,10 @@ import {
   FrameNavbar,
   FrameProvider,
   InlineStack,
+  Screens,
 } from "@/components/shared"
 import { TooltipProvider } from "@/components/ui"
+import { useMediaQuery } from "@/hooks"
 import { cn } from "@/lib"
 import { useState } from "react"
 import { Outlet } from "react-router-dom"
@@ -16,12 +18,13 @@ import { Navbar } from "./navbar"
 
 export const AppShell = () => {
   const [isCollapsed, setCollapsed] = useState(false)
+  const md = useMediaQuery(Screens.md)
 
   return (
     <FrameProvider
       config={{
         logo: <Logo />,
-        isNavbarCollapsed: isCollapsed,
+        isNavbarCollapsed: isCollapsed || !md,
         onNavbarCollapsedChange: setCollapsed,
       }}
     >
