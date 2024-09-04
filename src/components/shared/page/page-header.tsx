@@ -1,7 +1,8 @@
+import { useMediaQuery } from "@/hooks"
 import { ArrowLeftIcon, Loader2Icon } from "lucide-react"
-import { useEffect } from "react"
 import { isInterface } from "../../lib"
 import { Button } from "../../ui/button"
+import { Screens } from "../config"
 import { Icon } from "../icon"
 import { InlineStack } from "../inline-stack"
 import { Show } from "../show"
@@ -107,12 +108,9 @@ function SecondaryActions({
   secondaryActions,
 }: Pick<PageHeaderProps, "secondaryActions">) {
   /** 需要根据屏幕宽度收缩不同的按钮 */
-  
-  useEffect(() => {
-    window.matchMedia("(max-width: 768px)").addEventListener("change", (e) => {
-      console.log(e)
-    })
-  }, [])
+  const md = useMediaQuery(Screens.md)
+  console.log("md: ", md)
+
   if (isInterface(secondaryActions)) {
     return secondaryActions.map((action, idx) => {
       return (
