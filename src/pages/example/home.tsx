@@ -51,6 +51,7 @@ export const Home = () => {
   useEffect(() => {
     console.log("objectState", objectState)
   }, [objectState])
+  throw new Error("Secondary Action 2")
 
   return (
     <Page

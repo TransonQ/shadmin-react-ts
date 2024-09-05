@@ -1,6 +1,11 @@
 import type { RouteObject } from "react-router-dom"
 import { redirect } from "react-router-dom"
-import { NoAccess403, NotFound404, SeverError500 } from "./components/errors"
+import {
+  NoAccess403,
+  NotFound404,
+  RouteError,
+  SeverError500,
+} from "./components/errors"
 import { AppShell } from "./layouts"
 import {
   DashboardExmaple,
@@ -30,22 +35,27 @@ export const routesMerge = (): RouteObject[] => [
       {
         path: "/app/home",
         element: <Home />,
+        errorElement: <RouteError />,
       },
       {
         path: "/app/dashboard",
         element: <DashboardExmaple />,
+        errorElement: <RouteError />,
       },
       {
         path: "/app/table",
         element: <TableExample />,
+        errorElement: <RouteError />,
       },
       {
         path: "/app/editable",
         element: <EditableTaleExample />,
+        errorElement: <RouteError />,
       },
       {
         path: "/app/form",
         element: <FormExample />,
+        errorElement: <RouteError />,
       },
       {
         path: "/app/noAccess",
@@ -58,6 +68,7 @@ export const routesMerge = (): RouteObject[] => [
       {
         path: "*",
         element: <NotFound404 />,
+        errorElement: <div>{"Error /app/*"}</div>,
       },
     ],
   },
