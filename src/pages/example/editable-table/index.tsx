@@ -139,6 +139,7 @@ export function EditableTaleExample() {
           table={table}
           columns={columns}
           rowSelection={rowSelection}
+          hasSelectableColumn
           className="rounded-none border-x-0"
           bulkActions={[
             { content: "Veiew", pinned: true },

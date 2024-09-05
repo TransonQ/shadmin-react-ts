@@ -87,6 +87,7 @@ export function TableExample() {
           rowSelection={rowSelection}
           className="rounded-none border-x-0"
           hasSelectableColumn
+          stickyLastColumn
           bulkActions={[
             { content: "Veiew", pinned: true },
             { content: "Edit", pinned: true },

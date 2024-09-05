@@ -56,12 +56,29 @@ export function IndexTable<TData, TValue>({
                 "sticky bg-card z-10 left-0 group-data-[state=selected]:bg-accent",
               hasSelectableColumn &&
                 index === 1 &&
-                "sticky bg-card z-10 left-8 group-data-[state=selected]:bg-accent"
+                "sticky bg-card z-10 left-8 group-data-[state=selected]:bg-accent",
+              stickyLastColumn &&
+                index === headerGroup.headers.length - 1 &&
+                "sticky bg-card z-10 right-0 group-data-[state=selected]:bg-accent"
             )}
           >
+            <StickySeparator
+              index={index}
+              positionIndex={1}
+              bordered
+              position="left"
+            />
             {header.isPlaceholder
               ? null
               : flexRender(header.column.columnDef.header, header.getContext())}
+            <Show when={stickyLastColumn}>
+              <StickySeparator
+                index={index}
+                positionIndex={headerGroup.headers.length - 1}
+                bordered
+                position="right"
+              />
+            </Show>
           </TableHead>
         )
       })}
@@ -101,11 +118,27 @@ export function IndexTable<TData, TValue>({
                         "sticky bg-card z-10 left-0 group-data-[state=selected]:bg-accent",
                       hasSelectableColumn &&
                         index === 1 &&
-                        "sticky bg-card z-10 left-8 group-data-[state=selected]:bg-accent"
+                        "sticky bg-card z-10 left-8 group-data-[state=selected]:bg-accent",
+                      stickyLastColumn &&
+                        index === row.getVisibleCells().length - 1 &&
+                        "sticky bg-card z-10 right-0 group-data-[state=selected]:bg-accent"
                     )}
                   >
+                    <StickySeparator
+                      index={index}
+                      positionIndex={1}
+                      bordered
+                      position="left"
+                    />
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    <StickyLeftSeparator index={index} positionIndex={1} />
+                    <Show when={stickyLastColumn}>
+                      <StickySeparator
+                        index={index}
+                        positionIndex={row.getVisibleCells().length - 1}
+                        bordered
+                        position="right"
+                      />
+                    </Show>
                   </TableCell>
                 ))}
               </TableRow>
@@ -123,21 +156,25 @@ export function IndexTable<TData, TValue>({
   )
 }
 
-function StickyLeftSeparator({
+function StickySeparator({
   index,
   positionIndex = 0,
   bordered,
+  position = "left",
 }: {
   index: number
   positionIndex?: number
   bordered?: boolean
+  position?: "left" | "right"
 }) {
   return (
     <div
       className={cn(
-        "absolute",
-        index === positionIndex && "inset-[0_0_0_100%]",
-        bordered && "border-l"
+        "absolute box-border",
+        index === positionIndex && position === "left" && "inset-[0_0_0_100%]",
+        bordered && position === "left" && "border-r",
+        index === positionIndex && position === "right" && "inset-[0_100%_0_0]",
+        bordered && position === "right" && "border-l"
       )}
     />
   )
