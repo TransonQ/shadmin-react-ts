@@ -86,6 +86,7 @@ export function TableExample() {
           columns={columns}
           rowSelection={rowSelection}
           className="rounded-none border-x-0"
+          hasSelectableColumn
           bulkActions={[
             { content: "Veiew", pinned: true },
             { content: "Edit", pinned: true },

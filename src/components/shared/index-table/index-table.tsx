@@ -26,6 +26,9 @@ export interface IndexTableProps<TData, TValue> {
   /** Bulk actions */
   stickyBulkActions?: boolean
   bulkActions?: BulkActionItem[]
+  /** Sticky columns */
+  hasSelectableColumn?: boolean
+  stickyLastColumn?: boolean
 }
 
 export function IndexTable<TData, TValue>({
@@ -33,6 +36,8 @@ export function IndexTable<TData, TValue>({
   table,
   className,
   rowSelection,
+  hasSelectableColumn,
+  stickyLastColumn,
   ...rest
 }: IndexTableProps<TData, TValue>) {
   const bulkActionsProps = rest
@@ -62,7 +67,7 @@ export function IndexTable<TData, TValue>({
         />
       </Show>
       <Table>
-        <TableHeader className={cn("h-10")}>
+        <TableHeader className={cn("relative h-10")}>
           <Show when={!selectedCount} fallback={null}>
             {HeadersMarkup}
           </Show>
@@ -74,10 +79,22 @@ export function IndexTable<TData, TValue>({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
+                className="group box-content"
               >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id} className="py-1">
+                {row.getVisibleCells().map((cell, index) => (
+                  <TableCell
+                    key={cell.id}
+                    className={cn(
+                      "py-1 relative box-border group-data-[state=selected]:border-y",
+                      index === 0 &&
+                        "sticky bg-card z-10 left-0 group-data-[state=selected]:bg-accent transition-colors group-hover:bg-muted/40",
+                      hasSelectableColumn &&
+                        index === 1 &&
+                        "sticky bg-card z-10 left-8 group-data-[state=selected]:bg-accent transition-colors group-hover:bg-muted/40"
+                    )}
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    <StickyLeftSeparator index={index} positionIndex={1} />
                   </TableCell>
                 ))}
               </TableRow>
@@ -85,12 +102,32 @@ export function IndexTable<TData, TValue>({
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
+                {"No results."}
               </TableCell>
             </TableRow>
           )}
         </TableBody>
       </Table>
     </div>
+  )
+}
+
+function StickyLeftSeparator({
+  index,
+  positionIndex = 0,
+  bordered,
+}: {
+  index: number
+  positionIndex?: number
+  bordered?: boolean
+}) {
+  return (
+    <div
+      className={cn(
+        "absolute",
+        index === positionIndex && "inset-[0_0_0_100%]",
+        bordered && "border-l"
+      )}
+    />
   )
 }
