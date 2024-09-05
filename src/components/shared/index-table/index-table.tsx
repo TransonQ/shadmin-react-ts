@@ -45,9 +45,20 @@ export function IndexTable<TData, TValue>({
 
   const HeadersMarkup = table.getHeaderGroups().map((headerGroup) => (
     <TableRow key={headerGroup.id} className="bg-muted/30">
-      {headerGroup.headers.map((header) => {
+      {headerGroup.headers.map((header, index) => {
         return (
-          <TableHead key={header.id} colSpan={header.colSpan} className="h-10">
+          <TableHead
+            key={header.id}
+            colSpan={header.colSpan}
+            className={cn(
+              "h-10",
+              index === 0 &&
+                "sticky bg-card z-10 left-0 group-data-[state=selected]:bg-accent",
+              hasSelectableColumn &&
+                index === 1 &&
+                "sticky bg-card z-10 left-8 group-data-[state=selected]:bg-accent"
+            )}
+          >
             {header.isPlaceholder
               ? null
               : flexRender(header.column.columnDef.header, header.getContext())}
@@ -87,10 +98,10 @@ export function IndexTable<TData, TValue>({
                     className={cn(
                       "py-1 relative box-border group-data-[state=selected]:border-y",
                       index === 0 &&
-                        "sticky bg-card z-10 left-0 group-data-[state=selected]:bg-accent transition-colors group-hover:bg-muted/40",
+                        "sticky bg-card z-10 left-0 group-data-[state=selected]:bg-accent",
                       hasSelectableColumn &&
                         index === 1 &&
-                        "sticky bg-card z-10 left-8 group-data-[state=selected]:bg-accent transition-colors group-hover:bg-muted/40"
+                        "sticky bg-card z-10 left-8 group-data-[state=selected]:bg-accent"
                     )}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
