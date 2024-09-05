@@ -4,7 +4,7 @@ function sleepDefault<T>(ms: number, value?: T): Promise<T> {
 
 function sleepError(ms: number, ...args: any): Promise<any> {
   return new Promise((_, reject) =>
-    setTimeout(() => reject(new Error("Sleep.Error")), ms)
+    setTimeout(() => reject(new Error("MockError")), ms)
   )
 }
 

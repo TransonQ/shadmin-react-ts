@@ -24,7 +24,6 @@ import {
   Input,
   Label,
 } from "@/components/ui"
-import { ToastProvider } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
 import { useObjectState } from "@/hooks"
 import { sleep } from "@/lib"
@@ -98,7 +97,7 @@ export const Home = () => {
         },
         {
           content: "shadcn use-toast",
-          onAction: () => {
+          onAction: async () => {
             toast({
               title: "Secondary Action 2",
               // variant: "destructive",
@@ -109,7 +108,6 @@ export const Home = () => {
         },
       ]}
     >
-      <ToastProvider />
       <NavigationBlocker isBlocked={isBlocked} />
 
       {isSavebarActive && (

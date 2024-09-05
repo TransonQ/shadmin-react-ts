@@ -53,19 +53,18 @@ export function IndexTable<TData, TValue>({
             className={cn(
               "h-10",
               index === 0 &&
-                "sticky bg-card z-10 left-0 group-data-[state=selected]:bg-accent",
+                "sticky bg-[#f9f9fa] z-10 left-0 group-data-[state=selected]:bg-accent",
               hasSelectableColumn &&
                 index === 1 &&
-                "sticky bg-card z-10 left-8 group-data-[state=selected]:bg-accent",
+                "sticky bg-[#f9f9fa] z-10 left-8 group-data-[state=selected]:bg-accent",
               stickyLastColumn &&
                 index === headerGroup.headers.length - 1 &&
-                "sticky bg-card z-10 right-0 group-data-[state=selected]:bg-accent"
+                "sticky bg-[#f9f9fa] z-10 right-0 group-data-[state=selected]:bg-accent"
             )}
           >
             <StickySeparator
               index={index}
               positionIndex={1}
-              bordered
               position="left"
             />
             {header.isPlaceholder
@@ -75,7 +74,6 @@ export function IndexTable<TData, TValue>({
               <StickySeparator
                 index={index}
                 positionIndex={headerGroup.headers.length - 1}
-                bordered
                 position="right"
               />
             </Show>
@@ -115,19 +113,18 @@ export function IndexTable<TData, TValue>({
                     className={cn(
                       "py-1 relative box-border group-data-[state=selected]:border-y",
                       index === 0 &&
-                        "sticky bg-card z-10 left-0 group-data-[state=selected]:bg-accent",
+                        "sticky bg-card z-10 left-0 transition-colors group-hover:bg-[#f9f9fa] group-data-[state=selected]:bg-accent",
                       hasSelectableColumn &&
                         index === 1 &&
-                        "sticky bg-card z-10 left-8 group-data-[state=selected]:bg-accent",
+                        "sticky bg-card z-10 left-8 transition-colors group-hover:bg-[#f9f9fa] group-data-[state=selected]:bg-accent",
                       stickyLastColumn &&
                         index === row.getVisibleCells().length - 1 &&
-                        "sticky bg-card z-10 right-0 group-data-[state=selected]:bg-accent"
+                        "sticky bg-card z-10 right-0 transition-colors group-hover:bg-[#f9f9fa] group-data-[state=selected]:bg-accent"
                     )}
                   >
                     <StickySeparator
                       index={index}
                       positionIndex={1}
-                      bordered
                       position="left"
                     />
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -135,7 +132,6 @@ export function IndexTable<TData, TValue>({
                       <StickySeparator
                         index={index}
                         positionIndex={row.getVisibleCells().length - 1}
-                        bordered
                         position="right"
                       />
                     </Show>
