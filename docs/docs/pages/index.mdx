@@ -1,0 +1,22 @@
+---
+layout: landing
+---
+
+import { HomePage } from "vocs/components"
+import demopng from "../images/home.png"
+
+<HomePage.Root>
+  <HomePage.Logo />
+  <img src={demopng} />
+  <HomePage.Tagline>A react admin built with shadcn/ui</HomePage.Tagline>
+  {/* <HomePage.InstallPackage name="vocs" type="init" /> */}
+  {/* <HomePage.Description>A react admin built with shadcn/ui</HomePage.Description> */}
+  <HomePage.Buttons>
+    <HomePage.Button href="/getting-started" variant="accent">
+      Get started
+    </HomePage.Button>
+    <HomePage.Button href="https://github.com/wevm/vocs">
+      GitHub
+    </HomePage.Button>
+  </HomePage.Buttons>
+</HomePage.Root>
