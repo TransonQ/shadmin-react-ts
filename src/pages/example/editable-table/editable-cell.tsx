@@ -40,7 +40,7 @@ export function EditableCell<TData, TValue>({
     if (initialValue === value) return
 
     try {
-      await sleep(400)
+      await sleep.error(400)
       /**
        * 请求数据更新成功, 更新当前列表的数据.
        * TODO 批量更新表格:

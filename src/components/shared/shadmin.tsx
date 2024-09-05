@@ -9,17 +9,22 @@ function CustomToast({
   children,
   icon,
   className,
+  variant = "default",
 }: {
   onDismiss: () => void
   children: React.ReactNode
   icon: LucideIcon
   className?: string
+  variant?: "default" | "destructive"
 }) {
   const IconTag = icon
   return (
     <div
       x-chunk="SHADMIN_TOAST"
-      className={cn("p-4 rounded-lg shadow-lg bg-card")}
+      className={cn(
+        "p-4 rounded-lg shadow-lg bg-card border",
+        variant === "destructive" && "border-destructive/50"
+      )}
     >
       <div className="flex flex-nowrap justify-between gap-6">
         <div className="flex gap-4 items-center">
@@ -61,6 +66,7 @@ const error = (message: React.ReactNode) =>
         className="bg-red-700"
         onDismiss={() => sonnerToast.dismiss(t)}
         icon={XIcon}
+        variant="destructive"
       >
         {message}
       </CustomToast>
