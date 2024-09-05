@@ -27,11 +27,30 @@ import {
 import { ToastProvider } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
 import { useObjectState } from "@/hooks"
+import { sleep } from "@/lib"
 import { lorem } from "@/mocks/mock-data"
+import { useAtom } from "jotai/react"
+import { atomWithRefresh } from "jotai/utils"
 import { AlertCircleIcon, ArrowRightIcon, StarIcon } from "lucide-react"
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 import type { DateRange } from "react-day-picker"
 import { useNavigate } from "react-router-dom"
+
+const asyncAtom = atomWithRefresh(() =>
+  sleep(3000, { name: "Async Atom State" })
+)
+
+function TestAsync() {
+  const [asyncState, refresh] = useAtom(asyncAtom)
+  return (
+    <LegendCard sectioned>
+      <p>{asyncState.name}</p>
+      <Button size={"sm"} variant={"ghost"} onClick={() => refresh()}>
+        {"Refresh atom"}
+      </Button>
+    </LegendCard>
+  )
+}
 
 export const Home = () => {
   const navigate = useNavigate()
@@ -114,6 +133,9 @@ export const Home = () => {
       <Layout>
         <LayoutSection>
           <BlockStack gap="lg" inlineAlign="stretch">
+            <Suspense fallback={<p>Loading...</p>}>
+              <TestAsync />
+            </Suspense>
             <LegendCard title={"Page width"} sectioned>
               <LegendSelect
                 value={pageWidth}
