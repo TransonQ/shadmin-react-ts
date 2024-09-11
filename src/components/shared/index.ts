@@ -1,6 +1,5 @@
 export * from "./auth"
 export * from "./block-stack"
-export * from "./config/variants"
 export * from "./date-picker"
 export * from "./form-layout"
 export * from "./frame"

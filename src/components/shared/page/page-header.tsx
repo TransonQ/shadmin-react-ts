@@ -6,12 +6,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui"
-import { useMediaQuery } from "@/hooks"
 import { TooltipContent } from "@radix-ui/react-tooltip"
 import { ArrowLeftIcon, EllipsisIcon, Loader2Icon } from "lucide-react"
 import { isInterface } from "../../lib"
 import { Button } from "../../ui/button"
-import { Screens } from "../config"
+import { Screens, useMediaQuery } from "../frame"
 import { Icon } from "../icon"
 import { InlineStack } from "../inline-stack"
 import { MenuItem } from "../menu-item"
@@ -103,7 +102,10 @@ export const PageHeader = ({
   )
 
   return (
-    <InlineStack align="space-between" blockAlign="center" className="mb-6">
+    <div
+      x-chunk="PAGE_HEADER"
+      className="mb-8 flex items-center justify-between"
+    >
       <InlineStack blockAlign="center" gap="sm">
         {BackActionMarkup}
         {TitleMarkup}
@@ -112,7 +114,7 @@ export const PageHeader = ({
         {SecondaryActionsMarkup}
         {PrimaryActionMark}
       </InlineStack>
-    </InlineStack>
+    </div>
   )
 }
 

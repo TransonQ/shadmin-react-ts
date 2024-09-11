@@ -1,11 +1,10 @@
-import { useMediaQuery } from "@/hooks"
 import { cn } from "@/lib"
 import { PanelLeftCloseIcon, PanelLeftOpenIcon } from "lucide-react"
-import { useFrameConfig } from "."
+import { useFrameConfig, useMediaQuery } from "."
 
 import { buttonVariants } from "../../ui/button"
-import { Screens } from "../config"
 import { Show } from "../show"
+import { Screens } from "./constants"
 
 export const NavigationCollapsed = () => {
   const md = useMediaQuery(Screens.md)

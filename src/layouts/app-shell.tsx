@@ -7,9 +7,9 @@ import {
   FrameProvider,
   InlineStack,
   Screens,
+  useMediaQuery,
 } from "@/components/shared"
 import { TooltipProvider } from "@/components/ui"
-import { useMediaQuery } from "@/hooks"
 import { cn } from "@/lib"
 import { useState } from "react"
 import { Outlet } from "react-router-dom"
