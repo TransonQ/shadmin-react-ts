@@ -122,7 +122,12 @@ export const NavigationSection = ({
       x-chunk="NAVGATION_SECTION"
       className={cn("flex flex-col", fill && "flex-1")}
     >
-      <Text as="h2" variant="headingSm" tone="subdued">
+      <Text
+        as="h2"
+        variant="headingSm"
+        tone="subdued"
+        className={cn("my-1",collapsed && "hidden")}
+      >
         {title}
       </Text>
       <BlockStack className="w-full" gap="sm">

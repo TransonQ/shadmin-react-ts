@@ -13,7 +13,11 @@ export const Navbar = () => {
 
   return (
     <Navigation footer={<NavFooter collapsed={isNavbarCollapsed} />}>
-      <NavigationSection items={navs} collapsed={isNavbarCollapsed} />
+      <NavigationSection
+        title="Navigation"
+        items={navs}
+        collapsed={isNavbarCollapsed}
+      />
     </Navigation>
   )
 }
