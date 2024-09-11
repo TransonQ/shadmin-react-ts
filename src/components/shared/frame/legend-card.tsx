@@ -1,10 +1,11 @@
 import { cn } from "@/lib"
-import { isReactElement } from "../lib"
-import { Card, CardContent, CardHeader } from "../ui/card"
-import { frameVariants } from "./config"
-import { Show } from "./show"
-import { Text } from "./text"
-const { headerHeight } = frameVariants
+import { useFrameConfig } from "."
+
+import { isReactElement } from "../../lib"
+import { Card, CardContent, CardHeader } from "../../ui/card"
+import { Show } from "../show"
+import { Text } from "../text"
+
 interface LegendCardProps {
   children?: React.ReactNode
   sectioned?: boolean
@@ -20,6 +21,8 @@ export const LegendCard = ({
   title,
   sticky,
 }: LegendCardProps) => {
+  const { headerHeight } = useFrameConfig()
+
   const styles: React.CSSProperties = {
     position: sticky ? "sticky" : "initial",
     top: sticky ? `calc(${headerHeight}px + 1rem)` : undefined,

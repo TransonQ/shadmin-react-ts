@@ -2,16 +2,14 @@ import { cn } from "@/lib"
 import type { LucideIcon } from "lucide-react"
 import { TriangleAlertIcon } from "lucide-react"
 import { createPortal } from "react-dom"
-import type { PageWidth } from "../lib"
-import { calcPageWidth, isInterface, isReactElement } from "../lib"
-import { Button } from "../ui"
-import { frameVariants } from "./config"
-import { FrameLogoBox, useFrameConfig } from "./frame"
-import { Icon } from "./icon"
-import { Show } from "./show"
-import { type BaseAction, type DisableableAction } from "./types"
-
-const { headerHeight } = frameVariants
+import { FrameLogoBox, useFrameConfig } from "."
+// deps
+import type { PageWidth } from "../../lib"
+import { calcPageWidth, isInterface, isReactElement } from "../../lib"
+import { Button } from "../../ui"
+import { Icon } from "../icon"
+import { Show } from "../show"
+import { type BaseAction, type DisableableAction } from "../types"
 
 interface SaveAction extends DisableableAction {}
 interface DiscardAction extends BaseAction {}
@@ -32,7 +30,7 @@ export const ContextualSaveBar = ({
   saveAction,
   discardAction,
 }: ContextualSaveBarProps) => {
-  const { logo } = useFrameConfig()
+  const { logo, headerHeight } = useFrameConfig()
 
   const discardActionMarkup = isInterface(discardAction) ? (
     <Button

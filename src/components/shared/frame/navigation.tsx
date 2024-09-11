@@ -7,11 +7,11 @@ import {
 import { cn } from "@/lib"
 import type { LucideIcon } from "lucide-react"
 import { matchPath, useLocation, useNavigate } from "react-router-dom"
-import { BlockStack } from "./block-stack"
-import { frameVariants } from "./config"
-import { Icon } from "./icon"
-import { Show } from "./show"
-import { Text } from "./text"
+import { useFrameConfig } from "."
+
+import { Icon } from "../icon"
+import { Show } from "../show"
+import { Text } from "../text"
 
 interface NavgationProps {
   footer?: React.ReactNode
@@ -35,11 +35,13 @@ interface NavgationSectionProps {
 }
 
 export const Navigation = ({ children, footer }: NavgationProps) => {
+  const { headerHeight } = useFrameConfig()
+
   return (
     <div x-chunk="NAVGATION" className="h-full flex flex-col">
       <ScrollArea
         style={{
-          height: `calc(100vh - ${frameVariants.headerHeight * 2}px)`,
+          height: `calc(100vh - ${headerHeight! * 2}px)`,
         }}
         className="w-full p-2 pt-2"
       >
@@ -84,13 +86,14 @@ export const NavigationSection = ({
 }: NavgationSectionProps) => {
   const location = useLocation()
   const navigate = useNavigate()
+  const { navbarWidth } = useFrameConfig()
 
   const NavExpanded = items.map((nav, i) => (
     <SectionItem
       key={i}
       onClick={() => nav.url && navigate(nav.url)}
       selected={!!matchPath(location.pathname, nav?.url ?? "")}
-      style={{ minWidth: frameVariants.navbarWidth - 20 }}
+      style={{ minWidth: navbarWidth! - 20 }}
       className={cn("flex items-center gap-2 flex-nowrap pl-2")}
     >
       <div className="min-w-4">{nav.icon && <Icon source={nav.icon} />}</div>
@@ -126,24 +129,26 @@ export const NavigationSection = ({
         as="h2"
         variant="headingSm"
         tone="subdued"
-        className={cn("my-1",collapsed && "hidden")}
+        className={cn("my-1", collapsed && "hidden")}
       >
         {title}
       </Text>
-      <BlockStack className="w-full" gap="sm">
+      <div className="w-full flex flex-col gap-1">
         <Show when={collapsed} fallback={NavExpanded}>
           {NavCollaped}
         </Show>
-      </BlockStack>
+      </div>
     </div>
   )
 }
 
 function Footer({ children }: { children?: React.ReactNode }) {
+  const { headerHeight } = useFrameConfig()
+
   return (
     <div
       x-chunk="NAVGATION_FOOTER"
-      style={{ height: frameVariants.headerHeight }}
+      style={{ height: headerHeight }}
       className="w-full"
     >
       {children}
