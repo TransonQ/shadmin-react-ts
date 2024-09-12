@@ -1,15 +1,14 @@
-import { cn } from "@/lib";
-import type { ClassNameValue } from "tailwind-merge";
-import type { PageWidth } from "../../lib";
-import { calcPageWidth } from "../../lib";
-import type { PageBreadcrumbProps } from "./page-breadcrumb";
-import { PageBreadcrumb } from "./page-breadcrumb";
-import type { PageHeaderProps } from "./page-header";
-import { PageHeader } from "./page-header";
+import { cn } from "@/lib"
+import type { PageWidth } from "../../lib"
+import { calcPageWidth } from "../../lib"
+import type { PageBreadcrumbProps } from "./page-breadcrumb"
+import { PageBreadcrumb } from "./page-breadcrumb"
+import type { PageHeaderProps } from "./page-header"
+import { PageHeader } from "./page-header"
 
 interface PageProps extends PageHeaderProps {
   children?: React.ReactNode
-  className?: ClassNameValue
+  className?: string
   fullWidth?: boolean
   formWith?: boolean
   narrowWidth?: boolean

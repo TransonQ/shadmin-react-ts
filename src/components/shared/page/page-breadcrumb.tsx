@@ -1,6 +1,5 @@
 import { cn } from "@/lib"
 import { Link } from "react-router-dom"
-import type { ClassNameValue } from "tailwind-merge"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -20,7 +19,7 @@ export const PageBreadcrumb = ({
   className,
 }: {
   breadcrumbs?: PageBreadcrumbProps[]
-  className?: ClassNameValue
+  className?: string
 }) => {
   if (!breadcrumbs || breadcrumbs?.length === 0) return
 

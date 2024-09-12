@@ -1,7 +1,8 @@
-import type { ClassNameValue } from "tailwind-merge"
 import type { CrossAlign } from "./types"
 
-export const calcFlexItems = (itemsAlignProp?: CrossAlign): ClassNameValue => {
+export const calcFlexItems = (
+  itemsAlignProp?: CrossAlign
+): string | undefined => {
   switch (itemsAlignProp) {
     case "start":
       return "items-start"

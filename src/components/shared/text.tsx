@@ -1,14 +1,6 @@
-import { cn } from "@/lib";
-import type { ClassNameValue } from "tailwind-merge";
-import type {
-  FontWeight,
-  Variant
-} from "../lib";
-import {
-  calcFontWeight,
-  calcTextVariant,
-  calcTone
-} from "../lib";
+import { cn } from "@/lib"
+import type { FontWeight, Variant } from "../lib"
+import { calcFontWeight, calcTextVariant, calcTone } from "../lib"
 
 type Element =
   | "dt"
@@ -30,7 +22,7 @@ type TextProps = {
   fontWeight?: FontWeight
   children?: React.ReactNode
   tone?: "default" | "subdued" | "critical" | "success"
-  className?: ClassNameValue
+  className?: string
   visuallyHidden?: boolean
 }
 

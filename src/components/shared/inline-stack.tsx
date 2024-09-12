@@ -1,11 +1,10 @@
 import { cn } from "@/lib"
-import type { ClassNameValue } from "tailwind-merge"
 import type { Align, CrossAlign, Gap } from "../lib"
 import { calcFlexItems, calcFlexJustify, calcGap } from "../lib"
 
 type InlineStackProps = {
   children?: React.ReactNode
-  className?: ClassNameValue
+  className?: string
   align?: Align
   blockAlign?: CrossAlign
   gap?: Gap

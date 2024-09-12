@@ -1,5 +1,4 @@
 import { cn } from "@/lib"
-import type { ClassNameValue } from "tailwind-merge"
 import type { Align, CrossAlign, Gap } from "../lib"
 import { calcFlexItems, calcFlexJustify, calcGap } from "../lib"
 
@@ -8,7 +7,7 @@ type BlockStackProps = {
   align?: Align
   inlineAlign?: CrossAlign
   gap?: Gap
-  className?: ClassNameValue
+  className?: string
 }
 
 export const BlockStack = ({

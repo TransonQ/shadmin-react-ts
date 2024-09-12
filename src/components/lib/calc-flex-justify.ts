@@ -1,7 +1,6 @@
-import type { ClassNameValue } from "tailwind-merge"
 import type { Align } from "./types"
 
-export const calcFlexJustify = (alignProp?: Align): ClassNameValue => {
+export const calcFlexJustify = (alignProp?: Align): string | undefined => {
   switch (alignProp) {
     case "start":
       return "justify-start"

@@ -1,7 +1,6 @@
-import type { ClassNameValue } from "tailwind-merge"
 import type { Tone } from "./types"
 
-export const calcTone = (tone?: Tone): ClassNameValue => {
+export const calcTone = (tone?: Tone): string | undefined => {
   switch (tone) {
     case "default":
       return "text-primary-foreground"
