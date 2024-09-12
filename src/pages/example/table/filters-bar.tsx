@@ -21,7 +21,8 @@ interface FiltersBarProps<TData> {
   columnFilters?: ColumnFiltersState
 }
 
-const itemStringAtom = atomWithStorage<string[]>("table_tabs", ["All"])
+const lockedTabStrings = ["All"]
+const itemStringAtom = atomWithStorage<string[]>("table_tabs", lockedTabStrings)
 
 export function FiltersBar<TData>({
   table,
@@ -41,7 +42,6 @@ export function FiltersBar<TData>({
   const [mode, setMode] = useState<FilterMode>(ModeEnum.default)
   const [selected, setSelected] = useState(0)
 
-  const lockedTabStrings = ["All"]
   const [itemString, setItemString] = useAtom(itemStringAtom)
 
   //~ useFilterStore
