@@ -32,9 +32,7 @@ export const AppShell = () => {
         <TooltipProvider delayDuration={500}>
           <FrameHeader>
             <InlineStack blockAlign="center" className="h-full">
-              <FrameLogoBox>
-                <Logo />
-              </FrameLogoBox>
+              <Logo />
               <Header />
             </InlineStack>
           </FrameHeader>
@@ -51,16 +49,20 @@ export const AppShell = () => {
 
   function Logo() {
     const md = useMediaQuery(Screens.md)
+    const isMini = isCollapsed || !md
+
     return (
-      <div
-        className={cn(
-          "w-full h-full text-3xl font-bold p-3 text-nowrap",
-          "text-blue-700 flex items-center",
-          isCollapsed || !md ? "justify-center" : "justify-start"
-        )}
-      >
-        {isCollapsed || !md ? "S" : "shadmin"}
-      </div>
+      <FrameLogoBox>
+        <div
+          className={cn(
+            "w-full h-full text-3xl font-bold p-3 text-nowrap",
+            "text-blue-700 flex items-center",
+            isMini ? "justify-center" : "justify-start"
+          )}
+        >
+          {isMini ? "S" : "shadmin"}
+        </div>
+      </FrameLogoBox>
     )
   }
 }

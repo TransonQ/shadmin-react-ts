@@ -2,7 +2,7 @@ import { cn } from "@/lib"
 import type { LucideIcon } from "lucide-react"
 import { TriangleAlertIcon } from "lucide-react"
 import { createPortal } from "react-dom"
-import { FrameLogoBox, useFrameConfig } from "."
+import { useFrameConfig } from "."
 // deps
 import type { PageWidth } from "../../lib"
 import { calcPageWidth, isInterface, isReactElement } from "../../lib"
@@ -67,11 +67,9 @@ export const ContextualSaveBar = ({
         "animate-in animate-out"
       )}
     >
-      <FrameLogoBox>
-        <Show when={isReactElement(logo)} fallback={null}>
-          {logo}
-        </Show>
-      </FrameLogoBox>
+      <Show when={isReactElement(logo)} fallback={null}>
+        {logo}
+      </Show>
 
       <div className="w-full h-full px-4 flex-1">
         <div

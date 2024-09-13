@@ -11,6 +11,8 @@ import {
   LayoutSection,
   LegendCard,
   LegendSelect,
+  Modal,
+  ModalSection,
   NavigationBlocker,
   Page,
   shadmin,
@@ -64,6 +66,7 @@ export const Home = () => {
   const [objectState, setObjectState] = useObjectState({
     name: "",
     address: "",
+    isModalOpen: false,
   })
 
   useEffect(() => {
@@ -319,11 +322,32 @@ export const Home = () => {
         </LayoutSection>
 
         <LayoutSection variant="quarter">
-          <LegendCard sticky sectioned title={"Heading 标题2"}>
-            {lorem(100)}
+          <LegendCard sticky sectioned title={"Modal"}>
+            <Button onClick={() => setObjectState({ isModalOpen: true })}>
+              open modal
+            </Button>
           </LegendCard>
         </LayoutSection>
       </Layout>
+      <Modal
+        title="Confirm Leave"
+        open={objectState.isModalOpen}
+        onClose={() => setObjectState({ isModalOpen: false })}
+        primaryAction={{
+          content: "Primary",
+          onAction: () => {
+            setObjectState({ isModalOpen: false })
+          },
+        }}
+        secondaryAction={{
+          content: "Secondary",
+          onAction: () => {
+            setObjectState({ isModalOpen: false })
+          },
+        }}
+      >
+        <ModalSection>123</ModalSection>
+      </Modal>
     </Page>
   )
 }
