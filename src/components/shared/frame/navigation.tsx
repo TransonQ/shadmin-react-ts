@@ -94,7 +94,7 @@ export const NavigationSection = ({
       onClick={() => nav.url && navigate(nav.url)}
       selected={!!matchPath(location.pathname, nav?.url ?? "")}
       style={{ minWidth: navbarWidth! - 20 }}
-      className={cn("flex items-center gap-2 flex-nowrap pl-2")}
+      className={cn("flex items-center gap-2 flex-nowrap pl-4")}
     >
       <div className="min-w-4">{nav.icon && <Icon source={nav.icon} />}</div>
       <span className="line-clamp-2">{nav.label}</span>
