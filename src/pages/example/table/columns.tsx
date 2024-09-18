@@ -25,9 +25,14 @@ export const getColumnTitle = (columnId: keyof Task) => {
   }
 }
 
+/**
+ * @description 约定
+ * 1. 约定 accessorKey 都是需要展示在 table 上的字段.
+ * 2. 约定 id 都是不需要展示在 table 上的字段,仅仅作为语义化筛选字段储存值使用.
+ */
 export const columns: ColumnDef<Task>[] = [
   {
-    id: "select",
+    accessorKey: "select",
     header: ({ table }) => (
       <Checkbox
         checked={
@@ -161,9 +166,8 @@ export const columns: ColumnDef<Task>[] = [
     },
   },
   {
-    id: "actions",
+    accessorKey: "actions",
+    header: () => null,
     cell: ({ row }) => <Operation row={row} />,
-    enableSorting: false,
-    enableHiding: false,
   },
 ]

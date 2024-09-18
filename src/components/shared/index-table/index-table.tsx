@@ -43,45 +43,53 @@ export function IndexTable<TData, TValue>({
   const bulkActionsProps = rest
   const selectedCount = countBy(rowSelection).true || 0
 
-  const HeadersMarkup = table.getHeaderGroups().map((headerGroup) => (
-    <TableRow key={headerGroup.id} className="bg-muted/30">
-      {headerGroup.headers.map((header, index) => {
-        return (
-          <TableHead
-            key={header.id}
-            colSpan={header.colSpan}
-            className={cn(
-              "h-10",
-              index === 0 &&
-                "sticky bg-[#f9f9fa] z-10 left-0 group-data-[state=selected]:bg-accent",
-              hasSelectableColumn &&
-                index === 1 &&
-                "sticky bg-[#f9f9fa] z-10 left-8 group-data-[state=selected]:bg-accent",
-              stickyLastColumn &&
-                index === headerGroup.headers.length - 1 &&
-                "sticky bg-[#f9f9fa] z-10 right-0 group-data-[state=selected]:bg-accent"
-            )}
-          >
-            <StickySeparator
-              index={index}
-              positionIndex={1}
-              position="left"
-            />
-            {header.isPlaceholder
-              ? null
-              : flexRender(header.column.columnDef.header, header.getContext())}
-            <Show when={stickyLastColumn}>
+  const HeadersMarkup = table.getHeaderGroups().map((headerGroup) => {
+    const headers = headerGroup.headers.filter(
+      (header) => !!header.column.accessorFn
+    )
+    return (
+      <TableRow key={headerGroup.id} className="bg-muted/30">
+        {headers.map((header, index) => {
+          return (
+            <TableHead
+              key={header.id}
+              colSpan={header.colSpan}
+              className={cn(
+                "h-10",
+                index === 0 &&
+                  "sticky bg-[#f9f9fa] z-10 left-0 group-data-[state=selected]:bg-accent",
+                hasSelectableColumn &&
+                  index === 1 &&
+                  "sticky bg-[#f9f9fa] z-10 left-8 group-data-[state=selected]:bg-accent",
+                stickyLastColumn &&
+                  index === headers.length - 1 &&
+                  "sticky bg-[#f9f9fa] z-10 right-0 group-data-[state=selected]:bg-accent"
+              )}
+            >
               <StickySeparator
                 index={index}
-                positionIndex={headerGroup.headers.length - 1}
-                position="right"
+                positionIndex={1}
+                position="left"
               />
-            </Show>
-          </TableHead>
-        )
-      })}
-    </TableRow>
-  ))
+              {header.isPlaceholder
+                ? null
+                : flexRender(
+                    header.column.columnDef.header,
+                    header.getContext()
+                  )}
+              <Show when={stickyLastColumn}>
+                <StickySeparator
+                  index={index}
+                  positionIndex={headerGroup.headers.length - 1}
+                  position="right"
+                />
+              </Show>
+            </TableHead>
+          )
+        })}
+      </TableRow>
+    )
+  })
 
   return (
     <div className={cn("rounded-md border", className)}>
@@ -101,44 +109,52 @@ export function IndexTable<TData, TValue>({
 
         <TableBody>
           {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-                className="group box-content"
-              >
-                {row.getVisibleCells().map((cell, index) => (
-                  <TableCell
-                    key={cell.id}
-                    className={cn(
-                      "py-1 relative box-border group-data-[state=selected]:border-y",
-                      index === 0 &&
-                        "sticky bg-card z-10 left-0 transition-colors group-hover:bg-[#f9f9fa] group-data-[state=selected]:bg-accent",
-                      hasSelectableColumn &&
-                        index === 1 &&
-                        "sticky bg-card z-10 left-8 transition-colors group-hover:bg-[#f9f9fa] group-data-[state=selected]:bg-accent",
-                      stickyLastColumn &&
-                        index === row.getVisibleCells().length - 1 &&
-                        "sticky bg-card z-10 right-0 transition-colors group-hover:bg-[#f9f9fa] group-data-[state=selected]:bg-accent"
-                    )}
-                  >
-                    <StickySeparator
-                      index={index}
-                      positionIndex={1}
-                      position="left"
-                    />
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    <Show when={stickyLastColumn}>
+            table.getRowModel().rows.map((row) => {
+              const cells = row.getVisibleCells().filter((cell) => {
+                return !!cell.column.accessorFn
+              })
+              return (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                  className="group box-content"
+                >
+                  {cells.map((cell, index) => (
+                    <TableCell
+                      key={cell.id}
+                      className={cn(
+                        "py-1 relative box-border group-data-[state=selected]:border-y",
+                        index === 0 &&
+                          "sticky bg-card z-10 left-0 transition-colors group-hover:bg-[#f9f9fa] group-data-[state=selected]:bg-accent",
+                        hasSelectableColumn &&
+                          index === 1 &&
+                          "sticky bg-card z-10 left-8 transition-colors group-hover:bg-[#f9f9fa] group-data-[state=selected]:bg-accent",
+                        stickyLastColumn &&
+                          index === cells.length - 1 &&
+                          "sticky bg-card z-10 right-0 transition-colors group-hover:bg-[#f9f9fa] group-data-[state=selected]:bg-accent"
+                      )}
+                    >
                       <StickySeparator
                         index={index}
-                        positionIndex={row.getVisibleCells().length - 1}
-                        position="right"
+                        positionIndex={1}
+                        position="left"
                       />
-                    </Show>
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                      <Show when={stickyLastColumn}>
+                        <StickySeparator
+                          index={index}
+                          positionIndex={row.getVisibleCells().length - 1}
+                          position="right"
+                        />
+                      </Show>
+                    </TableCell>
+                  ))}
+                </TableRow>
+              )
+            })
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">

@@ -6,7 +6,7 @@ import { Operation } from "../table/operation"
 
 export const columns: ColumnDef<Task>[] = [
   {
-    id: "select",
+    accessorKey: "select",
     header: ({ table }) => (
       <Checkbox
         checked={
@@ -65,7 +65,8 @@ export const columns: ColumnDef<Task>[] = [
     },
   },
   {
-    id: "actions",
+    accessorKey: "actions",
+    header: () => null,
     cell: ({ row }) => <Operation row={row} />,
   },
 ]
