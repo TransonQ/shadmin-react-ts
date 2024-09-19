@@ -57,6 +57,19 @@ export function LegendSelect(
     <PopoverClose className="w-full h-full">{CmdMarkup}</PopoverClose>
   )
 
+  if (disabled) {
+    return (
+      <LegendSelectTrigger
+        title={title}
+        placeholder={placeholder}
+        selectedValues={selectedValues as Set<string>}
+        requiredIndicator={requiredIndicator}
+        disabled={disabled}
+        options={options}
+        className={className}
+      />
+    )
+  }
   return (
     <Popover onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>
