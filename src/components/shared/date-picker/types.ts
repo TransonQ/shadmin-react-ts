@@ -8,6 +8,7 @@ interface DatePickerBase {
   disabled?: boolean
   placeholder?: string
   className?: string
+  onBlur?: () => void
 }
 
 export interface DatePickerSingleProps extends DatePickerBase {

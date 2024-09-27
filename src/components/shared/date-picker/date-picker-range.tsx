@@ -16,12 +16,18 @@ export function DatePickerRange({
   className,
   value,
   onChange,
+  onBlur,
 }: DatePickerRangeProps) {
   const fmtFrom = value?.from && format(value.from, "yyyy/MM/dd")
   const fmtTo = value?.to && format(value.to, "yyyy/MM/dd")
 
+  const onOpenChange = (open: boolean) => {
+    if (!open) {
+      onBlur?.()
+    }
+  }
   return (
-    <Popover>
+    <Popover onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>
         <Button
           disabled={disabled}

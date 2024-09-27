@@ -16,9 +16,15 @@ export function DatePickerSingle({
   className,
   value,
   onChange,
+  onBlur,
 }: DatePickerSingleProps) {
+  const onOpenChange = (open: boolean) => {
+    if (!open) {
+      onBlur?.()
+    }
+  }
   return (
-    <Popover>
+    <Popover onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>
         <Button
           disabled={disabled}
