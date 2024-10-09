@@ -14,20 +14,35 @@ import {
   ArrowUpIcon,
   EyeOffIcon,
 } from "lucide-react"
+import { Show } from "../show"
 
 interface IndexTableHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>
   title?: string
+  className?: string
+  required?: boolean
 }
 
 export function TableColumnHeader<TData, TValue>({
   column,
   title,
   className,
+  required,
 }: IndexTableHeaderProps<TData, TValue>) {
+  const requiredMarkup = (
+    <Show when={required}>
+      <span className="text-destructive"> *</span>
+    </Show>
+  )
+
   if (!column.getCanSort()) {
-    return <div className={cn(className)}>{title}</div>
+    return (
+      <div className={cn("text-nowrap", className)}>
+        {title}
+        {requiredMarkup}
+      </div>
+    )
   }
   return (
     <div className={cn("flex items-center space-x-2", className)}>
@@ -36,9 +51,12 @@ export function TableColumnHeader<TData, TValue>({
           <Button
             variant="ghost"
             size="sm"
-            className="-ml-3 h-8 data-[state=open]:bg-accent"
+            className="-ml-3 h-8 text-nowrap data-[state=open]:bg-accent"
           >
-            <span>{title}</span>
+            <span>
+              {title}
+              {requiredMarkup}
+            </span>
             {column.getIsSorted() === "desc" ? (
               <ArrowDownIcon className="ml-2 h-4 w-4" />
             ) : column.getIsSorted() === "asc" ? (
